@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" role="img" aria-label="A5 Print and Ship packing slip">
+<rect width="400" height="560" fill="#fff"/>
+<rect x="24" y="30" width="352" height="490" rx="6" fill="#fff" stroke="#dbe4ef" stroke-width="1.5"/>
+<rect x="24" y="30" width="352" height="52" rx="6" fill="#0e2a47"/><rect x="24" y="56" width="352" height="26" fill="#0e2a47"/>
+<text x="44" y="63" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="800" fill="#fff">Packing slip</text>
+<text x="356" y="61" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#8fc7ff">Order #10428</text>
+<text x="44" y="106" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" letter-spacing="1" fill="#9fb0c3">SHIP TO</text>
+<text x="44" y="124" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#12233b">Van der Berg Logistics</text>
+<text x="44" y="140" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#3a4a5e">12 Havenstraat &#183; 3011 Rotterdam, NL</text>
+<line x1="44" y1="156" x2="356" y2="156" stroke="#e0e7f0"/>
+<text x="44" y="180" font-family="Arial,Helvetica,sans-serif" font-size="9.5" font-weight="700" fill="#9fb0c3">ITEM</text>
+<text x="296" y="180" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="9.5" font-weight="700" fill="#9fb0c3">QTY</text>
+<text x="356" y="180" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="9.5" font-weight="700" fill="#9fb0c3">SHIP&#39;D</text>
+<g font-family="Arial,Helvetica,sans-serif">
+<rect x="44" y="192" width="312" height="30" rx="4" fill="#f6f9fd"/><text x="56" y="211" font-size="12" fill="#12233b">A5 Print &amp; Ship label &#8212; 50 sheets</text><text x="296" y="211" text-anchor="middle" font-size="12" fill="#3a4a5e">1</text><text x="356" y="211" text-anchor="end" font-size="12" font-weight="700" fill="#2196f3">1</text>
+<rect x="44" y="226" width="312" height="30" rx="4" fill="#fff" stroke="#eef3f9"/><text x="56" y="245" font-size="12" fill="#12233b">Duplex laser stock &#8212; A5</text><text x="296" y="245" text-anchor="middle" font-size="12" fill="#3a4a5e">2</text><text x="356" y="245" text-anchor="end" font-size="12" font-weight="700" fill="#2196f3">2</text>
+<rect x="44" y="260" width="312" height="30" rx="4" fill="#f6f9fd"/><text x="56" y="279" font-size="12" fill="#12233b">Sample pack</text><text x="296" y="279" text-anchor="middle" font-size="12" fill="#3a4a5e">1</text><text x="356" y="279" text-anchor="end" font-size="12" font-weight="700" fill="#2196f3">1</text>
+</g>
+<line x1="44" y1="304" x2="356" y2="304" stroke="#e0e7f0"/>
+<rect x="44" y="322" width="312" height="150" rx="8" fill="#f4f7fb"/>
+<text x="60" y="352" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="800" fill="#0e2a47">Thanks for your order.</text>
+<g fill="#dbe4ee"><rect x="60" y="368" width="230" height="8" rx="4"/><rect x="60" y="384" width="270" height="8" rx="4"/><rect x="60" y="400" width="190" height="8" rx="4"/></g>
+<text x="60" y="440" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" fill="#e07a56">Room for branding, messages &amp; offers</text>
+<text x="200" y="502" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" fill="#6b7f96">Printed in the same pass &#183; from <tspan font-weight="800" fill="#2196f3">pinnpoint</tspan></text>
+</svg>
