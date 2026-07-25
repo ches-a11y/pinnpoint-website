@@ -2,3 +2,5 @@
 
 Static marketing site for Pinnpoint. Open `index.html`.
 Deployed on Railway via a simple static server (`serve`).
+
+Auto-deploy connected to GitHub on 2026-07-25.
