@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinnpoint — The A5 Print &amp; Ship label, built into nShift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
+    --blue:#2196f3; --blue-dark:#1878cf;
+    --coral:#e07a56; --coral-dark:#cf6a48;
+    --bg:#ffffff; --bg-soft:#f5f8fc; --bg-tint:#eaf1fa;
+    --line:#e4e9f0; --muted:#5c6b7e; --text:#33383f; --heading:#0e2a47;
+    --radius:14px; --shadow:0 10px 30px rgba(14,42,71,.09);
+    --shadow-lg:0 22px 55px rgba(14,42,71,.16);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.16;letter-spacing:-.01em;font-weight:700}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;transition:.2s;cursor:pointer;border:1.5px solid transparent}
+  .btn svg{width:17px;height:17px}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-dark)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .btn-coral:hover{background:var(--coral-dark)}
+  .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn-outline{border-color:var(--line);color:var(--heading);background:#fff}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav .logo img{height:50px;width:auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-weight:500;font-size:15px;color:var(--text)}
+  .nav-links a:hover{color:var(--blue)}
+  .nav-cta{display:flex;gap:14px;align-items:center}
+  .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
+  .nav-cta .acct:hover{color:var(--blue)}
+
+  /* Hero — full illustration (keeps its shape via aspect-ratio), copy overlaid lower-left; min-height guarantees the copy always fits so it never runs into the next panel */
+  .hero{position:relative;overflow:hidden;color:#fff;background:#123350 url('https://pinnpt.com/wp-content/uploads/2024/01/12568B-2.png') center center / cover no-repeat;aspect-ratio:2048 / 800;min-height:440px}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(11,30,54,.5) 0%,rgba(11,30,54,.15) 34%,transparent 56%),linear-gradient(0deg,rgba(11,30,54,.55) 0%,rgba(11,30,54,.1) 28%,transparent 42%)}
+  .hero .wrap{position:absolute;left:0;right:0;bottom:0;z-index:2;max-width:1160px;margin:0 auto;padding:0 24px 34px}
+  .hero-inner{max-width:440px}
+  .hero .eyebrow{color:#fff;margin-bottom:14px}
+  .hero h1{color:#fff;font-size:clamp(22px,3vw,40px);font-weight:800;line-height:1.12}
+  .hero p.lead{font-size:clamp(13px,1.25vw,16.5px);color:#eaf2fb;margin:14px 0 22px;max-width:410px;line-height:1.5}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+
+  section{padding:78px 0}
+  .sec-head{text-align:center;max-width:700px;margin:0 auto 48px}
+  .sec-head h2{font-size:clamp(26px,3.2vw,38px)}
+  .sec-head p{color:var(--muted);font-size:17.5px;margin-top:14px}
+
+  /* nShift band */
+  .nshift{background:var(--navy-deep);color:#fff}
+  .nshift .inner{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
+  @media(min-width:901px){.nshift .wrap{max-width:none;padding-left:max(24px,calc((100vw - 1160px)/2 + 24px));padding-right:46px}}
+  .nshift h2{color:#fff;font-size:clamp(26px,3vw,36px)}
+  .nshift p.sub{color:#bcd0e6;font-size:16.5px;margin-top:14px}
+  .nshift .eyebrow{color:#7bbdf5}
+  .nshift-steps{display:grid;gap:12px;margin-top:26px}
+  .nstep{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:15px 18px}
+  .nstep .n{flex:0 0 32px;height:32px;border-radius:8px;background:var(--blue);display:grid;place-items:center;font-weight:700;color:#fff;font-family:'Montserrat'}
+  .nstep b{color:#fff;font-weight:600}
+  .nstep span{color:#b3c6dc;font-size:14.5px;display:block;margin-top:2px}
+  .nshift-card{background:#fff;color:var(--heading);border-radius:18px;padding:32px;box-shadow:var(--shadow-lg);text-align:center}
+  .nshift-card .pill{display:inline-block;background:var(--bg-tint);color:var(--blue);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+  .nshift-card h3{font-size:22px;margin:15px 0 8px}
+  .nshift-card p{color:var(--muted);font-size:14.5px}
+  .req{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+  .req .chip{background:var(--bg-soft);border:1px solid var(--line);border-radius:11px;padding:13px 16px;font-weight:600;color:var(--heading);font-size:14px;display:flex;align-items:center;gap:9px}
+  .req .chip svg{width:18px;height:18px;color:var(--blue)}
+
+  /* pillars */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .pillar{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;transition:.25s}
+  .pillar:hover{box-shadow:var(--shadow);border-color:transparent}
+  .pill-ico{width:48px;height:48px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px;background:var(--bg-tint);color:var(--blue)}
+  .pill-ico svg{width:24px;height:24px}
+  .pillar h3{font-size:19px;margin-bottom:8px}
+  .pillar p{color:var(--muted);font-size:14.5px}
+
+  /* A5 showcase */
+  .a5{background:var(--bg-soft)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split img{border-radius:var(--radius);box-shadow:var(--shadow)}
+  .blist{list-style:none;margin-top:22px;display:grid;gap:15px}
+  .blist li{display:flex;gap:13px;align-items:flex-start}
+  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-top:2px}
+  .blist .chk svg{width:14px;height:14px}
+  .blist b{color:var(--heading)}
+  .blist span{color:var(--muted);font-size:15px}
+  .facepair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+  .face{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+  .face .t{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
+  .face h4{color:var(--heading);margin:5px 0 4px;font-size:16px}
+  .face p{color:var(--muted);font-size:13px}
+
+  /* offer */
+  .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:0 auto}
+  .offer{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;background:#fff;transition:.25s}
+  .offer:hover{box-shadow:var(--shadow-lg)}
+  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .offer h3{font-size:21px;margin:9px 0}
+  .offer p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+  .offer.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.09)}
+  .offer.feat .tag{color:var(--blue)}
+
+  /* sustainability */
+  .sustain{background:var(--navy);color:#fff}
+  .sustain h2{color:#fff}
+  .sustain p{color:#c4d6ea}
+  .sustain .eyebrow{color:#7bd38f}
+  .leaf{width:52px;height:52px;border-radius:12px;background:rgba(123,211,143,.16);color:#7bd38f;display:grid;place-items:center;margin-bottom:16px}
+  .leaf svg{width:26px;height:26px}
+
+  /* testimonial */
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .quote{background:#fff;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:var(--radius);padding:28px}
+  .quote p{font-size:16.5px;color:var(--text)}
+  .quote .who{margin-top:15px;font-weight:600;color:var(--heading)}
+  .quote .who span{display:block;font-weight:400;color:var(--muted);font-size:14px}
+  .big-num{font-family:'Montserrat';font-size:32px;font-weight:800;color:var(--blue);letter-spacing:-.02em;margin-bottom:10px}
+
+  /* partners */
+  .partners{background:var(--bg-soft);text-align:center}
+  .plogos{display:flex;flex-wrap:wrap;justify-content:center;gap:30px 50px;align-items:center;margin-top:34px}
+  .plogos span{font-family:'Montserrat';font-weight:700;color:var(--muted);font-size:19px}
+  .plogos .lead-logo{color:var(--heading);font-size:25px}
+
+  /* CTA */
+  .cta{background:var(--navy-deep);color:#fff;text-align:center}
+  .cta h2{color:#fff;font-size:clamp(26px,3.2vw,38px)}
+  .cta p{color:#bcd0e6;font-size:17.5px;margin:14px auto 26px;max-width:600px}
+
+  /* footer */
+  footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px;border-top:1px solid rgba(255,255,255,.07)}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+  footer .flogo{height:32px;margin-bottom:15px}
+  footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
+  footer a{display:block;color:#a6bdd6;margin-bottom:9px}
+  footer a:hover{color:#fff}
+  .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
+
+  @media(max-width:900px){
+    .hero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
+    .pillars,.quotes,.offer-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .hero-media{order:-1}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><img src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logotmnotm-1536x465-1-1024x310.png" alt="Pinnpoint"></a>
+    <nav class="nav-links">
+      <a href="print-ship.html">Print &amp; Ship</a>
+      <a href="#nshift">nShift</a>
+      <a href="why-pinnpoint.html">Why Pinnpoint</a>
+      <a href="strategic-partners.html">Partners</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="acct" href="https://pinnpt.com/my-account/">My Account</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow">The A5 Print &amp; Ship label</p>
+      <h1>The shipping label that lives inside nShift Transsmart</h1>
+      <p class="lead">A sustainable A5 Print &amp; Ship label that merges your shipping label and packing slip into one — cutting packing time by up to 85%.</p>
+      <div class="hero-cta">
+        <a class="btn btn-coral" href="#offer">Request a sample pack</a>
+        <a class="btn btn-ghost" href="#nshift">See how it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- nSHIFT BAND -->
+<section id="nshift" class="nshift">
+  <div class="wrap inner">
+    <div>
+      <p class="eyebrow">In partnership with nShift</p>
+      <h2>Your label is already inside the software you use</h2>
+      <p class="sub">The A5 Print &amp; Ship label is integrated directly into nShift Transsmart — nShift's multi-carrier shipping-management solution. the Print &amp; Ship label is listed among Transsmart's own capabilities. There's no separate system to learn and no proprietary printer to buy — you generate the label in nShift Transsmart and print it on a standard duplex laser printer.</p>
+      <div class="nshift-steps">
+        <div class="nstep"><div class="n">1</div><div><b>Generate in nShift Transsmart</b><span>Your shipping label and packing slip merge into one A5 document inside nShift Transsmart.</span></div></div>
+        <div class="nstep"><div class="n">2</div><div><b>Print on any duplex laser printer</b></div></div>
+        <div class="nstep"><div class="n">3</div><div><b>Apply and ship</b><span>Shipping label on the front, packing slip on the back. Two steps instead of five.</span></div></div>
+      </div>
+    </div>
+    <div class="nshift-card">
+      <span class="pill">Ready today</span>
+      <h3>nShift Transsmart + a duplex laser printer</h3>
+      <p>That's everything you need to begin using the A5 Print &amp; Ship label. Nothing else to buy.</p>
+      <div class="req">
+        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 17h7M17.5 14v7"/></svg>nShift Transsmart</div>
+        <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></svg>Duplex laser printer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Why Pinnpoint</p>
+      <h2>One label that does the work of five steps</h2>
+      <p>Faster packing, no printer lock-in, and materials that tread lightly on the planet.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pill-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div>
+        <h3>Native to nShift Transsmart</h3>
+        <p>Built directly into nShift Transsmart, so there's nothing new to install or learn to get going.</p>
+      </div>
+      <div class="pillar">
+        <div class="pill-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></svg></div>
+        <h3>Any duplex laser printer</h3>
+        <p>Print on the duplex laser printer you already own — no proprietary hardware and no lock-in.</p>
+      </div>
+      <div class="pillar">
+        <div class="pill-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+        <h3>Sustainable by design</h3>
+        <p>Made with FSC-certified papers, and a tree is planted for every box of labels sold, through One Tree Planted.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- A5 SHOWCASE -->
+<section id="a5" class="a5">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">The A5 Print &amp; Ship label</p>
+      <h2>Reduce packing time by up to 85%</h2>
+      <p style="color:var(--muted);font-size:16.5px;margin-top:12px">One duplex-printed A5 document carries the shipping label on the front and the packing slip on the back. It turns a five-step labelling process into two — fewer steps, fewer mismatched shipments, and more boxes out the door.</p>
+      <ul class="blist">
+        <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Dual-sided in a single pass.</b> Shipping label and packing slip printed together — no separate sheets, no plastic pouch.</span></li>
+        <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Fewer errors.</b> Label and contents come from the same document, so shipments match.</span></li>
+        <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Room for your brand.</b> Use the packing-slip side for messages, promotions, and personalised offers.</span></li>
+      </ul>
+      <div class="facepair">
+        <div class="face"><div class="t">Front</div><h4>Shipping label</h4><p>Carrier-ready and scannable.</p></div>
+        <div class="face"><div class="t">Back</div><h4>Packing slip</h4><p>Built in — no separate sheet.</p></div>
+      </div>
+      <div style="margin-top:26px"><a class="btn btn-primary" href="#offer">Request a sample pack</a></div>
+    </div>
+    <div><img src="https://pinnpt.com/wp-content/uploads/2025/01/printship-howitworks-1024x768.png" alt="How the A5 Print & Ship label works"></div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section id="offer">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Try it in your own printer</p>
+      <h2>See the difference for yourself</h2>
+      <p>Two simple ways to test the A5 Print &amp; Ship label on the duplex laser printer you already have.</p>
+    </div>
+    <div class="offer-grid">
+      <div class="offer">
+        <div class="tag">Free</div>
+        <h3>Sample pack</h3>
+        <p>A pack of A5 Print &amp; Ship labels, so you can see and feel the product first-hand.</p>
+        <a class="btn btn-outline" href="#">Request a sample pack</a>
+      </div>
+      <div class="offer feat">
+        <div class="tag">For set-up &amp; testing</div>
+        <h3>50 test sheets</h3>
+        <p>A run of 50 sheets to set up and test end-to-end in your own duplex laser printer, straight from nShift.</p>
+        <a class="btn btn-primary" href="#">Order 50 test sheets</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section class="sustain">
+  <div class="wrap split">
+    <div><img src="https://pinnpt.com/wp-content/uploads/2023/12/sustainability-768x439.png" alt="Sustainability"></div>
+    <div>
+      <div class="leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
+      <p class="eyebrow">Sustainability</p>
+      <h2>A tree planted for every box</h2>
+      <p style="font-size:16.5px;margin-top:12px">Every A5 label is made with FSC-certified papers. We've partnered with One Tree Planted to plant a tree for every box of labels sold — and by combining the label and packing slip, we remove the single-use plastic pouch entirely.</p>
+      <div style="margin-top:24px"><a class="btn btn-coral" href="#offer">Request a free sample pack</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Proven in the Netherlands</p>
+      <h2>Trusted by high-volume shippers</h2>
+      <p>Shippers in the Netherlands running nShift Transsmart and the A5 Print &amp; Ship label together.</p>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <p>During their run with Print &amp; Ship, the DTK Group brought packing time down from over two minutes a parcel to around 15 seconds.</p>
+        <div class="who">DTK Group<span>Logistics &amp; transportation · Netherlands</span></div>
+      </div>
+      <div class="quote">
+        <p>"Pinnpoint's A5 Print &amp; Ship duplex label delivered a genuine process improvement and let us remove single-use plastic envelopes across our shipping operation."</p>
+        <div class="who">Conny van Buuren<span>Head of Purchasing · STULZ GROEP B.V. (Netherlands)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h2>If you ship with nShift Transsmart, you're ready to start</h2>
+    <p>Request a free sample pack or 50 test sheets and run the A5 Print &amp; Ship label on your own duplex laser printer.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-coral" href="#offer">Request a sample pack</a>
+      <a class="btn btn-ghost" href="#offer">Order 50 test sheets</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="flogo" src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logo-white-no-tm-1536x465-1.png" alt="Pinnpoint">
+        <p style="max-width:290px">The A5 Print &amp; Ship label — built into nShift Transsmart, printed on standard duplex laser printers.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="print-ship-return.html">Print Ship &amp; Return</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="combination-label-forms.html">Combination Label &amp; Forms</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a><a href="why-pinnpoint.html">Why Pinnpoint</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+46705505328">International: +46 70-550 53 28</a>
+        <a href="tel:+18883611722">North America: 888.361.1722</a>
+        <a href="mailto:sales@pinnpt.com">sales@pinnpt.com</a>
+        <a href="#">LinkedIn · X · Vimeo</a>
+      </div>
+    </div>
+    <div class="fbar">
+      <span>© 2025 Pinnpoint — All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

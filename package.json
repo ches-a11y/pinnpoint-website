@@ -1,0 +1,12 @@
+{
+  "name": "pinnpoint-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pinnpoint marketing website (static)",
+  "scripts": {
+    "start": "serve . -l ${PORT:-3000}"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

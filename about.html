@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Pinnpoint — Passionate about better logistics | Pinnpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
+    --blue:#2196f3; --blue-dark:#1878cf;
+    --coral:#e07a56; --coral-dark:#cf6a48;
+    --bg:#ffffff; --bg-soft:#f5f8fc; --bg-tint:#eaf1fa;
+    --line:#e4e9f0; --muted:#5c6b7e; --text:#33383f; --heading:#0e2a47;
+    --radius:14px; --shadow:0 10px 30px rgba(14,42,71,.09);
+    --shadow-lg:0 22px 55px rgba(14,42,71,.16);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.16;letter-spacing:-.01em;font-weight:700}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;transition:.2s;cursor:pointer;border:1.5px solid transparent}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-dark)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .btn-coral:hover{background:var(--coral-dark)}
+  .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn-outline{border-color:var(--line);color:var(--heading);background:#fff}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav .logo img{height:50px;width:auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-weight:500;font-size:15px;color:var(--text)}
+  .nav-links a:hover{color:var(--blue)}
+  .nav-links a.active{color:var(--blue);font-weight:600}
+  .nav-cta{display:flex;gap:14px;align-items:center}
+  .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
+  .nav-cta .acct:hover{color:var(--blue)}
+
+  /* page hero */
+  .phero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .phero::after{content:"";position:absolute;inset:0;background:radial-gradient(820px 460px at 90% 0%,rgba(33,150,243,.28),transparent 62%);pointer-events:none}
+  .phero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:66px 24px}
+  .phero .eyebrow{color:#8fc4f5}
+  .phero h1{color:#fff;font-size:clamp(30px,4vw,48px);font-weight:800;margin:14px 0 16px;line-height:1.1}
+  .phero p{font-size:18px;color:#cfe0f3;max-width:520px;margin-bottom:26px}
+  .phero-media img{border-radius:16px;box-shadow:var(--shadow-lg);background:#fff;padding:14px}
+  .crumbs{font-size:13.5px;color:#9bb6d6}
+  .crumbs a:hover{color:#fff}
+
+  section{padding:76px 0}
+  .sec-head{text-align:center;max-width:700px;margin:0 auto 48px}
+  .sec-head h2{font-size:clamp(26px,3.2vw,38px)}
+  .sec-head p{color:var(--muted);font-size:17.5px;margin-top:14px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split img{border-radius:var(--radius);box-shadow:var(--shadow)}
+  .soft{background:var(--bg-soft)}
+  .blist{list-style:none;margin-top:22px;display:grid;gap:15px}
+  .blist li{display:flex;gap:13px;align-items:flex-start}
+  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-top:2px}
+  .blist .chk svg{width:14px;height:14px}
+  .blist b{color:var(--heading)}
+  .blist span{color:var(--muted);font-size:15px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;position:relative}
+  .step .n{width:38px;height:38px;border-radius:10px;background:var(--blue);color:#fff;font-family:'Montserrat';font-weight:800;display:grid;place-items:center;margin-bottom:14px}
+  .step h3{font-size:18px;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  /* face pair */
+  .facepair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .face{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .face img{width:100%;height:230px;object-fit:cover;background:var(--bg-tint)}
+  .face .cap{padding:20px 22px}
+  .face .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
+  .face h3{font-size:19px;margin:5px 0 6px}
+  .face p{color:var(--muted);font-size:14.5px}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.25s}
+  .card:hover{box-shadow:var(--shadow);border-color:transparent}
+  .card .ico{width:46px;height:46px;border-radius:11px;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-bottom:14px}
+  .card .ico svg{width:23px;height:23px}
+  .card h3{font-size:17px;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:14px}
+
+  /* nShift band */
+  .nshift{background:var(--navy-deep);color:#fff}
+  .nshift .inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .nshift .eyebrow{color:#8fbef5}
+  .nshift h2{color:#fff;font-size:clamp(25px,2.9vw,34px)}
+  .nshift p{color:#c3d5ec;font-size:16.5px;margin-top:14px}
+  .nshift .card2{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px}
+  .nshift .card2 b{color:#fff}
+  .nshift .card2 .row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);color:#c3d5ec;font-size:14.5px}
+  .nshift .card2 .row:last-child{border:none}
+  .nshift .card2 .row svg{width:18px;height:18px;color:#7bd38f;flex:none;margin-top:2px}
+
+  /* offer */
+  .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:0 auto}
+  .offer{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;background:#fff}
+  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .offer h3{font-size:21px;margin:9px 0}
+  .offer p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+  .offer.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.09)}
+  .offer.feat .tag{color:var(--blue)}
+
+  .cta{background:var(--navy);color:#fff;text-align:center}
+  .cta h2{color:#fff;font-size:clamp(26px,3.2vw,38px)}
+  .cta p{color:#bcd0e6;font-size:17.5px;margin:14px auto 26px;max-width:600px}
+
+  footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+  footer .flogo{height:32px;margin-bottom:15px}
+  footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
+  footer a{display:block;color:#a6bdd6;margin-bottom:9px}
+  footer a:hover{color:#fff}
+  .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
+
+  /* --- page components (built with existing variables) --- */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:880px;margin:0 auto}
+  .stat{text-align:center;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;background:#fff}
+  .stat .num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:36px;color:var(--blue);line-height:1}
+  .stat .lbl{color:var(--muted);font-size:14.5px;margin-top:10px}
+
+  @media(max-width:900px){
+    .phero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
+    .steps,.cards,.stat-row{grid-template-columns:1fr 1fr}
+    .facepair{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .phero-media{order:-1}
+  }
+  @media(max-width:560px){.steps,.cards,.stat-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><img src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logotmnotm-1536x465-1-1024x310.png" alt="Pinnpoint"></a>
+    <nav class="nav-links">
+      <a href="print-ship.html">Print &amp; Ship</a>
+      <a href="index.html#nshift">nShift</a>
+      <a href="why-pinnpoint.html">Why Pinnpoint</a>
+      <a href="strategic-partners.html">Partners</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="acct" href="https://pinnpt.com/my-account/">My Account</a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="phero">
+  <div class="wrap">
+    <div>
+      <p class="crumbs"><a href="index.html">Home</a> / About</p>
+      <p class="eyebrow" style="margin-top:16px">About Pinnpoint</p>
+      <h1>Passionate about better logistics</h1>
+      <p>Pinnpoint exists to make shipping simpler. Out of a passion for logistics and process improvement, we created the Print &amp; Ship solution — a single, duplex laser-imaged label that combines the shipping label and packing slip, built into nShift Transsmart.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-coral" href="print-ship.html">Explore Print &amp; Ship</a>
+        <a class="btn btn-ghost" href="contact.html">Contact us</a>
+      </div>
+    </div>
+    <div class="phero-media">
+      <img src="https://pinnpt.com/wp-content/uploads/2025/01/PS-Web-Rev-A.jpg" alt="A5 Print & Ship label">
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div><img src="https://pinnpt.com/wp-content/uploads/2025/01/printship-howitworks-1024x768.png" alt="How Print & Ship works"></div>
+      <div>
+        <p class="eyebrow">Our story</p>
+        <h2 style="font-size:30px">Built to take steps out of shipping</h2>
+        <p style="color:var(--muted);margin-top:14px">We started with a simple frustration: too many steps at the packing bench. So we created Print &amp; Ship — a solution designed to save cost and time, and to scale from a small third-party logistics operation up to a global enterprise.</p>
+        <ul class="blist">
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Duplex laser-imaged labels.</b> Shipping label and packing slip on one document, printed on standard duplex laser printers.</span></li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Built into nShift Transsmart.</b> Generated straight from the delivery software our Dutch customers already run.</span></li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>One-to-one messaging.</b> The packing-slip side leaves room for personalised messages and branding.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="soft">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What we do</p>
+      <h2>A focused range, done well</h2>
+      <p>Everything we make is designed to take friction out of shipping — from the core Print &amp; Ship label to returns and smart identification.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h3>Print &amp; Ship</h3>
+        <p>One duplex label combining the shipping label and packing slip, cutting packing time by up to 85%.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg></div>
+        <h3>Print Ship &amp; Return</h3>
+        <p>Adds a return label to the same document, making returns simpler for teams and customers alike.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div>
+        <h3>Integration</h3>
+        <p>Labels generated within nShift Transsmart and connected to the WMS and ERP systems teams rely on.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h3>Smart identification</h3>
+        <p>UHF RFID and NFC options for teams that need item-level visibility across their operation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUSTAINABILITY -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <p class="eyebrow">Sustainability</p>
+        <h2 style="font-size:30px">Kinder to the planet, by design</h2>
+        <p style="color:var(--muted);margin-top:14px">Doing shipping better should also mean wasting less. By printing the packing slip into the label, Print &amp; Ship removes the single-use plastic document wallet — and we build the labels with responsibly sourced materials.</p>
+        <ul class="blist">
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Made with FSC-certified papers.</b> Responsibly sourced stock for every label we produce.</span></li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>A tree for every box.</b> In partnership with One Tree Planted, a tree is planted for each box of labels.</span></li>
+          <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>No plastic pouch.</b> The printed-in packing slip removes the single-use document wallet entirely.</span></li>
+        </ul>
+      </div>
+      <div><img src="https://pinnpt.com/wp-content/uploads/2025/01/Technology-Graphic-Web.jpg" alt="Print & Ship materials and technology"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<section class="soft">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The team behind it</p>
+      <h2>Experience you can build on</h2>
+      <p>Our management team brings more than 25 years across software, business processes and printing — and we manufacture on two continents to stay close to our customers.</p>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><div class="num">25+</div><div class="lbl">Years of combined experience in software, business processes and printing</div></div>
+      <div class="stat"><div class="num">85%</div><div class="lbl">Reduction in packing time with the A5 Print &amp; Ship label</div></div>
+      <div class="stat"><div class="num">2</div><div class="lbl">Manufacturing regions — North America and Europe</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Let's make your shipping simpler</h2>
+    <p>See how the A5 Print &amp; Ship label works on your own duplex laser printer, or get in touch to talk through your operation.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-coral" href="print-ship.html">Explore Print &amp; Ship</a>
+      <a class="btn btn-ghost" href="contact.html">Contact us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="flogo" src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logo-white-no-tm-1536x465-1.png" alt="Pinnpoint">
+        <p style="max-width:290px">The A5 Print &amp; Ship label — built into nShift Transsmart, printed on standard duplex laser printers.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="print-ship-return.html">Print Ship &amp; Return</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="combination-label-forms.html">Combination Label &amp; Forms</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a><a href="why-pinnpoint.html">Why Pinnpoint</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+46705505328">International: +46 70-550 53 28</a>
+        <a href="tel:+18883611722">North America: 888.361.1722</a>
+        <a href="mailto:sales@pinnpt.com">sales@pinnpt.com</a>
+        <a href="#">LinkedIn · X · Vimeo</a>
+      </div>
+    </div>
+    <div class="fbar">
+      <span>© 2025 Pinnpoint — All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

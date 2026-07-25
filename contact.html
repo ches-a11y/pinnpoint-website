@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Tell us what you need | Pinnpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
+    --blue:#2196f3; --blue-dark:#1878cf;
+    --coral:#e07a56; --coral-dark:#cf6a48;
+    --bg:#ffffff; --bg-soft:#f5f8fc; --bg-tint:#eaf1fa;
+    --line:#e4e9f0; --muted:#5c6b7e; --text:#33383f; --heading:#0e2a47;
+    --radius:14px; --shadow:0 10px 30px rgba(14,42,71,.09);
+    --shadow-lg:0 22px 55px rgba(14,42,71,.16);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.16;letter-spacing:-.01em;font-weight:700}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;transition:.2s;cursor:pointer;border:1.5px solid transparent}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-dark)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .btn-coral:hover{background:var(--coral-dark)}
+  .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn-outline{border-color:var(--line);color:var(--heading);background:#fff}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav .logo img{height:50px;width:auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-weight:500;font-size:15px;color:var(--text)}
+  .nav-links a:hover{color:var(--blue)}
+  .nav-links a.active{color:var(--blue);font-weight:600}
+  .nav-cta{display:flex;gap:14px;align-items:center}
+  .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
+  .nav-cta .acct:hover{color:var(--blue)}
+
+  /* page hero */
+  .phero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .phero::after{content:"";position:absolute;inset:0;background:radial-gradient(820px 460px at 90% 0%,rgba(33,150,243,.28),transparent 62%);pointer-events:none}
+  .phero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:66px 24px}
+  .phero .eyebrow{color:#8fc4f5}
+  .phero h1{color:#fff;font-size:clamp(30px,4vw,48px);font-weight:800;margin:14px 0 16px;line-height:1.1}
+  .phero p{font-size:18px;color:#cfe0f3;max-width:520px;margin-bottom:26px}
+  .phero-media img{border-radius:16px;box-shadow:var(--shadow-lg);background:#fff;padding:14px}
+  .crumbs{font-size:13.5px;color:#9bb6d6}
+  .crumbs a:hover{color:#fff}
+
+  section{padding:76px 0}
+  .sec-head{text-align:center;max-width:700px;margin:0 auto 48px}
+  .sec-head h2{font-size:clamp(26px,3.2vw,38px)}
+  .sec-head p{color:var(--muted);font-size:17.5px;margin-top:14px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split img{border-radius:var(--radius);box-shadow:var(--shadow)}
+  .soft{background:var(--bg-soft)}
+  .blist{list-style:none;margin-top:22px;display:grid;gap:15px}
+  .blist li{display:flex;gap:13px;align-items:flex-start}
+  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-top:2px}
+  .blist .chk svg{width:14px;height:14px}
+  .blist b{color:var(--heading)}
+  .blist span{color:var(--muted);font-size:15px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;position:relative}
+  .step .n{width:38px;height:38px;border-radius:10px;background:var(--blue);color:#fff;font-family:'Montserrat';font-weight:800;display:grid;place-items:center;margin-bottom:14px}
+  .step h3{font-size:18px;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  /* face pair */
+  .facepair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .face{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .face img{width:100%;height:230px;object-fit:cover;background:var(--bg-tint)}
+  .face .cap{padding:20px 22px}
+  .face .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
+  .face h3{font-size:19px;margin:5px 0 6px}
+  .face p{color:var(--muted);font-size:14.5px}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.25s}
+  .card:hover{box-shadow:var(--shadow);border-color:transparent}
+  .card .ico{width:46px;height:46px;border-radius:11px;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-bottom:14px}
+  .card .ico svg{width:23px;height:23px}
+  .card h3{font-size:17px;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:14px}
+
+  /* nShift band */
+  .nshift{background:var(--navy-deep);color:#fff}
+  .nshift .inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .nshift .eyebrow{color:#8fbef5}
+  .nshift h2{color:#fff;font-size:clamp(25px,2.9vw,34px)}
+  .nshift p{color:#c3d5ec;font-size:16.5px;margin-top:14px}
+  .nshift .card2{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px}
+  .nshift .card2 b{color:#fff}
+  .nshift .card2 .row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);color:#c3d5ec;font-size:14.5px}
+  .nshift .card2 .row:last-child{border:none}
+  .nshift .card2 .row svg{width:18px;height:18px;color:#7bd38f;flex:none;margin-top:2px}
+
+  /* offer */
+  .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:0 auto}
+  .offer{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;background:#fff}
+  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .offer h3{font-size:21px;margin:9px 0}
+  .offer p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+  .offer.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.09)}
+  .offer.feat .tag{color:var(--blue)}
+
+  .cta{background:var(--navy);color:#fff;text-align:center}
+  .cta h2{color:#fff;font-size:clamp(26px,3.2vw,38px)}
+  .cta p{color:#bcd0e6;font-size:17.5px;margin:14px auto 26px;max-width:600px}
+
+  footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+  footer .flogo{height:32px;margin-bottom:15px}
+  footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
+  footer a{display:block;color:#a6bdd6;margin-bottom:9px}
+  footer a:hover{color:#fff}
+  .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
+
+  /* ---- contact page additions (existing tokens only) ---- */
+  .contact-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:start}
+  .form-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 32px;box-shadow:var(--shadow)}
+  .form-card h2{font-size:22px;margin-bottom:6px}
+  .form-card .lede{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .field{margin-bottom:18px}
+  .field.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field label{display:block;font-size:13.5px;font-weight:600;color:var(--heading);margin-bottom:7px}
+  .field input,.field select,.field textarea{width:100%;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;transition:.18s}
+  .field textarea{min-height:130px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.12)}
+  .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235c6b7e' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+  .form-actions{margin-top:8px}
+  .thanks{display:none;text-align:center;padding:48px 24px}
+  .thanks .badge{width:64px;height:64px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin:0 auto 20px}
+  .thanks .badge svg{width:30px;height:30px}
+  .thanks h2{font-size:24px;margin-bottom:10px}
+  .thanks p{color:var(--muted);font-size:16px;max-width:420px;margin:0 auto}
+
+  .detail-card{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:30px 30px}
+  .detail-card + .detail-card{margin-top:22px}
+  .detail-card .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+  .detail-card h3{font-size:19px;margin-bottom:12px}
+  .drow{display:flex;gap:12px;align-items:flex-start;padding:9px 0;color:var(--muted);font-size:14.5px}
+  .drow svg{width:18px;height:18px;color:var(--blue);flex:none;margin-top:3px}
+  .drow a{color:var(--text)}
+  .drow a:hover{color:var(--blue)}
+  .note{margin-top:22px;font-size:14px;color:var(--muted);background:var(--bg-tint);border-radius:12px;padding:16px 18px}
+
+  @media(max-width:900px){
+    .phero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
+    .steps,.cards{grid-template-columns:1fr 1fr}
+    .facepair{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .phero-media{order:-1}
+    .contact-grid{grid-template-columns:1fr}
+    .field.row2{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){.steps,.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><img src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logotmnotm-1536x465-1-1024x310.png" alt="Pinnpoint"></a>
+    <nav class="nav-links">
+      <a href="print-ship.html">Print &amp; Ship</a>
+      <a href="index.html#nshift">nShift</a>
+      <a href="why-pinnpoint.html">Why Pinnpoint</a>
+      <a href="strategic-partners.html">Partners</a>
+      <a href="blog.html">Blog</a>
+      <a class="active" href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="acct" href="https://pinnpt.com/my-account/">My Account</a>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="phero">
+  <div class="wrap" style="grid-template-columns:1fr">
+    <div>
+      <p class="crumbs"><a href="index.html">Home</a> / Contact</p>
+      <p class="eyebrow" style="margin-top:16px">Contact</p>
+      <h1>Let's talk about your packing bench</h1>
+      <p>Tell us what you need and we'll be in touch within one business day.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section>
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- LEFT: FORM -->
+      <div>
+        <!--
+          Form handler note: the backend is not deployed yet. At deploy time this
+          form will POST to a server-side handler that sends the enquiry by email
+          to sales@pinnpt.com. The inline script below only provides the in-page
+          thank-you state for the mockup; it does not transmit any data.
+        -->
+        <div class="form-card" id="formCard">
+          <h2>Send us a request</h2>
+          <p class="lede">Choose the type of enquiry and add a few details. We'll reply within one business day.</p>
+          <form id="contactForm" novalidate>
+            <div class="field">
+              <label for="enquiry">Type of enquiry</label>
+              <select id="enquiry" name="enquiry" required>
+                <option value="Request a sample pack">Request a sample pack</option>
+                <option value="Request 50 test sheets">Request 50 test sheets</option>
+                <option value="Request a quotation">Request a quotation</option>
+                <option value="General enquiry">General enquiry</option>
+              </select>
+            </div>
+            <div class="field row2">
+              <div>
+                <label for="firstName">First name</label>
+                <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
+              </div>
+              <div>
+                <label for="lastName">Last name</label>
+                <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization">
+            </div>
+            <div class="field row2">
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div>
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+            </div>
+            <div class="field">
+              <label for="country">Country</label>
+              <input id="country" name="country" type="text" autocomplete="country-name">
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a little about what you need."></textarea>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-coral" type="submit">Send request</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Thank-you state (shown after submit) -->
+        <div class="form-card thanks" id="thanks">
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <h2>Thank you</h2>
+          <p>Thanks — we'll be in touch within one business day.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: DETAILS -->
+      <div>
+        <div class="detail-card">
+          <div class="t">North America</div>
+          <h3>Dallas, Texas</h3>
+          <div class="drow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.98.36 1.94.7 2.86a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.22-1.27a2 2 0 0 1 2.11-.45c.92.34 1.88.57 2.86.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+18883611722">888.361.1722</a></div>
+          <div class="drow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><a href="mailto:sales@pinnpt.com">sales@pinnpt.com</a></div>
+          <div class="drow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>PO Box 25333, Dallas, Texas 75225</span></div>
+        </div>
+
+        <div class="detail-card">
+          <div class="t">International</div>
+          <h3>Malmö, Sweden</h3>
+          <div class="drow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.98.36 1.94.7 2.86a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.22-1.27a2 2 0 0 1 2.11-.45c.92.34 1.88.57 2.86.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+46705505328">+46 70-550 53 28</a></div>
+          <div class="drow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><a href="mailto:sales@pinnpt.com">sales@pinnpt.com</a></div>
+          <div class="drow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Box 20054, 200 74 Malmö, Sweden</span></div>
+        </div>
+
+        <div class="note">Lexmark and Printronix printer recommendations are available on request — just mention your set-up in your message.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="flogo" src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logo-white-no-tm-1536x465-1.png" alt="Pinnpoint">
+        <p style="max-width:290px">The A5 Print &amp; Ship label — built into nShift Transsmart, printed on standard duplex laser printers.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="print-ship-return.html">Print Ship &amp; Return</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="combination-label-forms.html">Combination Label &amp; Forms</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a><a href="why-pinnpoint.html">Why Pinnpoint</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+46705505328">International: +46 70-550 53 28</a>
+        <a href="tel:+18883611722">North America: 888.361.1722</a>
+        <a href="mailto:sales@pinnpt.com">sales@pinnpt.com</a>
+        <a href="#">LinkedIn · X · Vimeo</a>
+      </div>
+    </div>
+    <div class="fbar">
+      <span>© 2025 Pinnpoint — All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mockup-only submit handler. No backend yet: prevent the default POST,
+  // hide the form, and reveal the in-page thank-you message.
+  // At deploy time this will be replaced by a real handler that POSTs the
+  // enquiry to a backend which emails sales@pinnpt.com.
+  (function () {
+    var form = document.getElementById('contactForm');
+    var formCard = document.getElementById('formCard');
+    var thanks = document.getElementById('thanks');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      formCard.style.display = 'none';
+      thanks.style.display = 'block';
+      thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  })();
+</script>
+
+</body>
+</html>

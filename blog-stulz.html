@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT &amp; Logistics 2019 — the STULZ story | Pinnpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
+    --blue:#2196f3; --blue-dark:#1878cf;
+    --coral:#e07a56; --coral-dark:#cf6a48;
+    --bg:#ffffff; --bg-soft:#f5f8fc; --bg-tint:#eaf1fa;
+    --line:#e4e9f0; --muted:#5c6b7e; --text:#33383f; --heading:#0e2a47;
+    --radius:14px; --shadow:0 10px 30px rgba(14,42,71,.09);
+    --shadow-lg:0 22px 55px rgba(14,42,71,.16);
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:var(--bg);line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.16;letter-spacing:-.01em;font-weight:700}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;transition:.2s;cursor:pointer;border:1.5px solid transparent}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:var(--blue-dark)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .btn-coral:hover{background:var(--coral-dark)}
+  .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn-outline{border-color:var(--line);color:var(--heading);background:#fff}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav .logo img{height:50px;width:auto}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{font-weight:500;font-size:15px;color:var(--text)}
+  .nav-links a:hover{color:var(--blue)}
+  .nav-links a.active{color:var(--blue);font-weight:600}
+  .nav-cta{display:flex;gap:14px;align-items:center}
+  .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
+  .nav-cta .acct:hover{color:var(--blue)}
+
+  /* page hero */
+  .phero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .phero::after{content:"";position:absolute;inset:0;background:radial-gradient(820px 460px at 90% 0%,rgba(33,150,243,.28),transparent 62%);pointer-events:none}
+  .phero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:66px 24px}
+  .phero .eyebrow{color:#8fc4f5}
+  .phero h1{color:#fff;font-size:clamp(30px,4vw,48px);font-weight:800;margin:14px 0 16px;line-height:1.1}
+  .phero p{font-size:18px;color:#cfe0f3;max-width:520px;margin-bottom:26px}
+  .phero-media img{border-radius:16px;box-shadow:var(--shadow-lg);background:#fff;padding:14px}
+  .crumbs{font-size:13.5px;color:#9bb6d6}
+  .crumbs a:hover{color:#fff}
+
+  section{padding:76px 0}
+  .sec-head{text-align:center;max-width:700px;margin:0 auto 48px}
+  .sec-head h2{font-size:clamp(26px,3.2vw,38px)}
+  .sec-head p{color:var(--muted);font-size:17.5px;margin-top:14px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split img{border-radius:var(--radius);box-shadow:var(--shadow)}
+  .soft{background:var(--bg-soft)}
+  .blist{list-style:none;margin-top:22px;display:grid;gap:15px}
+  .blist li{display:flex;gap:13px;align-items:flex-start}
+  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-top:2px}
+  .blist .chk svg{width:14px;height:14px}
+  .blist b{color:var(--heading)}
+  .blist span{color:var(--muted);font-size:15px}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;position:relative}
+  .step .n{width:38px;height:38px;border-radius:10px;background:var(--blue);color:#fff;font-family:'Montserrat';font-weight:800;display:grid;place-items:center;margin-bottom:14px}
+  .step h3{font-size:18px;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  /* face pair */
+  .facepair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .face{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .face img{width:100%;height:230px;object-fit:cover;background:var(--bg-tint)}
+  .face .cap{padding:20px 22px}
+  .face .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
+  .face h3{font-size:19px;margin:5px 0 6px}
+  .face p{color:var(--muted);font-size:14.5px}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.25s}
+  .card:hover{box-shadow:var(--shadow);border-color:transparent}
+  .card .ico{width:46px;height:46px;border-radius:11px;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-bottom:14px}
+  .card .ico svg{width:23px;height:23px}
+  .card h3{font-size:17px;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:14px}
+
+  /* nShift band */
+  .nshift{background:var(--navy-deep);color:#fff}
+  .nshift .inner{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .nshift .eyebrow{color:#8fbef5}
+  .nshift h2{color:#fff;font-size:clamp(25px,2.9vw,34px)}
+  .nshift p{color:#c3d5ec;font-size:16.5px;margin-top:14px}
+  .nshift .card2{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px}
+  .nshift .card2 b{color:#fff}
+  .nshift .card2 .row{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);color:#c3d5ec;font-size:14.5px}
+  .nshift .card2 .row:last-child{border:none}
+  .nshift .card2 .row svg{width:18px;height:18px;color:#7bd38f;flex:none;margin-top:2px}
+
+  /* offer */
+  .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:0 auto}
+  .offer{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;background:#fff}
+  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .offer h3{font-size:21px;margin:9px 0}
+  .offer p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+  .offer.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.09)}
+  .offer.feat .tag{color:var(--blue)}
+
+  .cta{background:var(--navy);color:#fff;text-align:center}
+  .cta h2{color:#fff;font-size:clamp(26px,3.2vw,38px)}
+  .cta p{color:#bcd0e6;font-size:17.5px;margin:14px auto 26px;max-width:600px}
+
+  footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+  footer .flogo{height:32px;margin-bottom:15px}
+  footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
+  footer a{display:block;color:#a6bdd6;margin-bottom:9px}
+  footer a:hover{color:#fff}
+  .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
+
+  /* ── article-specific ────────────────────────────── */
+  .ahero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .ahero::after{content:"";position:absolute;inset:0;background:radial-gradient(820px 460px at 90% 0%,rgba(33,150,243,.28),transparent 62%);pointer-events:none}
+  .ahero .wrap{position:relative;z-index:2;max-width:820px;padding:58px 24px 62px}
+  .ahero .eyebrow{color:#8fc4f5}
+  .ahero .crumbs{margin-bottom:18px}
+  .ahero h1{color:#fff;font-size:clamp(28px,4vw,44px);font-weight:800;margin:8px 0 14px;line-height:1.12}
+  .ahero .date{font-size:13.5px;color:#cfe0f3;font-weight:500;letter-spacing:.03em}
+  .article{padding:60px 0 84px}
+  .article .wrap{max-width:760px}
+  .article .back{font-weight:600;color:var(--blue);font-size:14.5px;display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;transition:gap .2s}
+  .article .back:hover{gap:12px}
+  .article .lead{font-size:19.5px;color:var(--heading);font-weight:500;line-height:1.55;margin-bottom:30px}
+  .article .cover{border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:34px;width:100%;height:auto}
+  .article-body p{font-size:16.5px;margin-bottom:22px}
+  .article-body h2{font-size:24px;margin:38px 0 14px}
+  .article-body h3{font-size:19px;margin:28px 0 12px}
+  .article-body ul{list-style:none;margin:0 0 24px;display:grid;gap:13px}
+  .article-body ul li{position:relative;padding-left:28px;font-size:16.5px}
+  .article-body ul li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+  .article-body blockquote{border-left:3px solid var(--blue);padding:4px 0 4px 22px;margin:28px 0;color:var(--heading);font-style:italic;font-size:18.5px;line-height:1.5}
+  .article-body a{color:var(--blue);font-weight:600}
+  .article-body a:hover{text-decoration:underline}
+
+  @media(max-width:900px){
+    .phero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
+    .steps,.cards{grid-template-columns:1fr 1fr}
+    .facepair{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .phero-media{order:-1}
+  }
+  @media(max-width:560px){.steps,.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><img src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logotmnotm-1536x465-1-1024x310.png" alt="Pinnpoint"></a>
+    <nav class="nav-links">
+      <a href="print-ship.html">Print &amp; Ship</a>
+      <a href="index.html#nshift">nShift</a>
+      <a href="why-pinnpoint.html">Why Pinnpoint</a>
+      <a href="strategic-partners.html">Partners</a>
+      <a class="active" href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="acct" href="https://pinnpt.com/my-account/">My Account</a>
+    </div>
+  </div>
+</header>
+
+<!-- ARTICLE HERO -->
+<section class="ahero">
+  <div class="wrap">
+    <p class="crumbs"><a href="index.html">Home</a> / <a href="blog.html">Blog</a> / STULZ story</p>
+    <p class="eyebrow">Customer story · Event</p>
+    <h1>ICT &amp; Logistics 2019 — the STULZ story</h1>
+    <p class="date">October 2019</p>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section class="article">
+  <div class="wrap">
+    <a class="back" href="blog.html">← Back to blog</a>
+
+    <img class="cover" src="https://pinnpt.com/wp-content/uploads/2025/01/PS-Web-Rev-A.jpg" alt="A5 Print & Ship label">
+
+    <p class="lead">At ICT &amp; Logistics 2019 in the Netherlands, STULZ GROEP B.V. shared why it chose the A5 Print &amp; Ship label with nShift Transsmart — to sharpen its dispatch process and take single-use plastic out of the box.</p>
+
+    <div class="article-body">
+      <p>ICT &amp; Logistics is one of the Netherlands' leading events for logistics and supply-chain technology, and it gave STULZ GROEP B.V. a fitting stage to talk about a change it had made to its shipping process. STULZ was looking for two things at once: a tidier, more reliable way to dispatch parcels, and a way to reduce the packaging waste that came with it.</p>
+
+      <h2>The challenge</h2>
+      <p>Like many operations, STULZ was printing a shipping label and a separate packing slip, then combining them by hand and enclosing the slip in a single-use plastic document pouch on the outside of each box. It worked, but it involved extra handling, extra materials, and more room for a mismatch between a label and its contents.</p>
+
+      <h2>The solution — A5 Print &amp; Ship with nShift Transsmart</h2>
+      <p>STULZ adopted the A5 Print &amp; Ship label, which merges the shipping label and packing slip into a single duplex-printed document. The document is generated directly from nShift Transsmart, the delivery management software already coordinating the company's carriers and shipments, and printed on a standard duplex laser printer.</p>
+
+      <ul>
+        <li>Shipping label and packing slip combined into one duplex document</li>
+        <li>Generated from within nShift Transsmart</li>
+        <li>Printed on a standard duplex laser printer — no proprietary hardware</li>
+        <li>The single-use plastic document pouch removed entirely</li>
+      </ul>
+
+      <p>By printing the packing slip onto the back of the shipping label, STULZ no longer needed the plastic pouch to carry a loose sheet. That single change removed a piece of single-use plastic from every parcel — a meaningful reduction across the volumes a group like STULZ ships.</p>
+
+      <blockquote>A better process and less plastic came from the same decision — the point was to do more with fewer materials, not more of them.</blockquote>
+
+      <h2>The result</h2>
+      <p>The packing process became simpler and steadier: one document to print and apply, with the label and its contents guaranteed to match because they came from the same sheet. Conny van Buuren of STULZ pointed to the combination of process improvement and reduced waste as the reason the solution made sense for the group.</p>
+
+      <p>STULZ's story at ICT &amp; Logistics 2019 captured what Pinnpoint set out to build — a shipping document that is faster to handle and lighter on the planet, running on the software and printers a team already has.</p>
+
+      <p>Want to see it for yourself? <a href="print-ship.html#offer">Request a free sample pack</a> or <a href="contact.html">talk to our team</a>.</p>
+    </div>
+
+    <a class="back" href="blog.html" style="margin-top:14px">← Back to blog</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="flogo" src="https://pinnpt.com/wp-content/uploads/2023/09/Pinnpoint-Logo-white-no-tm-1536x465-1.png" alt="Pinnpoint">
+        <p style="max-width:290px">The A5 Print &amp; Ship label — built into nShift Transsmart, printed on standard duplex laser printers.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="print-ship-return.html">Print Ship &amp; Return</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="combination-label-forms.html">Combination Label &amp; Forms</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a><a href="why-pinnpoint.html">Why Pinnpoint</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="tel:+46705505328">International: +46 70-550 53 28</a>
+        <a href="tel:+18883611722">North America: 888.361.1722</a>
+        <a href="mailto:sales@pinnpt.com">sales@pinnpt.com</a>
+        <a href="#">LinkedIn · X · Vimeo</a>
+      </div>
+    </div>
+    <div class="fbar">
+      <span>© 2025 Pinnpoint — All rights reserved</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
