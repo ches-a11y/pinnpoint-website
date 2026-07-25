@@ -145,6 +145,12 @@
     .phero-media{order:-1}
   }
   @media(max-width:560px){.steps,.cards,.stat-row{grid-template-columns:1fr}}
+
+  /* recreated A5 label asset — presentation */
+  .split img[src*="/assets/"]{max-width:320px;width:100%;margin-left:auto;margin-right:auto;border:1px solid var(--line)}
+  .phero-media img[src*="/assets/"]{max-width:300px;width:100%;margin-left:auto;margin-right:auto;padding:12px}
+  .post .thumb[src*="/assets/"]{object-fit:contain;background:#fff;padding:12px}
+  .article .cover[src*="/assets/"]{max-width:340px;margin-left:auto;margin-right:auto;background:#fff;padding:12px}
 </style>
 </head>
 <body>
@@ -189,7 +195,7 @@
 <section>
   <div class="wrap">
     <div class="split">
-      <div><img src="https://pinnpt.com/wp-content/uploads/2025/01/printship-howitworks-1024x768.png" alt="How Print & Ship works"></div>
+      <div><img src="/assets/a5-label.svg" alt="How Print & Ship works"></div>
       <div>
         <p class="eyebrow">Our story</p>
         <h2 style="font-size:30px">Built to take steps out of shipping</h2>
@@ -210,18 +216,13 @@
     <div class="sec-head">
       <p class="eyebrow">What we do</p>
       <h2>A focused range, done well</h2>
-      <p>Everything we make is designed to take friction out of shipping — from the core Print &amp; Ship label to returns and smart identification.</p>
+      <p>Everything we make is designed to take friction out of shipping — from the core Print &amp; Ship label to smart identification.</p>
     </div>
-    <div class="cards">
+    <div class="cards" style="grid-template-columns:repeat(3,1fr);max-width:880px;margin:0 auto">
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
         <h3>Print &amp; Ship</h3>
         <p>One duplex label combining the shipping label and packing slip, cutting packing time by up to 85%.</p>
-      </div>
-      <div class="card">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg></div>
-        <h3>Print Ship &amp; Return</h3>
-        <p>Adds a return label to the same document, making returns simpler for teams and customers alike.</p>
       </div>
       <div class="card">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div>
@@ -294,7 +295,7 @@
       </div>
       <div>
         <h4>Product</h4>
-        <a href="print-ship.html">Print &amp; Ship</a><a href="print-ship-return.html">Print Ship &amp; Return</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="combination-label-forms.html">Combination Label &amp; Forms</a>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="combination-label-forms.html">Combination Label &amp; Forms</a>
       </div>
       <div>
         <h4>Company</h4>
