@@ -153,6 +153,10 @@
     .phero-media{order:-1}
   }
   @media(max-width:560px){.steps,.cards,.pgrid{grid-template-columns:1fr}}
+
+  /* GTranslate flag switcher in header */
+  .nav-cta .gtranslate_wrapper{display:inline-flex;align-items:center}
+  .gt_switcher_wrapper{line-height:0}
 </style>
 </head>
 <body>
@@ -169,6 +173,7 @@
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-cta">
+      <div class="gtranslate_wrapper"></div>
       <a class="acct" href="https://pinnpt.com/my-account/">My Account</a>
     </div>
   </div>
@@ -363,5 +368,9 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 
+<!-- GTranslate language switcher (flags dropdown, same languages as pinnpt.com) -->
+<script>window.gtranslateSettings = {"default_language":"en","native_language_names":true,"languages":["en","de","es","fr","it","nl","pt","sv"],"wrapper_selector":".gtranslate_wrapper","switcher_horizontal_position":"inline","flag_style":"3d","flag_size":22}</script>
+<script src="https://cdn.gtranslate.net/widgets/latest/dwf.js" defer></script>
+<!-- GTranslate -->
 </body>
 </html>
