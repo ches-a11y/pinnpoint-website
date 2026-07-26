@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog — News &amp; stories | Pinnpoint</title>
+<title>Winning RFID lineup | Pinnpoint</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -133,21 +133,33 @@
   footer a:hover{color:#fff}
   .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
 
-  /* ── blog-specific ───────────────────────────────── */
-  .postgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .post{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
-  .post:hover{box-shadow:var(--shadow);border-color:transparent;transform:translateY(-3px)}
-  .post .thumb{width:100%;height:200px;object-fit:cover;background:var(--bg-tint)}
-  .post .body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
-  .post .date{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
-  .post h3{font-size:19px;margin-bottom:10px;line-height:1.28}
-  .post p{color:var(--muted);font-size:14.5px;margin-bottom:16px}
-  .post .more{margin-top:auto;font-weight:600;color:var(--blue);font-size:14.5px;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
-  .post .more:hover{gap:11px}
+  /* ── article-specific ────────────────────────────── */
+  .ahero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .ahero::after{content:"";position:absolute;inset:0;background:radial-gradient(820px 460px at 90% 0%,rgba(33,150,243,.28),transparent 62%);pointer-events:none}
+  .ahero .wrap{position:relative;z-index:2;max-width:820px;padding:58px 24px 62px}
+  .ahero .eyebrow{color:#8fc4f5}
+  .ahero .crumbs{margin-bottom:18px}
+  .ahero h1{color:#fff;font-size:clamp(28px,4vw,44px);font-weight:800;margin:8px 0 14px;line-height:1.12}
+  .ahero .date{font-size:13.5px;color:#cfe0f3;font-weight:500;letter-spacing:.03em}
+  .article{padding:60px 0 84px}
+  .article .wrap{max-width:760px}
+  .article .back{font-weight:600;color:var(--blue);font-size:14.5px;display:inline-flex;align-items:center;gap:7px;margin-bottom:32px;transition:gap .2s}
+  .article .back:hover{gap:12px}
+  .article .lead{font-size:19.5px;color:var(--heading);font-weight:500;line-height:1.55;margin-bottom:30px}
+  .article .cover{border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:34px;width:100%;height:auto}
+  .article-body p{font-size:16.5px;margin-bottom:22px}
+  .article-body h2{font-size:24px;margin:38px 0 14px}
+  .article-body h3{font-size:19px;margin:28px 0 12px}
+  .article-body ul{list-style:none;margin:0 0 24px;display:grid;gap:13px}
+  .article-body ul li{position:relative;padding-left:28px;font-size:16.5px}
+  .article-body ul li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+  .article-body blockquote{border-left:3px solid var(--blue);padding:4px 0 4px 22px;margin:28px 0;color:var(--heading);font-style:italic;font-size:18.5px;line-height:1.5}
+  .article-body a{color:var(--blue);font-weight:600}
+  .article-body a:hover{text-decoration:underline}
 
   @media(max-width:900px){
     .phero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
-    .steps,.cards,.postgrid{grid-template-columns:1fr 1fr}
+    .steps,.cards{grid-template-columns:1fr 1fr}
     .facepair{grid-template-columns:1fr}
     .nav-links{display:none}
     .nav-toggle{display:inline-flex}
@@ -157,7 +169,7 @@
     body.mnav .nav-links .acct-m{display:block}
     .phero-media{order:-1}
   }
-  @media(max-width:560px){.steps,.cards,.postgrid{grid-template-columns:1fr}}
+  @media(max-width:560px){.steps,.cards{grid-template-columns:1fr}}
 
   /* recreated A5 label asset — presentation */
   .split img[src*="/assets/"]{max-width:320px;width:100%;margin-left:auto;margin-right:auto;border:1px solid var(--line)}
@@ -190,99 +202,46 @@
   </div>
 </header>
 
-<!-- PAGE HERO -->
-<section class="phero">
+<!-- ARTICLE HERO -->
+<section class="ahero">
   <div class="wrap">
-    <div>
-      <p class="crumbs"><a href="index.html">Home</a> / Blog</p>
-      <p class="eyebrow" style="margin-top:16px">Blog</p>
-      <h1>Smarter shipping — news &amp; stories</h1>
-      <p>Notes from the packing bench: customer stories, event highlights, and the thinking behind the A5 Print &amp; Ship label built into nShift Transsmart.</p>
-    </div>
-    <div class="phero-media">
-      <img src="/assets/a5-label.svg" alt="A5 Print & Ship label">
-    </div>
+    <p class="crumbs"><a href="index.html">Home</a> / <a href="blog.html">Blog</a> / Winning RFID lineup</p>
+    <p class="eyebrow">Product</p>
+    <h1>Winning RFID lineup</h1>
+    <p class="date">April 2019</p>
   </div>
 </section>
 
-<!-- POSTS -->
-<section>
+<!-- ARTICLE -->
+<section class="article">
   <div class="wrap">
-    <div class="postgrid">
+    <a class="back" href="blog.html">← Back to blog</a>
 
-      <a class="post" href="blog-sustainable-shipping.html">
-        <img class="thumb" src="/assets/sustainability.jpg" alt="Sustainable shipping">
-        <div class="body">
-          <div class="date">July 2021</div>
-          <h3>Pinnpoint's focus on sustainable shipping</h3>
-          <p>How the A5 Print &amp; Ship label helps shippers cut paper, remove the single-use plastic pouch, and plant a tree with every box.</p>
-          <span class="more">Read more →</span>
-        </div>
-      </a>
+    <img class="cover" src="/assets/rfid.svg" alt="Sheeted RFID label">
 
-      <a class="post" href="blog-welkoop.html">
-        <img class="thumb" src="/assets/a5-label.svg" alt="Welkoop adopts Print & Ship">
-        <div class="body">
-          <div class="date">October 2020</div>
-          <h3>Welkoop adopts the Print &amp; Ship solution</h3>
-          <p>The Netherlands home &amp; garden retailer streamlined its dispatch with the A5 label, generated straight from nShift Transsmart.</p>
-          <span class="more">Read more →</span>
-        </div>
-      </a>
+    <p class="lead">A look at Pinnpoint's RFID-capable duplex laser printing range — and where smart labelling adds the most value in the warehouse.</p>
 
-      <a class="post" href="blog-stulz.html">
-        <img class="thumb" src="/assets/a5-label.svg" alt="STULZ story at ICT & Logistics 2019">
-        <div class="body">
-          <div class="date">October 2019</div>
-          <h3>ICT &amp; Logistics 2019 — the STULZ story</h3>
-          <p>STULZ GROEP B.V. chose Print &amp; Ship with nShift Transsmart to sharpen its process and remove single-use plastic from dispatch.</p>
-          <span class="more">Read more →</span>
-        </div>
-      </a>
+    <div class="article-body">
+      <p>Not every operation needs a separate tagging station to get the benefits of RFID. Pinnpoint's approach is to build a UHF inlay straight into the sheeted labels and documents a team already prints, so item-level visibility becomes part of the existing pack-and-ship flow rather than an extra process at the bench.</p>
 
-      <a class="post" href="blog-rfid-lineup.html">
-        <img class="thumb" src="/assets/rfid.svg" alt="Winning RFID lineup">
-        <div class="body">
-          <div class="date">April 2019</div>
-          <h3>Winning RFID lineup</h3>
-          <p>A look at Pinnpoint's RFID-capable duplex laser printing range and where smart labelling adds value in the warehouse.</p>
-          <span class="more">Read more →</span>
-        </div>
-      </a>
+      <h2>One range, three jobs</h2>
+      <p>The RFID line-up is built around the documents warehouses handle every day, each with a UHF inlay encoded as it is produced:</p>
 
-      <a class="post" href="blog-rfid-journal-live.html">
-        <img class="thumb" src="/assets/rfid.svg" alt="RFID Journal Live 2019">
-        <div class="body">
-          <div class="date">April 2019</div>
-          <h3>RFID Journal Live 2019</h3>
-          <p>Highlights from the show floor and the conversations shaping RFID-enabled shipping documents.</p>
-          <span class="more">Read more →</span>
-        </div>
-      </a>
+      <ul>
+        <li>Shipping label + packing list — combined in a single sheeted document, readable on arrival</li>
+        <li>Shipping &amp; return document — outbound label and return label on one RFID document, so returns are tracked as cleanly as dispatches</li>
+        <li>Pallet label — for tracking full loads through the warehouse and out to the dock</li>
+      </ul>
 
-      <a class="post" href="blog-nrf-2019.html">
-        <img class="thumb" src="/assets/a5-label.svg" alt="Pinnpoint featured at NRF 2019">
-        <div class="body">
-          <div class="date">January 2019</div>
-          <h3>Pinnpoint featured at NRF 2019</h3>
-          <p>Print &amp; Ship on show at the retail industry's flagship event in New York.</p>
-          <span class="more">Read more →</span>
-        </div>
-      </a>
+      <h2>Driven by PIM</h2>
+      <p>Behind the range sits the Pinnpoint Integration Module (PIM), which merges shipping and document data into a single duplex PDF, encodes the embedded inlay, and connects to the ERP and WMS systems that hold the order data — so RFID labels are generated straight from the source and printed on RFID-capable duplex laser printers.</p>
 
+      <p>The result is smart labelling that adds value where it matters — receiving, put-away, picking and dispatch — without asking the team to learn a new bench process or buy proprietary hardware.</p>
+
+      <p>Want to see the range for yourself? <a href="rfid.html">Explore RFID</a> or <a href="contact.html">talk to our team</a>.</p>
     </div>
-  </div>
-</section>
 
-<!-- CTA -->
-<section class="cta">
-  <div class="wrap">
-    <h2>Ready to ship smarter?</h2>
-    <p>Request a free sample pack or 50 test sheets and run the A5 Print &amp; Ship label on your own duplex laser printer.</p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a class="btn btn-coral" href="print-ship.html#offer">Request a sample pack</a>
-      <a class="btn btn-ghost" href="contact.html">Contact us</a>
-    </div>
+    <a class="back" href="blog.html" style="margin-top:14px">← Back to blog</a>
   </div>
 </section>
 
