@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 560" role="img" aria-label="Sheeted RFID label">
+<rect width="400" height="560" fill="#fff"/>
+<rect x="24" y="20" width="352" height="520" rx="8" fill="#fff" stroke="#123350" stroke-width="1.5"/>
+<rect x="24" y="20" width="352" height="30" rx="8" fill="#0e2a47"/><rect x="24" y="36" width="352" height="14" fill="#0e2a47"/>
+<text x="44" y="40" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="800" letter-spacing="1" fill="#fff">SHEETED RFID LABEL</text>
+<text x="356" y="40" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#8fc7ff">UHF Gen2 · EPC</text>
+<!-- RFID inlay motif -->
+<rect x="44" y="66" width="312" height="120" rx="10" fill="#eaf2fd" stroke="#cfe0f5"/>
+<text x="60" y="88" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="800" letter-spacing="1.5" fill="#2196f3">UHF RFID INLAY</text>
+<g transform="translate(60,96)" fill="none" stroke="#2196f3" stroke-width="2.5">
+<rect x="0" y="0" width="150" height="72" rx="8"/><rect x="12" y="12" width="126" height="48" rx="6" opacity=".7"/><rect x="24" y="22" width="102" height="28" rx="4" opacity=".5"/>
+</g>
+<rect x="128" y="120" width="18" height="24" rx="3" fill="#0e2a47"/><text x="137" y="136" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="8" font-weight="700" fill="#fff">IC</text>
+<g transform="translate(238,104)"><rect x="0" y="0" width="66" height="66" fill="#fff"/><rect x="0" y="0" width="18" height="18" fill="#12233b"/><rect x="3.5999999999999996" y="3.5999999999999996" width="10.8" height="10.8" fill="#fff"/><rect x="6" y="6" width="6" height="6" fill="#12233b"/><rect x="48" y="0" width="18" height="18" fill="#12233b"/><rect x="51.599999999999994" y="3.5999999999999996" width="10.8" height="10.8" fill="#fff"/><rect x="54" y="6" width="6" height="6" fill="#12233b"/><rect x="0" y="48" width="18" height="18" fill="#12233b"/><rect x="3.5999999999999996" y="51.599999999999994" width="10.8" height="10.8" fill="#fff"/><rect x="6" y="54" width="6" height="6" fill="#12233b"/><rect x="30" y="6" width="6" height="6" fill="#12233b"/><rect x="36" y="18" width="6" height="6" fill="#12233b"/><rect x="24" y="24" width="6" height="6" fill="#12233b"/><rect x="42" y="24" width="6" height="6" fill="#12233b"/><rect x="30" y="36" width="6" height="6" fill="#12233b"/><rect x="54" y="30" width="6" height="6" fill="#12233b"/><rect x="60" y="42" width="6" height="6" fill="#12233b"/><rect x="36" y="48" width="6" height="6" fill="#12233b"/><rect x="48" y="54" width="6" height="6" fill="#12233b"/><rect x="60" y="60" width="6" height="6" fill="#12233b"/><rect x="24" y="60" width="6" height="6" fill="#12233b"/><rect x="54" y="54" width="6" height="6" fill="#12233b"/></g>
+<text x="238" y="176" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#6b7f96">Sheet-fed for duplex laser printers</text>
+<!-- shipping label block -->
+<line x1="44" y1="202" x2="356" y2="202" stroke="#e0e7f0"/>
+<text x="44" y="222" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" letter-spacing="1" fill="#9fb0c3">SHIP TO</text>
+<text x="44" y="240" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="700" fill="#12233b">Van der Berg Logistics &#183; NL</text>
+<rect x="44" y="252" width="5.1" height="44" fill="#12233b"/><rect x="54.2" y="252" width="3.4" height="44" fill="#12233b"/><rect x="62.7" y="252" width="6.8" height="44" fill="#12233b"/><rect x="76.3" y="252" width="1.7" height="44" fill="#12233b"/><rect x="86.5" y="252" width="3.4" height="44" fill="#12233b"/><rect x="95" y="252" width="3.4" height="44" fill="#12233b"/><rect x="108.6" y="252" width="1.7" height="44" fill="#12233b"/><rect x="117.1" y="252" width="5.1" height="44" fill="#12233b"/><rect x="127.3" y="252" width="1.7" height="44" fill="#12233b"/><rect x="135.8" y="252" width="3.4" height="44" fill="#12233b"/><rect x="147.7" y="252" width="1.7" height="44" fill="#12233b"/><rect x="159.6" y="252" width="3.4" height="44" fill="#12233b"/><rect x="168.1" y="252" width="5.1" height="44" fill="#12233b"/><rect x="178.3" y="252" width="3.4" height="44" fill="#12233b"/><rect x="186.8" y="252" width="3.4" height="44" fill="#12233b"/><rect x="197" y="252" width="6.8" height="44" fill="#12233b"/><rect x="208.9" y="252" width="3.4" height="44" fill="#12233b"/><rect x="217.4" y="252" width="5.1" height="44" fill="#12233b"/><rect x="229.3" y="252" width="1.7" height="44" fill="#12233b"/><rect x="237.8" y="252" width="1.7" height="44" fill="#12233b"/><rect x="248" y="252" width="3.4" height="44" fill="#12233b"/><rect x="256.5" y="252" width="6.8" height="44" fill="#12233b"/><rect x="268.4" y="252" width="3.4" height="44" fill="#12233b"/>
+<text x="330" y="266" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" fill="#12233b">UHF</text>
+<text x="330" y="290" text-anchor="end" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="800" fill="#0e2a47">RFID</text>
+<text x="44" y="316" font-family="Consolas,monospace" font-size="11" letter-spacing="2" fill="#12233b">EPC 3034 F7A2 0C10 88B1</text>
+<line x1="44" y1="330" x2="356" y2="330" stroke="#e0e7f0"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<text x="44" y="352" font-size="9" font-weight="700" fill="#9fb0c3">FORMAT</text>
+<rect x="44" y="360" width="312" height="26" rx="4" fill="#f6f9fd"/><text x="56" y="377" font-size="11.5" fill="#12233b">Shipping label + packing list</text><text x="344" y="377" text-anchor="end" font-size="11.5" font-weight="700" fill="#2196f3">A5</text>
+<rect x="44" y="390" width="312" height="26" rx="4" fill="#fff" stroke="#eef3f9"/><text x="56" y="407" font-size="11.5" fill="#12233b">Pallet label</text><text x="344" y="407" text-anchor="end" font-size="11.5" font-weight="700" fill="#2196f3">A4</text>
+<rect x="44" y="420" width="312" height="26" rx="4" fill="#f6f9fd"/><text x="56" y="437" font-size="11.5" fill="#12233b">BibTrac race-timing bib</text><text x="344" y="437" text-anchor="end" font-size="11.5" font-weight="700" fill="#2196f3">UHF</text>
+</g>
+<text x="200" y="472" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" font-weight="700" fill="#e07a56">Xerox &#183; Lexmark authorised partner</text>
+<text x="200" y="512" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="10.5" fill="#6b7f96">Sheeted RFID from <tspan font-weight="800" fill="#2196f3">pinnpoint</tspan></text>
+</svg>
