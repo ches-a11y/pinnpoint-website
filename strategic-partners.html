@@ -131,19 +131,18 @@
   footer a:hover{color:#fff}
   .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
 
-  /* --- page components (built with existing variables) --- */
-  .partner-group{margin-top:46px}
-  .partner-group:first-of-type{margin-top:0}
-  .group-label{display:flex;align-items:center;gap:16px;margin-bottom:26px}
-  .group-label h3{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--heading);white-space:nowrap;font-weight:700}
-  .group-label .rule{height:1px;background:var(--line);flex:1}
-  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .pcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.25s}
-  .pcard:hover{box-shadow:var(--shadow);border-color:transparent}
-  .pcard .wordmark{font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:var(--heading);letter-spacing:-.01em;margin-bottom:12px}
-  .pcard .wordmark span{color:var(--blue)}
-  .pcard p{color:var(--muted);font-size:14px}
-  .pcard .meta{display:inline-block;margin-top:12px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral)}
+  /* --- partner cards (logo · description · link) --- */
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .pcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;transition:.25s;display:flex;flex-direction:column;color:var(--text)}
+  .pcard:hover{box-shadow:var(--shadow);border-color:transparent;transform:translateY(-2px)}
+  .pcard .plogo{height:60px;display:flex;align-items:center;margin-bottom:18px}
+  .pcard .plogo img{max-height:52px;max-width:172px;width:auto;object-fit:contain}
+  .pcard h3{font-size:17px;margin-bottom:4px}
+  .pcard .tag{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+  .pcard p{color:var(--muted);font-size:14px;flex:1}
+  .pcard .learn{margin-top:16px;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;color:var(--blue)}
+  .pcard:hover .learn{gap:10px}
+  .pcard .learn svg{width:15px;height:15px}
 
   @media(max-width:900px){
     .phero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
@@ -223,91 +222,72 @@
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Our network</p>
-      <h2>A considered network of partners</h2>
-      <p>Grouped by the part they play — the software our label lives in, the print technology that images it, and the identification specialists we work alongside.</p>
+      <h2>Partnerships that power performance</h2>
+      <p>We partner with the industry&rsquo;s top innovators to deliver complete logistics solutions that streamline fulfilment, cut costs, and scale seamlessly with your operation.</p>
     </div>
-
-    <!-- Software partner -->
-    <div class="partner-group">
-      <div class="group-label"><h3>Software partner</h3><span class="rule"></span></div>
-      <div class="pgrid">
-        <div class="pcard">
-          <div class="wordmark">nShift</div>
-          <p>Global leader in cloud delivery management. Delivery and returns software that increases efficiency and reduces shipping and delivery costs — and the home of the A5 Print &amp; Ship label within nShift Transsmart.</p>
-          <span class="meta">Delivery software</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Print technology partners -->
-    <div class="partner-group">
-      <div class="group-label"><h3>Print technology partners</h3><span class="rule"></span></div>
-      <div class="pgrid">
-        <div class="pcard">
-          <div class="wordmark">Xerox&nbsp;<span>·</span>&nbsp;Lexmark</div>
-          <p>Duplex laser print technology and authorised support for laser-imaged and sheeted RFID label production.</p>
-          <span class="meta">Laser print</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">Printronix</div>
-          <p>Industrial duplex print hardware engineered for reliable, high-volume label imaging.</p>
-          <span class="meta">Print hardware</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Technology partners -->
-    <div class="partner-group">
-      <div class="group-label"><h3>Technology partners</h3><span class="rule"></span></div>
-      <div class="pgrid">
-        <div class="pcard">
-          <div class="wordmark">Impinj</div>
-          <p>RAIN RFID reader and tag chips that bring item-level visibility to labels and inventory.</p>
-          <span class="meta">RFID</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">Avery&nbsp;Dennison</div>
-          <p>RFID inlays and intelligent labels — including Smartrac technology — manufactured at scale.</p>
-          <span class="meta">RFID inlays</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">Turck</div>
-          <p>Industrial automation and RFID sensor technology for demanding logistics environments.</p>
-          <span class="meta">Industrial RFID</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">Kontakt.io</div>
-          <p>IoT location and asset-tracking solutions for real-time visibility of people and goods.</p>
-          <span class="meta">Asset tracking</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">PDC</div>
-          <p>Identification products — wristbands, tags and labels used across events and healthcare.</p>
-          <span class="meta">Identification</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">Vivid&nbsp;Data&nbsp;Group</div>
-          <p>Data capture and barcode systems integration, connecting labels to the systems that read them.</p>
-          <span class="meta">Data capture</span>
-        </div>
-        <div class="pcard">
-          <div class="wordmark">Item&nbsp;Inc</div>
-          <p>Labelling and identification solutions partner supporting a range of print and tracking needs.</p>
-          <span class="meta">Labelling</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dealer partners -->
-    <div class="partner-group">
-      <div class="group-label"><h3>Dealer partners</h3><span class="rule"></span></div>
-      <div class="pgrid">
-        <div class="pcard">
-          <div class="wordmark">Pactechno</div>
-          <p>Our dealer partner in the Netherlands, giving Dutch customers local supply and support.</p>
-          <span class="meta">Netherlands</span>
-        </div>
-      </div>
+    <div class="pgrid">
+        <a class="pcard" href="https://www.impinj.com/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/2.png" alt="Impinj" loading="lazy"></div>
+          <h3>Impinj</h3>
+          <p>Impinj helps businesses analyze, optimize, and innovate by wirelessly connecting billions of everyday things, enabling a boundless Internet of Things.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://rfid.averydennison.com/en/home.html" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/3-removebg-preview.png" alt="Avery Dennison" loading="lazy"></div>
+          <h3>Avery Dennison</h3>
+          <p>Avery Dennison Smartrac focuses on developing and manufacturing RFID inlays and labels, along with other digital ID technologies, for various industries like retail, apparel, food, and logistics.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://www.lexmark.com/en_us.html" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/4-removebg-preview.png" alt="Xerox-Lexmark" loading="lazy"></div>
+          <h3>Xerox-Lexmark</h3>
+          <p>Pinnpoint has partnered with Xerox-Lexmark to design, develop and qualify our proprietary label sheets with their high-performance imaging devices. These cutting-edge devices provide high-resolution printing for today&rsquo;s manufacturing and distribution customers.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://www.turck.com/en/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/download-2.png" alt="Turck" loading="lazy"></div>
+          <h3>Turck</h3>
+          <p>Turck is dedicated to enabling smart automation in factories, process plants and logistic systems around the world.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://kontakt.io/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/10/download-3.png" alt="Kontakt.io" loading="lazy"></div>
+          <h3>Kontakt.io</h3>
+          <p>Provides warehouse and distribution solutions that use Bluetooth Low Energy (BLE) technology to deliver real-time location services (RTLS), asset tracking, and operational analytics. This helps businesses gain visibility into their operations, improve efficiency, and reduce costs.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://nshift.com/customer-stories/dtk-reduces-their-process-time-by-90-with-nshift" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/6-removebg-preview.png" alt="nShift" loading="lazy"></div>
+          <h3>nShift</h3>
+          <span class="tag">Software Partner</span>
+          <p>Global leader in cloud delivery management solutions. Increase efficiency and reduce shipping delivery costs with nShift&rsquo;s delivery and returns software.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://www.iteminc.com/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/1-removebg-preview.png" alt="Item Inc" loading="lazy"></div>
+          <h3>Item Inc</h3>
+          <p>Since 1979, Item Inc has supplied OEM and refurbished printer and copier parts &mdash; backed by a 100% guarantee &mdash; to keep business-critical equipment running smoothly.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://pactechno.nl/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/7-removebg-preview.png" alt="Pactechno" loading="lazy"></div>
+          <h3>Pactechno</h3>
+          <span class="tag">Dealer Partner</span>
+          <p>Pactechno, located in the Netherlands, is the market leader in technical service, with an extensive team of certified engineers with expertise on Lexmark devices.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://www.tpdc.co.za/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/06/PDC.png" alt="PDC" loading="lazy"></div>
+          <h3>PDC</h3>
+          <p>Pinnpoint has partnered with PDC to design, develop and qualify our proprietary label sheets with their high-performance imaging devices. These cutting-edge devices provide high-resolution printing for today&rsquo;s manufacturing and distribution customers.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="pcard" href="https://vividdatagroup.com/" target="_blank" rel="noopener noreferrer nofollow">
+          <div class="plogo"><img src="https://pinnpt.com/wp-content/uploads/2025/08/9-removebg-preview.png" alt="Vivid Data Group" loading="lazy"></div>
+          <h3>Vivid Data Group</h3>
+          <p>Vivid Data Group delivers print, scan, and copy solutions tailored to complex business needs, backed by expert support to keep operations moving without downtime.</p>
+          <span class="learn">Learn more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
     </div>
   </div>
 </section>
