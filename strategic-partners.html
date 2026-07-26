@@ -46,6 +46,8 @@
   .nav-cta{display:flex;gap:14px;align-items:center}
   .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
   .nav-cta .acct:hover{color:var(--blue)}
+  .nav-toggle{display:none;background:none;border:0;color:var(--heading);cursor:pointer;padding:6px;align-items:center}
+  .nav-links .acct-m{display:none}
 
   /* page hero */
   .phero{background:var(--navy);color:#fff;position:relative;overflow:hidden}
@@ -149,6 +151,11 @@
     .steps,.cards,.pgrid{grid-template-columns:1fr 1fr}
     .facepair{grid-template-columns:1fr}
     .nav-links{display:none}
+    .nav-toggle{display:inline-flex}
+    .nav-cta .acct{display:none}
+    body.mnav .nav-links{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 16px;box-shadow:0 12px 24px rgba(14,42,71,.12);z-index:60}
+    body.mnav .nav-links a{padding:14px 4px;border-bottom:1px solid var(--line);font-size:16px;text-align:center}
+    body.mnav .nav-links .acct-m{display:block}
     .phero-media{order:-1}
   }
   @media(max-width:560px){.steps,.cards,.pgrid{grid-template-columns:1fr}}
@@ -170,10 +177,10 @@
       <a class="active" href="strategic-partners.html">Partners</a>
       <a href="blog.html">Blog</a>
       <a href="contact.html">Contact</a>
-    </nav>
+    <a class="acct-m" href="https://pinnpt.com/my-account/">My Account</a></nav>
     <div class="nav-cta">
       <a class="acct" href="https://pinnpt.com/my-account/">My Account</a>
-      <div class="gtranslate_wrapper"></div>
+      <div class="gtranslate_wrapper"></div><button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('mnav')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
 </header>
