@@ -1,0 +1,121 @@
+<svg viewBox="0 0 980 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparison: the traditional five-step shipping method versus the two-step Print and Ship method" font-family="'Montserrat','Segoe UI',Arial,sans-serif">
+  <defs>
+    <!-- printer -->
+    <g id="ico-printer">
+      <rect x="9" y="8" width="34" height="14" rx="2" fill="#fff" stroke="#123350" stroke-width="2"/>
+      <line x1="15" y1="13" x2="37" y2="13" stroke="#9fb0c3" stroke-width="2"/>
+      <line x1="15" y1="18" x2="30" y2="18" stroke="#9fb0c3" stroke-width="2"/>
+      <rect x="2" y="21" width="48" height="20" rx="4" fill="#dbe7f5" stroke="#123350" stroke-width="2"/>
+      <circle cx="42" cy="31" r="2.6" fill="#2196f3"/>
+      <rect x="12" y="38" width="28" height="14" rx="2" fill="#fff" stroke="#123350" stroke-width="2"/>
+      <line x1="18" y1="44" x2="34" y2="44" stroke="#9fb0c3" stroke-width="2"/>
+    </g>
+    <!-- document / packing list -->
+    <g id="ico-doc">
+      <rect x="9" y="4" width="34" height="46" rx="3" fill="#fff" stroke="#123350" stroke-width="2"/>
+      <line x1="16" y1="14" x2="36" y2="14" stroke="#123350" stroke-width="2"/>
+      <line x1="16" y1="22" x2="36" y2="22" stroke="#9fb0c3" stroke-width="2"/>
+      <line x1="16" y1="29" x2="36" y2="29" stroke="#9fb0c3" stroke-width="2"/>
+      <line x1="16" y1="36" x2="30" y2="36" stroke="#9fb0c3" stroke-width="2"/>
+      <line x1="16" y1="43" x2="33" y2="43" stroke="#9fb0c3" stroke-width="2"/>
+    </g>
+    <!-- match by hand: two docs + arrows -->
+    <g id="ico-match">
+      <rect x="4" y="10" width="26" height="34" rx="3" fill="#fff" stroke="#123350" stroke-width="2"/>
+      <rect x="24" y="4" width="26" height="34" rx="3" fill="#eaf1fa" stroke="#123350" stroke-width="2"/>
+      <path d="M14 26 h9 M20 22 l4 4 -4 4" fill="none" stroke="#2196f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40 20 h-9 M34 16 l-4 4 4 4" fill="none" stroke="#2196f3" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <!-- plastic pouch -->
+    <g id="ico-pouch">
+      <rect x="4" y="9" width="46" height="34" rx="3" fill="#eaf1fa" stroke="#123350" stroke-width="2"/>
+      <rect x="10" y="15" width="34" height="8" rx="1.5" fill="#e07a56"/>
+      <line x1="10" y1="30" x2="38" y2="30" stroke="#9fb0c3" stroke-width="2"/>
+      <line x1="10" y1="36" x2="30" y2="36" stroke="#9fb0c3" stroke-width="2"/>
+      <path d="M6 11 L22 41" stroke="#fff" stroke-width="3" opacity="0.6"/>
+    </g>
+    <!-- parcel box -->
+    <g id="ico-box">
+      <path d="M6 18 L27 8 L48 18 L27 28 Z" fill="#e7d3b8" stroke="#123350" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M6 18 L6 42 L27 52 L27 28 Z" fill="#d8bf9c" stroke="#123350" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M48 18 L48 42 L27 52 L27 28 Z" fill="#c9ac83" stroke="#123350" stroke-width="2" stroke-linejoin="round"/>
+      <line x1="27" y1="28" x2="27" y2="52" stroke="#123350" stroke-width="2"/>
+      <rect x="31" y="33" width="13" height="10" fill="#fff" stroke="#123350" stroke-width="1.5"/>
+    </g>
+    <!-- A5 print & ship label -->
+    <g id="ico-label">
+      <rect x="9" y="3" width="34" height="50" rx="3" fill="#fff" stroke="#123350" stroke-width="2"/>
+      <rect x="9" y="3" width="34" height="9" rx="3" fill="#e07a56"/>
+      <line x1="15" y1="20" x2="37" y2="20" stroke="#123350" stroke-width="2"/>
+      <g stroke="#123350" stroke-width="1.6">
+        <line x1="15" y1="27" x2="15" y2="35"/><line x1="18" y1="27" x2="18" y2="35"/><line x1="22" y1="27" x2="22" y2="35"/><line x1="25" y1="27" x2="25" y2="35"/><line x1="29" y1="27" x2="29" y2="35"/><line x1="33" y1="27" x2="33" y2="35"/><line x1="37" y1="27" x2="37" y2="35"/>
+      </g>
+      <line x1="15" y1="42" x2="37" y2="42" stroke="#9fb0c3" stroke-width="2"/>
+      <line x1="15" y1="47" x2="30" y2="47" stroke="#9fb0c3" stroke-width="2"/>
+    </g>
+  </defs>
+
+  <!-- ===== LEFT PANEL: traditional ===== -->
+  <rect x="14" y="14" width="452" height="532" rx="18" fill="#ffffff" stroke="#e4e9f0" stroke-width="1.5"/>
+  <text x="44" y="58" font-size="12.5" font-weight="700" letter-spacing="1.5" fill="#5c6b7e">THE USUAL WAY</text>
+  <text x="44" y="88" font-size="26" font-weight="800" fill="#0e2a47">Five steps</text>
+  <line x1="44" y1="128" x2="44" y2="470" stroke="#e4e9f0" stroke-width="2" stroke-dasharray="2 7"/>
+
+  <g>
+    <!-- rows -->
+    <g transform="translate(0,118)">
+      <circle cx="44" cy="24" r="17" fill="#eaf1fa"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#5c6b7e">1</text>
+      <g transform="translate(80,0)"><use href="#ico-printer"/></g>
+      <text x="150" y="30" font-size="15.5" font-weight="600" fill="#33383f">Print the shipping label</text>
+    </g>
+    <g transform="translate(0,186)">
+      <circle cx="44" cy="24" r="17" fill="#eaf1fa"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#5c6b7e">2</text>
+      <g transform="translate(80,0)"><use href="#ico-doc"/></g>
+      <text x="150" y="30" font-size="15.5" font-weight="600" fill="#33383f">Print the packing list separately</text>
+    </g>
+    <g transform="translate(0,254)">
+      <circle cx="44" cy="24" r="17" fill="#eaf1fa"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#5c6b7e">3</text>
+      <g transform="translate(80,0)"><use href="#ico-match"/></g>
+      <text x="150" y="30" font-size="15.5" font-weight="600" fill="#33383f">Match each label to its list</text>
+    </g>
+    <g transform="translate(0,322)">
+      <circle cx="44" cy="24" r="17" fill="#eaf1fa"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#5c6b7e">4</text>
+      <g transform="translate(80,0)"><use href="#ico-pouch"/></g>
+      <text x="150" y="30" font-size="15.5" font-weight="600" fill="#33383f">Slide the list into a plastic pouch</text>
+    </g>
+    <g transform="translate(0,390)">
+      <circle cx="44" cy="24" r="17" fill="#eaf1fa"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#5c6b7e">5</text>
+      <g transform="translate(80,0)"><use href="#ico-box"/></g>
+      <text x="150" y="24" font-size="15.5" font-weight="600" fill="#33383f">Stick the pouch on the box</text>
+      <text x="150" y="44" font-size="15.5" font-weight="600" fill="#33383f">and apply the label</text>
+    </g>
+  </g>
+
+  <!-- ===== RIGHT PANEL: Print & Ship ===== -->
+  <rect x="514" y="14" width="452" height="532" rx="18" fill="#f5f9ff" stroke="#2196f3" stroke-width="2"/>
+  <text x="544" y="58" font-size="12.5" font-weight="700" letter-spacing="1.5" fill="#1878cf">WITH PRINT &amp; SHIP</text>
+  <text x="544" y="88" font-size="26" font-weight="800" fill="#0e2a47">Two steps</text>
+  <line x1="544" y1="128" x2="544" y2="300" stroke="#bcd8f5" stroke-width="2" stroke-dasharray="2 7"/>
+
+  <g transform="translate(500,0)">
+    <g transform="translate(0,118)">
+      <circle cx="44" cy="24" r="17" fill="#2196f3"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">1</text>
+      <g transform="translate(80,0)"><use href="#ico-label"/></g>
+      <text x="150" y="20" font-size="15.5" font-weight="600" fill="#33383f">Print one duplex A5 document</text>
+      <text x="150" y="40" font-size="14" fill="#5c6b7e">shipping label front, packing list back</text>
+    </g>
+    <g transform="translate(0,224)">
+      <circle cx="44" cy="24" r="17" fill="#2196f3"/><text x="44" y="30" text-anchor="middle" font-size="16" font-weight="800" fill="#fff">2</text>
+      <g transform="translate(80,-2)"><use href="#ico-box"/></g>
+      <text x="150" y="30" font-size="15.5" font-weight="600" fill="#33383f">Peel and apply. Done.</text>
+    </g>
+  </g>
+
+  <!-- payoff note right panel -->
+  <g transform="translate(544,340)">
+    <line x1="0" y1="0" x2="392" y2="0" stroke="#d9e6f5" stroke-width="1.5"/>
+    <text x="0" y="34" font-size="15" font-weight="700" fill="#0e2a47">No matching by hand. No plastic pouch.</text>
+    <text x="0" y="60" font-size="14.5" fill="#5c6b7e">The packing list is printed straight onto the</text>
+    <text x="0" y="82" font-size="14.5" fill="#5c6b7e">back of the label — one document, done.</text>
+  </g>
+</svg>
