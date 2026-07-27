@@ -12,15 +12,48 @@
     s1.charset = 'UTF-8';
     s1.setAttribute('crossorigin', '*');
     s0.parentNode.insertBefore(s1, s0);
+    keepTitle();
+  }
+
+  // Stop the live-chat widget from hijacking the browser tab title with a
+  // blinking "N new message(s)" alert — keep the real page title stable.
+  function keepTitle() {
+    try {
+      var realTitle = document.title;
+      var tEl = document.querySelector('title');
+      if (!tEl || !window.MutationObserver) return;
+      new MutationObserver(function () {
+        if (document.title !== realTitle) document.title = realTitle;
+      }).observe(tEl, { childList: true });
+    } catch (e) {}
   }
 
   function loadGT() {
     if (window.__ppGT) return; window.__ppGT = true;
+    gtStyles();
     window.gtranslateSettings = {"default_language":"en","native_language_names":true,"languages":["en","de","es","fr","it","nl","pt","sv"],"wrapper_selector":".gtranslate_wrapper","switcher_horizontal_position":"inline","flag_style":"3d","flag_size":24};
     var s = document.createElement('script');
     s.src = 'https://cdn.gtranslate.net/widgets/latest/dwf.js';
     s.defer = true;
     document.body.appendChild(s);
+  }
+
+  // Restyle the GTranslate switcher into a compact pill that matches the header.
+  function gtStyles() {
+    if (document.getElementById('pp-gt-css')) return;
+    var st = document.createElement('style'); st.id = 'pp-gt-css';
+    st.textContent =
+      ".gtranslate_wrapper .gt_switcher{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_selected{width:auto!important;background:#fff!important;border:1px solid #e4e9f0!important;border-radius:999px!important;box-shadow:none!important;overflow:visible!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_selected a{display:inline-flex!important;align-items:center;gap:7px;padding:6px 24px 6px 12px!important;font-size:14px!important;font-weight:500!important;color:#0e2a47!important;line-height:1!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_selected a img{width:18px!important;height:18px!important;border-radius:3px}" +
+      ".gtranslate_wrapper .gt_switcher .gt_selected:hover{border-color:#2196f3!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_selected:hover a{color:#2196f3!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_option{border-radius:10px!important;box-shadow:0 12px 30px rgba(14,42,71,.16)!important;border:1px solid #e4e9f0!important;overflow:hidden!important;margin-top:8px!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_option a{padding:8px 14px!important;font-size:13.5px!important;color:#33383f!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_option a:hover{background:#f5f8fc!important}" +
+      ".gtranslate_wrapper .gt_switcher .gt_option a img{width:18px!important;height:18px!important;border-radius:3px}";
+    document.head.appendChild(st);
   }
 
   function loadVideos() {
