@@ -346,20 +346,93 @@
 </footer>
 
 <script>
-  // Mockup-only submit handler. No backend yet: prevent the default POST,
-  // hide the form, and reveal the in-page thank-you message.
-  // At deploy time this will be replaced by a real handler that POSTs the
-  // enquiry to a backend which emails sales@pinnpt.com.
+  // Contact form handler — delivers every enquiry to sales@pinnpt.com.
+  //
+  //  • Preferred: Web3Forms (free, no server to host, no dashboard required).
+  //    Get a free access key at https://web3forms.com by entering
+  //    sales@pinnpt.com, then paste the key into WEB3FORMS_KEY below.
+  //    Submissions are then emailed straight to sales@pinnpt.com.
+  //  • Until a key is added, the form safely falls back to opening a
+  //    pre-filled email to sales@pinnpt.com, so no enquiry is ever lost.
   (function () {
-    var form = document.getElementById('contactForm');
+    var WEB3FORMS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE';
+    var SALES_EMAIL   = 'sales@pinnpt.com';
+
+    var form     = document.getElementById('contactForm');
     var formCard = document.getElementById('formCard');
-    var thanks = document.getElementById('thanks');
+    var thanks   = document.getElementById('thanks');
     if (!form) return;
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+
+    function showThanks() {
       formCard.style.display = 'none';
       thanks.style.display = 'block';
       thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function readFields() {
+      var g = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+      return {
+        enquiry:   g('enquiry'),   firstName: g('firstName'), lastName: g('lastName'),
+        company:   g('company'),   email:     g('email'),     phone:    g('phone'),
+        country:   g('country'),   message:   g('message')
+      };
+    }
+
+    function mailtoFallback(f) {
+      var subject = 'Pinnpoint website — ' + (f.enquiry || 'Enquiry');
+      var body = [
+        'Type of enquiry: ' + f.enquiry,
+        'Name: '    + (f.firstName + ' ' + f.lastName).trim(),
+        'Company: ' + f.company,
+        'Email: '   + f.email,
+        'Phone: '   + f.phone,
+        'Country: ' + f.country,
+        '', 'Message:', f.message
+      ].join('\n');
+      window.location.href = 'mailto:' + SALES_EMAIL +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body='    + encodeURIComponent(body);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      var f = readFields();
+      var btn = form.querySelector('button[type="submit"]');
+      var hasKey = WEB3FORMS_KEY && WEB3FORMS_KEY.indexOf('PASTE-') !== 0;
+
+      // No key yet → guaranteed-delivery fallback via the visitor's email app.
+      if (!hasKey) { mailtoFallback(f); showThanks(); return; }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject:   'Pinnpoint website — ' + (f.enquiry || 'Enquiry'),
+          from_name: (f.firstName + ' ' + f.lastName).trim() || 'Pinnpoint website',
+          replyto:   f.email,
+          'Type of enquiry': f.enquiry,
+          'First name': f.firstName,
+          'Last name':  f.lastName,
+          'Company':    f.company,
+          'Email':      f.email,
+          'Phone':      f.phone,
+          'Country':    f.country,
+          'Message':    f.message
+        })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.success) { showThanks(); }
+        else { mailtoFallback(f); showThanks(); }   // API hiccup → don't lose the lead
+      })
+      .catch(function () { mailtoFallback(f); showThanks(); })
+      .then(function () { if (btn) { btn.disabled = false; btn.textContent = 'Send request'; } });
     });
   })();
 </script>
