@@ -346,17 +346,18 @@
 </footer>
 
 <script>
-  // Contact form handler — delivers every enquiry to sales@pinnpt.com.
+  // Contact form handler — delivers every enquiry to sales@pinnpt.com AND nathan@pinnpt.com.
   //
   //  • Preferred: Web3Forms (free, no server to host).
   //    Get a free access key at https://web3forms.com using sales@pinnpt.com,
-  //    then paste it into WEB3FORMS_KEY below. Submissions are emailed
-  //    straight to sales@pinnpt.com.
+  //    paste it into WEB3FORMS_KEY below, then in the Web3Forms dashboard add
+  //    nathan@pinnpt.com as a second recipient so both inboxes are notified.
   //  • Until a key is added, the form safely falls back to opening a pre-filled
-  //    email to sales@pinnpt.com, so no enquiry is ever lost.
+  //    email addressed to BOTH sales@pinnpt.com and nathan@pinnpt.com, so no
+  //    enquiry is ever lost.
   (function () {
     var WEB3FORMS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE';
-    var SALES_EMAIL   = 'sales@pinnpt.com';
+    var RECIPIENTS    = 'sales@pinnpt.com,nathan@pinnpt.com';
 
     var form     = document.getElementById('contactForm');
     var formCard = document.getElementById('formCard');
@@ -389,7 +390,7 @@
         'Country: ' + f.country,
         '', 'Message:', f.message
       ].join('\n');
-      window.location.href = 'mailto:' + SALES_EMAIL +
+      window.location.href = 'mailto:' + RECIPIENTS +
         '?subject=' + encodeURIComponent(subject) +
         '&body='    + encodeURIComponent(body);
     }
