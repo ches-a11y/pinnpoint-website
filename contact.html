@@ -364,6 +364,17 @@
     var thanks   = document.getElementById('thanks');
     if (!form) return;
 
+    // Pre-select the enquiry type from ?enquiry= in the URL (set by the CTA links)
+    try {
+      var _q = new URLSearchParams(window.location.search).get('enquiry');
+      var _sel = document.getElementById('enquiry');
+      if (_q && _sel) {
+        for (var _i = 0; _i < _sel.options.length; _i++) {
+          if (_sel.options[_i].value.toLowerCase() === _q.toLowerCase()) { _sel.selectedIndex = _i; break; }
+        }
+      }
+    } catch (e) {}
+
     function showThanks() {
       formCard.style.display = 'none';
       thanks.style.display = 'block';

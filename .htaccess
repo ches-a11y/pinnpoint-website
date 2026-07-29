@@ -1,0 +1,3 @@
+# Serve the static Pinnpoint site; ignore the dormant WordPress in this folder
+DirectoryIndex index.html
+Options -Indexes
