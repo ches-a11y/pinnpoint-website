@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Place an Order — Pinnpoint</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--blue:#1f6fd6;--heading:#0e2a47;--text:#2c3e50;--line:#e4e9f0;--bg:#f4f7fb;--ok:#1a9e6a;--soft:#eef4fc;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.55}
+  header{background:#fff;border-bottom:1px solid var(--line);padding:16px 24px}
+  header .logo{font-weight:800;color:var(--blue);font-size:22px;letter-spacing:-.5px;text-decoration:none}
+  .wrap{max-width:720px;margin:0 auto;padding:34px 20px 80px}
+  h1{color:var(--heading);font-size:26px;margin:0 0 6px}
+  .lead{color:#5b6b7c;font-size:15px;margin:0 0 24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:0 2px 10px rgba(14,42,71,.05)}
+  label{display:block;font-weight:600;color:var(--heading);font-size:14px;margin:16px 0 6px}
+  input,select,textarea{width:100%;font-size:15px;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;color:var(--heading);font-family:inherit;background:#fff}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue)}
+  .row{display:flex;gap:14px}
+  .row>div{flex:1}
+  .hint{font-size:12.5px;color:#8090a0;margin-top:5px}
+  .req{color:var(--blue)}
+  button{margin-top:24px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:15px;font-size:16px;font-weight:700;cursor:pointer}
+  button:hover{background:#195cb4}
+  .terms{margin-top:20px;background:var(--soft);border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--heading)}
+  .terms b{color:var(--blue)}
+  .ok{display:none;background:#e7f6ef;border:1px solid #b6e3cd;border-radius:10px;padding:16px;color:#0e5c3a;margin-top:18px}
+  .foot{color:#8090a0;font-size:12px;margin-top:26px;text-align:center}
+</style>
+</head>
+<body>
+<header><a class="logo" href="index.html">pinnpoint</a></header>
+<div class="wrap">
+  <h1>Place an order</h1>
+  <p class="lead">Tell us what you need and we'll send a secure invoice with your pricing. Approved accounts only — orders are confirmed before fulfilment.</p>
+
+  <div class="card">
+    <form id="orderForm">
+      <input type="hidden" name="access_key" value="PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE">
+      <input type="hidden" name="subject" value="New Pinnpoint order request">
+      <input type="hidden" name="from_name" value="Pinnpoint Order Form">
+
+      <label>Product <span class="req">*</span></label>
+      <select name="Product" required>
+        <option value="PRINT & SHIP A5 EU (case = 1,000 sheets)">PRINT &amp; SHIP™ A5 EU — case (1,000 sheets)</option>
+        <option value="PRINT & SHIP A4 EU — COMING SOON" disabled>PRINT &amp; SHIP™ A4 EU — coming soon</option>
+      </select>
+
+      <label>Quantity — number of cases <span class="req">*</span></label>
+      <input type="number" name="Quantity (cases)" min="1" step="1" placeholder="e.g. 40" required>
+      <div class="hint">1 case = 1,000 sheets. Minimum 1 case.</div>
+
+      <div class="row">
+        <div>
+          <label>Company name <span class="req">*</span></label>
+          <input type="text" name="Company" required>
+        </div>
+        <div>
+          <label>VAT number <span class="req">*</span></label>
+          <input type="text" name="VAT number" placeholder="e.g. NL812345678B01" required>
+          <div class="hint">For EU reverse-charge VAT.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Contact name <span class="req">*</span></label>
+          <input type="text" name="Contact name" required>
+        </div>
+        <div>
+          <label>Work email <span class="req">*</span></label>
+          <input type="email" name="email" required>
+        </div>
+      </div>
+
+      <label>Delivery address <span class="req">*</span></label>
+      <textarea name="Delivery address" rows="3" placeholder="Street, postal code, city, country" required></textarea>
+
+      <label>Your PO reference <span class="hint" style="display:inline">(optional)</span></label>
+      <input type="text" name="PO reference">
+
+      <label>Notes <span class="hint" style="display:inline">(optional)</span></label>
+      <textarea name="Notes" rows="2" placeholder="Requested delivery date, anything else we should know"></textarea>
+
+      <div class="terms">
+        <b>How payment works:</b> new customers pay the first order upfront by iDEAL or card — we'll email a secure Stripe link. Established accounts are invoiced on <b>net-30</b> terms. Freight is included; Opti-Label ships your order.
+      </div>
+
+      <button type="submit">Submit order request</button>
+      <div class="ok" id="okMsg">Thanks — your order request is in. We'll email your invoice/payment link shortly.</div>
+    </form>
+  </div>
+  <p class="foot">Pinnpoint · Stil Creative AB · orders@pinnpt.com</p>
+</div>
+
+<script>
+  var RECIPIENTS = 'orders@pinnpt.com,sales@pinnpt.com,nathan@pinnpt.com';
+  var form = document.getElementById('orderForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var key = form.access_key.value;
+    var data = {};
+    new FormData(form).forEach(function(v,k){ if(k!=='access_key'&&k!=='from_name'&&k!=='subject') data[k]=v; });
+    var body = Object.keys(data).map(function(k){return k+': '+data[k];}).join('\n');
+    if (key && key.indexOf('PASTE-') !== 0) {
+      fetch('https://api.web3forms.com/submit', {
+        method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify(Object.assign({}, Object.fromEntries(new FormData(form)), {replyto: data.email, ccto: RECIPIENTS}))
+      }).then(function(r){return r.json();}).then(function(){ form.style.display='none'; document.getElementById('okMsg').style.display='block'; document.getElementById('okMsg').scrollIntoView(); })
+      .catch(function(){ fallback(); });
+    } else { fallback(); }
+    function fallback(){
+      window.location.href = 'mailto:'+RECIPIENTS+'?subject='+encodeURIComponent('New Pinnpoint order request')+'&body='+encodeURIComponent(body);
+    }
+  });
+</script>
+</body>
+</html>
