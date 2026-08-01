@@ -24,9 +24,11 @@
   .req{color:var(--blue)}
   button{margin-top:24px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:15px;font-size:16px;font-weight:700;cursor:pointer}
   button:hover{background:#195cb4}
+  button:disabled{opacity:.6;cursor:default}
   .terms{margin-top:20px;background:var(--soft);border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--heading)}
   .terms b{color:var(--blue)}
   .ok{display:none;background:#e7f6ef;border:1px solid #b6e3cd;border-radius:10px;padding:16px;color:#0e5c3a;margin-top:18px}
+  .err{display:none;background:#fdecec;border:1px solid #f5c2c2;border-radius:10px;padding:16px;color:#8c1d1d;margin-top:18px}
   .foot{color:#8090a0;font-size:12px;margin-top:26px;text-align:center}
 </style>
 </head>
@@ -38,10 +40,6 @@
 
   <div class="card">
     <form id="orderForm">
-      <input type="hidden" name="access_key" value="PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE">
-      <input type="hidden" name="subject" value="New Pinnpoint order request">
-      <input type="hidden" name="from_name" value="Pinnpoint Order Form">
-
       <label>Product <span class="req">*</span></label>
       <select name="Product" required>
         <option value="PRINT & SHIP A5 EU (case = 1,000 sheets)">PRINT &amp; SHIP™ A5 EU — case (1,000 sheets)</option>
@@ -88,32 +86,82 @@
         <b>How payment works:</b> new customers pay the first order upfront by iDEAL or card — we'll email a secure Stripe link. Established accounts are invoiced on <b>net-30</b> terms. Freight is included; Opti-Label ships your order.
       </div>
 
-      <button type="submit">Submit order request</button>
-      <div class="ok" id="okMsg">Thanks — your order request is in. We'll email your invoice/payment link shortly.</div>
+      <button type="submit" id="submitBtn">Submit order request</button>
+      <div class="ok" id="okMsg">Thanks — your order request is in. We'll email your invoice and secure payment link shortly.</div>
+      <div class="err" id="errMsg">Something went wrong sending your request. Please email orders@pinnpt.com and we'll take care of it right away.</div>
     </form>
   </div>
   <p class="foot">Pinnpoint · Stil Creative AB · orders@pinnpt.com</p>
 </div>
 
 <script>
+  // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-30 / iDEAL pay link).
+  // Pricing is applied here so the automation receives a finished amount (integer cents).
+  var WEBHOOK = 'https://hook.eu1.make.com/7jhwpewxp153o56nubaqu3c5p1k5y77a';
   var RECIPIENTS = 'orders@pinnpt.com,sales@pinnpt.com,nathan@pinnpt.com';
+
+  // Approved nearest-tier pricing. Unit = price per case (1,000 sheets) in euro cents.
+  // 75+ cases -> €139.90 | 38+ -> €149.90 | 18+ -> €159.90 | 8+ -> €174.90 | 3+ -> €189.90 | 1-2 -> €209.90
+  function unitCents(cases){
+    if (cases >= 75) return 13990;
+    if (cases >= 38) return 14990;
+    if (cases >= 18) return 15990;
+    if (cases >= 8)  return 17490;
+    if (cases >= 3)  return 18990;
+    return 20990;
+  }
+
   var form = document.getElementById('orderForm');
+  var btn = document.getElementById('submitBtn');
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var key = form.access_key.value;
-    var data = {};
-    new FormData(form).forEach(function(v,k){ if(k!=='access_key'&&k!=='from_name'&&k!=='subject') data[k]=v; });
-    var body = Object.keys(data).map(function(k){return k+': '+data[k];}).join('\n');
-    if (key && key.indexOf('PASTE-') !== 0) {
-      fetch('https://api.web3forms.com/submit', {
-        method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body: JSON.stringify(Object.assign({}, Object.fromEntries(new FormData(form)), {replyto: data.email, ccto: RECIPIENTS}))
-      }).then(function(r){return r.json();}).then(function(){ form.style.display='none'; document.getElementById('okMsg').style.display='block'; document.getElementById('okMsg').scrollIntoView(); })
-      .catch(function(){ fallback(); });
-    } else { fallback(); }
-    function fallback(){
-      window.location.href = 'mailto:'+RECIPIENTS+'?subject='+encodeURIComponent('New Pinnpoint order request')+'&body='+encodeURIComponent(body);
-    }
+
+    var f = new FormData(form);
+    var cases = parseInt(f.get('Quantity (cases)'), 10);
+    if (!cases || cases < 1) { form['Quantity (cases)'].focus(); return; }
+    var amountCents = cases * unitCents(cases);
+
+    // Field names here must match the Make webhook mapping.
+    var payload = {
+      company:      f.get('Company') || '',
+      contact_name: f.get('Contact name') || '',
+      email:        f.get('email') || '',
+      vat:          f.get('VAT number') || '',
+      product:      f.get('Product') || '',
+      cases:        String(cases),
+      amount_cents: String(amountCents),
+      address:      f.get('Delivery address') || '',
+      po_ref:       f.get('PO reference') || '',
+      notes:        f.get('Notes') || ''
+    };
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    document.getElementById('errMsg').style.display = 'none';
+
+    fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(payload).toString()
+    })
+    .then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      form.style.display = 'none';
+      var ok = document.getElementById('okMsg');
+      ok.style.display = 'block';
+      ok.scrollIntoView();
+    })
+    .catch(function(){
+      // Fallback: email the team so no order is ever lost.
+      btn.disabled = false;
+      btn.textContent = 'Submit order request';
+      var lines = Object.keys(payload).map(function(k){ return k + ': ' + payload[k]; }).join('\n');
+      window.location.href = 'mailto:' + RECIPIENTS +
+        '?subject=' + encodeURIComponent('New Pinnpoint order request') +
+        '&body=' + encodeURIComponent(lines);
+      document.getElementById('errMsg').style.display = 'block';
+    });
   });
 </script>
 </body>
