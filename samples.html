@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Place an Order — Pinnpoint</title>
+<title>Request Samples — Pinnpoint</title>
 <meta name="robots" content="noindex">
 <style>
   :root{--blue:#1f6fd6;--heading:#0e2a47;--text:#2c3e50;--line:#e4e9f0;--bg:#f4f7fb;--ok:#1a9e6a;--soft:#eef4fc;}
@@ -36,105 +36,91 @@
 <body>
 <header><a class="logo" href="index.html">pinnpoint</a><div class="gtranslate_wrapper"></div></header>
 <div class="wrap">
-  <h1>Place an order</h1>
-  <p class="lead">Tell us what you need and we'll send a secure invoice with your pricing. Approved accounts only — orders are confirmed before fulfilment.</p>
+  <h1>Request free samples</h1>
+  <p class="lead">Try the A5 Print &amp; Ship™ label at no cost. Choose a sample pack or a 50-sheet laser test pack, tell us where to send it, and we'll ship it to you free of charge.</p>
 
   <div class="card">
-    <form id="orderForm">
-      <label>Product <span class="req">*</span></label>
-      <select name="Product" required>
-        <option value="PRINT & SHIP A5 EU (case = 1,000 sheets)">PRINT &amp; SHIP™ A5 EU — case (1,000 sheets)</option>
-        <option value="PRINT & SHIP A4 EU — COMING SOON" disabled>PRINT &amp; SHIP™ A4 EU — coming soon</option>
+    <form id="sampleForm">
+      <label>What would you like? <span class="req">*</span></label>
+      <select name="request_type" required>
+        <option value="Sample pack">Sample pack — see and feel the finished label</option>
+        <option value="50-count laser test pack">50-sheet laser test pack — print it on your own laser printer</option>
       </select>
-
-      <label>Quantity — number of cases <span class="req">*</span></label>
-      <input type="number" name="Quantity (cases)" min="1" step="1" placeholder="e.g. 40" required>
-      <div class="hint">1 case = 1,000 sheets. Minimum 1 case.</div>
 
       <div class="row">
         <div>
           <label>Company name <span class="req">*</span></label>
-          <input type="text" name="Company" required>
+          <input type="text" name="company" required>
         </div>
         <div>
-          <label>VAT number <span class="req">*</span></label>
-          <input type="text" name="VAT number" placeholder="e.g. NL812345678B01" required>
-          <div class="hint">For EU reverse-charge VAT.</div>
+          <label>Contact name <span class="req">*</span></label>
+          <input type="text" name="contact_name" required>
         </div>
       </div>
 
       <div class="row">
         <div>
-          <label>Contact name <span class="req">*</span></label>
-          <input type="text" name="Contact name" required>
-        </div>
-        <div>
           <label>Work email <span class="req">*</span></label>
           <input type="email" name="email" required>
         </div>
+        <div>
+          <label>Phone <span class="hint" style="display:inline">(optional)</span></label>
+          <input type="text" name="phone">
+        </div>
       </div>
 
-      <label>Delivery address <span class="req">*</span></label>
-      <textarea name="Delivery address" rows="3" placeholder="Street, postal code, city, country" required></textarea>
+      <label>Shipping address <span class="req">*</span></label>
+      <textarea name="address" rows="3" placeholder="Street, postal code, city, country" required></textarea>
+      <div class="hint">Where we should ship your samples.</div>
 
-      <label>Your PO reference <span class="hint" style="display:inline">(optional)</span></label>
-      <input type="text" name="PO reference">
+      <label>Laser printer model <span class="hint" style="display:inline">(for the 50-sheet test)</span></label>
+      <input type="text" name="printer_model" placeholder="e.g. HP LaserJet Pro M404">
 
       <label>Notes <span class="hint" style="display:inline">(optional)</span></label>
-      <textarea name="Notes" rows="2" placeholder="Requested delivery date, anything else we should know"></textarea>
+      <textarea name="notes" rows="2" placeholder="Anything else we should know"></textarea>
 
       <div class="terms">
-        <b>How payment works:</b> new customers pay the first order upfront by iDEAL or card — we'll email a secure Stripe link. Established accounts are invoiced on <b>net-30</b> terms. Freight is included.
+        <b>Free of charge.</b> Samples and 50-sheet test packs ship at no cost — no purchase required. We'll get them on their way and follow up to answer any questions.
       </div>
 
-      <button type="submit" id="submitBtn">Submit order request</button>
-      <div class="ok" id="okMsg">Thanks — your order request is in. We'll email your invoice and secure payment link shortly.</div>
-      <div class="err" id="errMsg">Something went wrong sending your request. Please email orders@pinnpt.com and we'll take care of it right away.</div>
+      <button type="submit" id="submitBtn">Request samples</button>
+      <div class="ok" id="okMsg">Thanks — your sample request is in. We'll get your samples shipped and follow up shortly.</div>
+      <div class="err" id="errMsg">Something went wrong sending your request. Please email sales@pinnpt.com and we'll take care of it right away.</div>
     </form>
   </div>
-  <p class="foot">Pinnpoint · Stil Creative AB · orders@pinnpt.com</p>
+  <p class="foot">Pinnpoint · Stil Creative AB · sales@pinnpt.com</p>
 </div>
 
 <script>
-  // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-30 / iDEAL pay link).
-  // Pricing is applied here so the automation receives a finished amount (integer cents).
-  var WEBHOOK = 'https://hook.eu1.make.com/7jhwpewxp153o56nubaqu3c5p1k5y77a';
-  var RECIPIENTS = 'orders@pinnpt.com,sales@pinnpt.com';
+  // Pinnpoint sample intake -> Make webhook ("Pinnpoint Sample Requests") -> emails the fulfilment
+  // contact so the samples get shipped. Free path: no pricing, no invoicing.
+  var WEBHOOK = 'https://hook.eu1.make.com/y1dmbi4v6qy3wj09vadb0xumarolhghg';
+  var RECIPIENTS = 'sales@pinnpt.com';
 
-  // Approved nearest-tier pricing. Unit = price per case (1,000 sheets) in euro cents.
-  // 75+ cases -> €139.90 | 38+ -> €149.90 | 18+ -> €159.90 | 8+ -> €174.90 | 3+ -> €189.90 | 1-2 -> €209.90
-  function unitCents(cases){
-    if (cases >= 75) return 13990;
-    if (cases >= 38) return 14990;
-    if (cases >= 18) return 15990;
-    if (cases >= 8)  return 17490;
-    if (cases >= 3)  return 18990;
-    return 20990;
-  }
-
-  var form = document.getElementById('orderForm');
+  var form = document.getElementById('sampleForm');
   var btn = document.getElementById('submitBtn');
+
+  // Pre-select the 50-sheet test option when arriving from a "50 test sheets" CTA (?type=test).
+  try {
+    var _t = new URLSearchParams(window.location.search).get('type');
+    if (_t && _t.toLowerCase() === 'test') { form.request_type.value = '50-count laser test pack'; }
+  } catch (e) {}
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
+    if (typeof form.checkValidity === 'function' && !form.checkValidity()) { form.reportValidity(); return; }
 
     var f = new FormData(form);
-    var cases = parseInt(f.get('Quantity (cases)'), 10);
-    if (!cases || cases < 1) { form['Quantity (cases)'].focus(); return; }
-    var amountCents = cases * unitCents(cases);
-
-    // Field names here must match the Make webhook mapping.
+    // Field names here must match the Make "Pinnpoint Sample Requests" webhook mapping.
     var payload = {
-      company:      f.get('Company') || '',
-      contact_name: f.get('Contact name') || '',
-      email:        f.get('email') || '',
-      vat:          f.get('VAT number') || '',
-      product:      f.get('Product') || '',
-      cases:        String(cases),
-      amount_cents: String(amountCents),
-      address:      f.get('Delivery address') || '',
-      po_ref:       f.get('PO reference') || '',
-      notes:        f.get('Notes') || ''
+      request_type:  f.get('request_type') || '',
+      company:       f.get('company') || '',
+      contact_name:  f.get('contact_name') || '',
+      email:         f.get('email') || '',
+      phone:         f.get('phone') || '',
+      address:       f.get('address') || '',
+      printer_model: f.get('printer_model') || '',
+      notes:         f.get('notes') || ''
     };
 
     btn.disabled = true;
@@ -154,12 +140,12 @@
       ok.scrollIntoView();
     })
     .catch(function(){
-      // Fallback: email the team so no order is ever lost.
+      // Fallback: email the team so no request is ever lost.
       btn.disabled = false;
-      btn.textContent = 'Submit order request';
+      btn.textContent = 'Request samples';
       var lines = Object.keys(payload).map(function(k){ return k + ': ' + payload[k]; }).join('\n');
       window.location.href = 'mailto:' + RECIPIENTS +
-        '?subject=' + encodeURIComponent('New Pinnpoint order request') +
+        '?subject=' + encodeURIComponent('New Pinnpoint sample request') +
         '&body=' + encodeURIComponent(lines);
       document.getElementById('errMsg').style.display = 'block';
     });
