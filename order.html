@@ -123,12 +123,25 @@
     if (!cases || cases < 1) { form['Quantity (cases)'].focus(); return; }
     var amountCents = cases * unitCents(cases);
 
+    // Validate the VAT number — EU reverse-charge invoicing requires a valid one, and a
+    // blank or malformed VAT would otherwise fail silently downstream in Fortnox.
+    // Format check only (country code + 8-12 alphanumerics); Fortnox does the authoritative check.
+    var vat = (f.get('VAT number') || '').toUpperCase().replace(/[\s.\-]/g, '');
+    if (!/^[A-Z]{2}[A-Z0-9]{7,13}$/.test(vat)) {
+      var ve = document.getElementById('errMsg');
+      ve.textContent = 'Please enter a valid EU VAT number — country code + digits, e.g. NL812345678B01. It is required for reverse-charge invoicing.';
+      ve.style.display = 'block';
+      form['VAT number'].focus();
+      ve.scrollIntoView({ block: 'center' });
+      return;
+    }
+
     // Field names here must match the Make webhook mapping.
     var payload = {
       company:      f.get('Company') || '',
       contact_name: f.get('Contact name') || '',
       email:        f.get('email') || '',
-      vat:          f.get('VAT number') || '',
+      vat:          vat,
       product:      f.get('Product') || '',
       cases:        String(cases),
       amount_cents: String(amountCents),
@@ -161,7 +174,9 @@
       window.location.href = 'mailto:' + RECIPIENTS +
         '?subject=' + encodeURIComponent('New Pinnpoint order request') +
         '&body=' + encodeURIComponent(lines);
-      document.getElementById('errMsg').style.display = 'block';
+      var eb = document.getElementById('errMsg');
+      eb.textContent = "Something went wrong sending your request. Please email orders@pinnpt.com and we'll take care of it right away.";
+      eb.style.display = 'block';
     });
   });
 </script>
