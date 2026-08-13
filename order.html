@@ -95,7 +95,7 @@
       <textarea name="Notes" rows="2" placeholder="Requested delivery date, anything else we should know"></textarea>
 
       <div class="terms">
-        <b>How payment works:</b> new customers pay the first order upfront by iDEAL or card — we'll email a secure Stripe link. Established accounts are invoiced on <b>net-30</b> terms. Freight is included.
+        <b>How payment works:</b> new customers pay the first order upfront by iDEAL or card — we'll email a secure Stripe link. Established accounts are invoiced on <b>net-20</b> terms. Freight is included.
       </div>
 
       <button type="submit" id="submitBtn">Submit order request</button>
@@ -107,7 +107,7 @@
 </div>
 
 <script>
-  // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-30 / iDEAL pay link).
+  // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-20 / iDEAL pay link).
   // Pricing is applied here so the automation receives a finished amount (integer cents).
   var WEBHOOK = 'https://hook.eu1.make.com/7jhwpewxp153o56nubaqu3c5p1k5y77a';
   var RECIPIENTS = 'sales@pinnpt.com';
