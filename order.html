@@ -89,17 +89,17 @@
 
       <button type="submit" id="submitBtn">Submit order request</button>
       <div class="ok" id="okMsg">Thanks — your order request is in. We'll email your invoice and secure payment link shortly.</div>
-      <div class="err" id="errMsg">Something went wrong sending your request. Please email orders@pinnpt.com and we'll take care of it right away.</div>
+      <div class="err" id="errMsg">Something went wrong sending your request. Please email sales@pinnpt.com and we'll take care of it right away.</div>
     </form>
   </div>
-  <p class="foot">Pinnpoint · Stil Creative AB · orders@pinnpt.com</p>
+  <p class="foot">Pinnpoint · Stil Creative AB · sales@pinnpt.com</p>
 </div>
 
 <script>
   // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-30 / iDEAL pay link).
   // Pricing is applied here so the automation receives a finished amount (integer cents).
   var WEBHOOK = 'https://hook.eu1.make.com/7jhwpewxp153o56nubaqu3c5p1k5y77a';
-  var RECIPIENTS = 'orders@pinnpt.com,sales@pinnpt.com';
+  var RECIPIENTS = 'sales@pinnpt.com';
 
   // Approved nearest-tier pricing. Unit = price per case (1,000 sheets) in euro cents.
   // 75+ cases -> €139.90 | 38+ -> €149.90 | 18+ -> €159.90 | 8+ -> €174.90 | 3+ -> €189.90 | 1-2 -> €209.90
@@ -175,7 +175,7 @@
         '?subject=' + encodeURIComponent('New Pinnpoint order request') +
         '&body=' + encodeURIComponent(lines);
       var eb = document.getElementById('errMsg');
-      eb.textContent = "Something went wrong sending your request. Please email orders@pinnpt.com and we'll take care of it right away.";
+      eb.textContent = "Something went wrong sending your request. Please email sales@pinnpt.com and we'll take care of it right away.";
       eb.style.display = 'block';
     });
   });
