@@ -108,20 +108,9 @@
 
 <script>
   // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-20 / iDEAL pay link).
-  // Pricing is applied here so the automation receives a finished amount (integer cents).
+  // Pricing is computed server-side in the automation from the quantity, so no rate card is exposed here.
   var WEBHOOK = 'https://hook.eu1.make.com/7jhwpewxp153o56nubaqu3c5p1k5y77a';
   var RECIPIENTS = 'sales@pinnpt.com';
-
-  // Approved nearest-tier pricing. Unit = price per case (1,000 sheets) in euro cents.
-  // 75+ cases -> €139.90 | 38+ -> €149.90 | 18+ -> €159.90 | 8+ -> €174.90 | 3+ -> €189.90 | 1-2 -> €209.90
-  function unitCents(cases){
-    if (cases >= 75) return 13990;
-    if (cases >= 38) return 14990;
-    if (cases >= 18) return 15990;
-    if (cases >= 8)  return 17490;
-    if (cases >= 3)  return 18990;
-    return 20990;
-  }
 
   var form = document.getElementById('orderForm');
   var btn = document.getElementById('submitBtn');
@@ -132,7 +121,6 @@
     var f = new FormData(form);
     var cases = parseInt(f.get('Quantity (cases)'), 10);
     if (!cases || cases < 1) { form['Quantity (cases)'].focus(); return; }
-    var amountCents = cases * unitCents(cases);
 
     // Validate the VAT number — EU reverse-charge invoicing requires a valid one, and a
     // blank or malformed VAT would otherwise fail silently downstream in Fortnox.
@@ -155,7 +143,6 @@
       vat:          vat,
       product:      f.get('Product') || '',
       cases:        String(cases),
-      amount_cents: String(amountCents),
       address:      f.get('Delivery address') || '',
       po_ref:       f.get('PO reference') || '',
       notes:        f.get('Notes') || ''
