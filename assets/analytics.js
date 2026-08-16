@@ -10,7 +10,7 @@
    GA4 still receives cookieless pings before consent, so acquisition
    reporting works without dropping a cookie. */
 (function () {
-  var GA4_ID      = '';
+  var GA4_ID      = 'G-D8KGQ9D7Q4';
   var LINKEDIN_ID = '';
 
   window.dataLayer = window.dataLayer || [];
