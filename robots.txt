@@ -1,0 +1,7 @@
+# pinnpt.com
+User-agent: *
+Allow: /
+Disallow: /order.html
+Disallow: /samples.html
+
+Sitemap: https://pinnpt.com/sitemap.xml

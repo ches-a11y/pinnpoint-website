@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,15 +43,23 @@
   .err{display:none;background:#fdecec;border:1px solid #f5c2c2;border-radius:10px;padding:16px;color:#8c1d1d;margin-top:18px}
   .foot{color:#8090a0;font-size:12px;margin-top:26px;text-align:center}
 </style>
+<!-- pp:seo-patch:start -->
+<link rel="canonical" href="https://pinnpt.com/samples.html">
+<script src="/assets/analytics.js"></script>
+<!-- pp:seo-patch:end -->
 </head>
 <body>
-<header><a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint"></a><div class="gtranslate_wrapper"></div></header>
+<header><a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a><div class="gtranslate_wrapper"></div></header>
 <div class="wrap">
   <h1>Request free samples</h1>
   <p class="lead">Try the A5 Print &amp; Ship™ label at no cost. Choose a sample pack or a 50-sheet laser test pack, tell us where to send it, and we'll ship it to you free of charge.</p>
 
   <div class="card">
     <form id="sampleForm">
+    <div style="position:absolute;left:-9999px" aria-hidden="true">
+      <label for="pp_hp">Leave this field empty</label>
+      <input type="text" id="pp_hp" name="pp_hp" tabindex="-1" autocomplete="off">
+    </div>
       <label>What would you like? <span class="req">*</span></label>
       <select name="request_type" required>
         <option value="Sample pack">Sample pack — see and feel the finished label</option>
@@ -121,6 +129,10 @@
     e.preventDefault();
     if (typeof form.checkValidity === 'function' && !form.checkValidity()) { form.reportValidity(); return; }
 
+    var _hp = document.getElementById('pp_hp');
+
+    if (_hp && _hp.value) { return; }
+
     var f = new FormData(form);
     // Field names here must match the Make "Pinnpoint Sample Requests" webhook mapping.
     var payload = {
@@ -149,6 +161,9 @@
       var ok = document.getElementById('okMsg');
       ok.style.display = 'block';
       ok.scrollIntoView();
+      if (window.ppTrack) window.ppTrack('sample_request', {
+        form: 'sampleForm'
+      });
     })
     .catch(function(){
       // Fallback: email the team so no request is ever lost.

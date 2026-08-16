@@ -12,15 +12,15 @@
 <meta property="og:site_name" content="Pinnpoint">
 <meta property="og:title" content="Contact — Tell us what you need | Pinnpoint">
 <meta property="og:description" content="Get in touch with Pinnpoint — request a free sample pack or talk to our team about Print &amp; Ship.">
-<meta property="og:image" content="https://pinnpoint-website-production.up.railway.app/assets/og-image.png">
+<meta property="og:image" content="https://pinnpt.com/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact — Tell us what you need | Pinnpoint">
 <meta name="twitter:description" content="Get in touch with Pinnpoint — request a free sample pack or talk to our team about Print &amp; Ship.">
-<meta name="twitter:image" content="https://pinnpoint-website-production.up.railway.app/assets/og-image.png">
+<meta name="twitter:image" content="https://pinnpt.com/assets/og-image.png">
 <title>Contact — Tell us what you need | Pinnpoint</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/montserrat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
 <style>
   :root{
     --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
@@ -196,18 +196,24 @@
   .nav-cta .gtranslate_wrapper{display:inline-flex;align-items:center}
   .gt_switcher_wrapper{line-height:0}
 </style>
+<!-- pp:seo-patch:start -->
+<link rel="canonical" href="https://pinnpt.com/contact.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://pinnpt.com/#organization","name":"Pinnpoint","legalName":"Stil Creative AB","url":"https://pinnpt.com/","logo":{"@type":"ImageObject","url":"https://pinnpt.com/assets/logo.png","width":1021,"height":275},"email":"sales@pinnpt.com","address":{"@type":"PostalAddress","addressLocality":"Malmö","addressCountry":"SE"},"sameAs":["https://www.linkedin.com/company/pinnpoint/","https://vimeo.com/user42857453"],"description":"Pinnpoint makes the A5 Print & Ship label — one duplex document carrying the shipping label and packing slip together, built into nShift Transsmart and printed on standard duplex laser printers."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://pinnpt.com/#website","url":"https://pinnpt.com/","name":"Pinnpoint","publisher":{"@id":"https://pinnpt.com/#organization"},"inLanguage":"en-GB"}</script>
+<script src="/assets/analytics.js"></script>
+<!-- pp:seo-patch:end -->
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint"></a>
+    <a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a>
     <nav class="nav-links">
       <a href="print-ship.html">Print &amp; Ship</a>
       <a href="index.html#nshift">nShift</a>
       <a href="about.html">About Pinnpoint</a>
       <a href="strategic-partners.html">Partners</a>
-      <a href="blog.html">Blog</a>
+      <a href="blog.html">Blog</a><a href="testimonials.html">Testimonials</a>
       <a class="active" href="contact.html">Contact</a>
     
       
@@ -249,6 +255,10 @@
           <h2>Send us a request</h2>
           <p class="lede">Choose the type of enquiry and add a few details. We'll reply within one business day.</p>
           <form id="contactForm" novalidate>
+            <div style="position:absolute;left:-9999px" aria-hidden="true">
+              <label for="pp_hp">Leave this field empty</label>
+              <input type="text" id="pp_hp" name="pp_hp" tabindex="-1" autocomplete="off">
+            </div>
             <div class="field">
               <label for="enquiry">Type of enquiry</label>
               <select id="enquiry" name="enquiry" required>
@@ -296,6 +306,16 @@
           </form>
         </div>
 
+        <!-- Honest fallback: shown when the form could not be delivered directly -->
+        <div id="fallbackMsg" style="display:none;margin-top:16px;padding:16px 18px;
+             border:1px solid #f0d9c9;background:#fdf6f2;border-radius:12px;font-size:15px;
+             color:#33383f;line-height:1.6">
+          <strong style="color:#0e2a47">Your email app should have opened with this enquiry ready to send.</strong>
+          <span style="display:block;margin-top:6px">If nothing opened, please email us directly at
+          <a class="pp-mailto" href="mailto:sales@pinnpt.com" style="color:#2196f3;font-weight:600">sales@pinnpt.com</a>
+          — we reply within one business day.</span>
+        </div>
+
         <!-- Thank-you state (shown after submit) -->
         <div class="form-card thanks" id="thanks">
           <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
@@ -325,7 +345,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <img class="flogo" src="/assets/logo-white.png" alt="Pinnpoint">
+        <img class="flogo" src="/assets/logo-white.png" alt="Pinnpoint" width="1021" height="275">
         <p style="max-width:290px">Pinnpoint designs and manufactures labels for logistics — Print &amp; Ship, custom labels, combination label &amp; forms, and smart RFID.</p>
       </div>
       <div>
@@ -351,21 +371,31 @@
 </footer>
 
 <script>
-  // Contact form handler — delivers every enquiry to sales@pinnpt.com.
-  //
-  //  • Preferred: Web3Forms (free, no server to host).
-  //    Get a free access key at https://web3forms.com using sales@pinnpt.com,
-  //    paste it into WEB3FORMS_KEY below, then in the Web3Forms dashboard add
-  //  • Until a key is added, the form safely falls back to opening a pre-filled
-  //    email addressed to BOTH sales@pinnpt.com, so no
-  //    enquiry is ever lost.
+  /* Pinnpoint contact form.
+     ------------------------------------------------------------------------
+     SET ONE OF THESE TWO AND THE FORM DELIVERS FOR REAL:
+
+       CONTACT_ENDPOINT — a Make webhook URL (preferred: matches how order.html
+                          and samples.html already work, and can create the
+                          Pipedrive record). Posts form-encoded.
+
+       WEB3FORMS_KEY    — a free access key from web3forms.com, requested with
+                          sales@pinnpt.com. Takes about a minute.
+
+     Until one is set the form does NOT claim success. It opens a pre-filled
+     email and tells the visitor plainly what happened, with sales@pinnpt.com
+     shown as clickable text — so an enquiry is never silently swallowed.
+     ------------------------------------------------------------------------ */
   (function () {
-    var WEB3FORMS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE';
-    var RECIPIENTS    = 'sales@pinnpt.com';
+    var CONTACT_ENDPOINT = '';
+    var WEB3FORMS_KEY    = '';
+    var RECIPIENTS       = 'sales@pinnpt.com';
 
     var form     = document.getElementById('contactForm');
     var formCard = document.getElementById('formCard');
     var thanks   = document.getElementById('thanks');
+    var fallback = document.getElementById('fallbackMsg');
+    var errMsg   = document.getElementById('contactErr');
     if (!form) return;
 
     // Pre-select the enquiry type from ?enquiry= in the URL (set by the CTA links)
@@ -374,16 +404,12 @@
       var _sel = document.getElementById('enquiry');
       if (_q && _sel) {
         for (var _i = 0; _i < _sel.options.length; _i++) {
-          if (_sel.options[_i].value.toLowerCase() === _q.toLowerCase()) { _sel.selectedIndex = _i; break; }
+          if (_sel.options[_i].value.toLowerCase() === _q.toLowerCase()) {
+            _sel.selectedIndex = _i; break;
+          }
         }
       }
     } catch (e) {}
-
-    function showThanks() {
-      formCard.style.display = 'none';
-      thanks.style.display = 'block';
-      thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
 
     function readFields() {
       var g = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
@@ -394,7 +420,16 @@
       };
     }
 
-    function mailtoFallback(f) {
+    function showThanks() {
+      formCard.style.display = 'none';
+      thanks.style.display = 'block';
+      thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (window.ppTrack) window.ppTrack('contact_submit', { method: 'form' });
+    }
+
+    // Honest fallback: open the mail client AND leave the form on screen with
+    // a visible explanation, so the visitor knows whether it actually went.
+    function showFallback(f) {
       var subject = 'Pinnpoint website — ' + (f.enquiry || 'Enquiry');
       var body = [
         'Type of enquiry: ' + f.enquiry,
@@ -405,9 +440,16 @@
         'Country: ' + f.country,
         '', 'Message:', f.message
       ].join('\n');
-      window.location.href = 'mailto:' + RECIPIENTS +
+      var href = 'mailto:' + RECIPIENTS +
         '?subject=' + encodeURIComponent(subject) +
         '&body='    + encodeURIComponent(body);
+      if (fallback) {
+        fallback.querySelector('a.pp-mailto').setAttribute('href', href);
+        fallback.style.display = 'block';
+        fallback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      try { window.location.href = href; } catch (e) {}
+      if (window.ppTrack) window.ppTrack('contact_submit', { method: 'mailto_fallback' });
     }
 
     form.addEventListener('submit', function (e) {
@@ -416,39 +458,65 @@
         form.reportValidity();
         return;
       }
+      // Honeypot — a real person never fills this in.
+      var hp = document.getElementById('pp_hp');
+      if (hp && hp.value) { showThanks(); return; }
+
       var f = readFields();
       var btn = form.querySelector('button[type="submit"]');
-      var hasKey = WEB3FORMS_KEY && WEB3FORMS_KEY.indexOf('PASTE-') !== 0;
+      if (errMsg) errMsg.style.display = 'none';
 
-      // No key yet → guaranteed-delivery fallback via the visitor's email app.
-      if (!hasKey) { mailtoFallback(f); showThanks(); return; }
+      if (!CONTACT_ENDPOINT && !WEB3FORMS_KEY) { showFallback(f); return; }
 
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject:   'Pinnpoint website — ' + (f.enquiry || 'Enquiry'),
-          from_name: (f.firstName + ' ' + f.lastName).trim() || 'Pinnpoint website',
-          replyto:   f.email,
-          'Type of enquiry': f.enquiry,
-          'First name': f.firstName,
-          'Last name':  f.lastName,
-          'Company':    f.company,
-          'Email':      f.email,
-          'Phone':      f.phone,
-          'Country':    f.country,
-          'Message':    f.message
-        })
+
+      var req;
+      if (CONTACT_ENDPOINT) {
+        req = fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            request_type: 'Contact enquiry',
+            enquiry:      f.enquiry,
+            company:      f.company,
+            contact_name: (f.firstName + ' ' + f.lastName).trim(),
+            email:        f.email,
+            phone:        f.phone,
+            country:      f.country,
+            notes:        f.message
+          }).toString()
+        });
+      } else {
+        req = fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject:   'Pinnpoint website — ' + (f.enquiry || 'Enquiry'),
+            from_name: (f.firstName + ' ' + f.lastName).trim() || 'Pinnpoint website',
+            replyto:   f.email,
+            'Type of enquiry': f.enquiry,
+            'First name': f.firstName, 'Last name': f.lastName,
+            'Company': f.company, 'Email': f.email, 'Phone': f.phone,
+            'Country': f.country, 'Message': f.message
+          })
+        }).then(function (r) {
+          return r.json().then(function (d) {
+            if (!d || !d.success) throw new Error('web3forms');
+            return d;
+          });
+        });
+      }
+
+      req.then(function (r) {
+        if (r && r.ok === false) throw new Error('HTTP ' + r.status);
+        showThanks();
       })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data && data.success) { showThanks(); }
-        else { mailtoFallback(f); showThanks(); }   // API hiccup → don't lose the lead
-      })
-      .catch(function () { mailtoFallback(f); showThanks(); })
-      .then(function () { if (btn) { btn.disabled = false; btn.textContent = 'Send request'; } });
+      .catch(function () {
+        // Never claim success we can't verify.
+        if (btn) { btn.disabled = false; btn.textContent = 'Send request'; }
+        showFallback(f);
+      });
     });
   })();
 </script>

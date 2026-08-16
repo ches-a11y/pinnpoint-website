@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,15 +43,23 @@
   .err{display:none;background:#fdecec;border:1px solid #f5c2c2;border-radius:10px;padding:16px;color:#8c1d1d;margin-top:18px}
   .foot{color:#8090a0;font-size:12px;margin-top:26px;text-align:center}
 </style>
+<!-- pp:seo-patch:start -->
+<link rel="canonical" href="https://pinnpt.com/order.html">
+<script src="/assets/analytics.js"></script>
+<!-- pp:seo-patch:end -->
 </head>
 <body>
-<header><a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint"></a><div class="gtranslate_wrapper"></div></header>
+<header><a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a><div class="gtranslate_wrapper"></div></header>
 <div class="wrap">
   <h1>Place an order</h1>
   <p class="lead">Tell us what you need and we'll send a secure invoice with your pricing. Approved accounts only — orders are confirmed before fulfilment.</p>
 
   <div class="card">
     <form id="orderForm">
+    <div style="position:absolute;left:-9999px" aria-hidden="true">
+      <label for="pp_hp">Leave this field empty</label>
+      <input type="text" id="pp_hp" name="pp_hp" tabindex="-1" autocomplete="off">
+    </div>
       <label>Product <span class="req">*</span></label>
       <select name="Product" required>
         <option value="PRINT & SHIP A5 EU (case = 1,000 sheets)">PRINT &amp; SHIP™ A5 EU — case (1,000 sheets)</option>
@@ -118,6 +126,10 @@
   form.addEventListener('submit', function(e){
     e.preventDefault();
 
+    var _hp = document.getElementById('pp_hp');
+
+    if (_hp && _hp.value) { return; }
+
     var f = new FormData(form);
     var cases = parseInt(f.get('Quantity (cases)'), 10);
     if (!cases || cases < 1) { form['Quantity (cases)'].focus(); return; }
@@ -168,6 +180,9 @@
       var ok = document.getElementById('okMsg');
       ok.style.display = 'block';
       ok.scrollIntoView();
+      if (window.ppTrack) window.ppTrack('order_submit', {
+        form: 'orderForm'
+      });
     })
     .catch(function(){
       // Fallback: email the team so no order is ever lost.
