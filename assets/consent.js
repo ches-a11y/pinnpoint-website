@@ -125,6 +125,8 @@
   // public API
   window.ppSetConsent = function (v) {
     try { localStorage.setItem(CKEY, v); } catch (e) {}
+    // Tell Google Consent Mode v2 (see /assets/analytics.js) about the choice.
+    if (window.ppConsentUpdate) window.ppConsentUpdate(v);
     removeBanner();
     if (v === 'accepted') enableAll();
   };
@@ -132,6 +134,8 @@
 
   function boot() {
     var c = null; try { c = localStorage.getItem(CKEY); } catch (e) {}
+    // Replay a stored choice into Consent Mode on every page load.
+    if (c && window.ppConsentUpdate) window.ppConsentUpdate(c);
     if (c === 'accepted') { enableAll(); return; }
     styles();
     addVideoFacades();          // show click-to-load on any videos
