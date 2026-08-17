@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pinnpoint × nShift — Partner Pipeline</title>
+<style>
+  :root{
+    --plane:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --base:#c3c2b7; --ring:rgba(11,11,11,.10); --good:#006300;
+    --benelux:#2a78d6; --germany:#eb6834; --uki:#1baf7a; --navy:#1F3A5F;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --plane:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --base:#383835; --ring:rgba(255,255,255,.10); --good:#0ca30c;
+      --benelux:#3987e5; --germany:#d95926; --uki:#199e70; --navy:#9fc0e8;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--plane);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 24px 48px}
+  .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+  h1{font-size:22px;margin:0;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+  .sub{color:var(--ink2);font-size:13.5px;margin:3px 0 0}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:#fff3d6;color:#7a5b00;
+    border:1px solid #f0d488;border-radius:999px;padding:4px 11px;font-size:11.5px;font-weight:700;letter-spacing:.02em}
+  .badge.live{background:#e4f6ea;color:#0a6b2e;border-color:#a6dcbb}
+  @media (prefers-color-scheme: dark){.badge{background:#2a2410;color:#e8c766;border-color:#5c4d1e}.badge.live{background:#10281a;color:#5fd08a;border-color:#265a3a}}
+  .updated{color:var(--muted);font-size:12px;margin-top:6px}
+  .rule{height:3px;background:linear-gradient(90deg,var(--benelux),var(--germany),var(--uki));border-radius:3px;margin:14px 0 22px}
+
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:22px}
+  @media(max-width:860px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .tile{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:14px 15px}
+  .tile .lab{color:var(--ink2);font-size:12px;font-weight:600}
+  .tile .val{font-size:26px;font-weight:800;margin-top:6px;letter-spacing:-.02em}
+  .tile .dl{font-size:11.5px;margin-top:4px;color:var(--muted);font-weight:500}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--ring);border-radius:12px;padding:16px 18px}
+  .card h2{font-size:14px;margin:0 0 2px;font-weight:700}
+  .card .cs{color:var(--muted);font-size:12px;margin:0 0 10px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:2px 0 10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2);font-weight:600}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+  .funnel{display:grid;grid-template-columns:1fr;gap:8px}
+  .fstep{display:flex;align-items:center;gap:12px}
+  .fbar{height:34px;border-radius:6px;display:flex;align-items:center;padding:0 12px;color:#fff;font-weight:700;font-size:13px;min-width:64px}
+  .fmeta{font-size:12px;color:var(--ink2)}
+  .fmeta b{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--grid)}
+  th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;border:1px solid var(--ring)}
+  .reg{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+  .foot{color:var(--muted);font-size:12px;margin-top:18px;line-height:1.6}
+  .tt{position:fixed;pointer-events:none;background:var(--ink);color:var(--plane);padding:6px 9px;border-radius:7px;
+    font-size:12px;font-weight:600;opacity:0;transition:opacity .08s;white-space:nowrap;z-index:9;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <h1>Pinnpoint&nbsp;×&nbsp;nShift — Partner Pipeline</h1>
+      <p class="sub">Benelux · Germany · UK&nbsp;&amp;&nbsp;Ireland</p>
+      <p class="updated" id="updated"></p>
+    </div>
+    <span class="badge" id="statusBadge">● PREVIEW</span>
+  </div>
+  <div class="rule"></div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Activity by region</h2>
+      <p class="cs">Inquiries, samples, and orders per market</p>
+      <div class="legend" id="leg1"></div>
+      <svg id="bars" viewBox="0 0 440 240" width="100%" role="img" aria-label="Grouped bar chart of activity by region"></svg>
+    </div>
+    <div class="card">
+      <h2>Revenue trend — last 6 months</h2>
+      <p class="cs">€ thousands, by region</p>
+      <div class="legend" id="leg2"></div>
+      <svg id="lines" viewBox="0 0 440 240" width="100%" role="img" aria-label="Line chart of revenue by region over six months"></svg>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h2>Conversion</h2>
+    <p class="cs">Inquiry → sample → order</p>
+    <div class="funnel" id="funnel"></div>
+  </div>
+
+  <div class="card">
+    <h2>Recent activity</h2>
+    <p class="cs">Latest movements across the joint pipeline</p>
+    <table>
+      <thead><tr><th>Company</th><th>Region</th><th>Type</th><th class="num">Value</th><th>Status</th></tr></thead>
+      <tbody id="recent"></tbody>
+    </table>
+  </div>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<div class="tt" id="tt"></div>
+<script>
+/* ============================================================
+   DATA FEED
+   To go fully live, set DATA_URL to a JSON endpoint that returns
+   the same shape as SNAPSHOT below (a published Google Sheet as
+   JSON, or a small file a Make scenario keeps updated). While
+   DATA_URL is empty or unreachable, the dashboard shows SNAPSHOT.
+   ============================================================ */
+const DATA_URL = "";
+
+const SNAPSHOT = {
+  updated: "Preview · sample figures — goes live once connected to Pinnpoint's feed",
+  live: false,
+  commissionNote: "Commission is €10 per box (1,000 sheets), or the GBP equivalent for UK orders, on every new order from 20 August 2026 per the Pinnpoint–nShift partner agreement.",
+  kpis: [
+    {lab:"Inquiries (MTD)", val:"34", dl:"▲ 21% vs prev"},
+    {lab:"Samples sent", val:"19", dl:"▲ 12% vs prev"},
+    {lab:"Orders placed", val:"12", dl:"▲ 33% vs prev"},
+    {lab:"Revenue (€ equiv)", val:"€77.5k", dl:"▲ 23% vs prev"},
+    {lab:"nShift commission", val:"€5.2k", dl:"€10 / box · 520 boxes"}
+  ],
+  regions:[
+    {key:"Benelux", c:"--benelux"},
+    {key:"Germany", c:"--germany"},
+    {key:"UK & Ireland", c:"--uki"}
+  ],
+  activity:{ labels:["Inquiries","Samples","Orders"], values:{Inquiries:[14,11,9],Samples:[8,6,5],Orders:[5,4,3]}, max:15 },
+  trend:{ months:["Mar","Apr","May","Jun","Jul","Aug"], series:[[9,13,16,22,27,31.2],[6,9,12,18,22,24.8],[3,4,6,9,14,21.5]], max:35 },
+  funnel:[ {label:"Inquiries", n:34, pct:100, meta:""},
+           {label:"Samples", n:19, pct:56, meta:"<b>56%</b> of inquiries request a sample"},
+           {label:"Orders", n:12, pct:35, meta:"<b>35%</b> of inquiries convert to an order"} ],
+  recent:[
+    {company:"Van der Berg Logistics", region:0, type:"Order", value:"€6,240", status:"Shipped", good:true},
+    {company:"Rheinlabel GmbH", region:1, type:"Order", value:"€5,996", status:"Invoiced"},
+    {company:"Dublin Dispatch", region:2, type:"Order", value:"£5,196", status:"In production"},
+    {company:"Antwerp Pack BV", region:0, type:"Order", value:"€3,180", status:"Payment link sent"},
+    {company:"Midlands Fulfilment Ltd", region:2, type:"Sample", value:"—", status:"Sample sent"},
+    {company:"Hamburg Ship Co", region:1, type:"Inquiry", value:"—", status:"Qualifying"}
+  ]
+};
+
+const NS='http://www.w3.org/2000/svg';
+function gv(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+const tt=document.getElementById('tt');
+function showTT(e,html){tt.innerHTML=html;tt.style.opacity=1;tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY-10)+'px';}
+function hideTT(){tt.style.opacity=0;}
+
+async function loadData(){
+  if(DATA_URL){ try{ const r=await fetch(DATA_URL,{cache:'no-store'}); if(r.ok){ const j=await r.json(); return j; } }catch(e){} }
+  return SNAPSHOT;
+}
+
+function render(D){
+  const REG=D.regions.map(r=>({k:r.key,c:gv(r.c)}));
+  // status
+  const badge=document.getElementById('statusBadge');
+  if(D.live){ badge.textContent="● LIVE"; badge.className="badge live"; }
+  else{ badge.textContent="● PREVIEW"; badge.className="badge"; }
+  document.getElementById('updated').textContent = D.updated;
+
+  // kpis
+  document.getElementById('kpis').innerHTML = D.kpis.map(k=>
+    `<div class="tile"><div class="lab">${k.lab}</div><div class="val">${k.val}</div><div class="dl">${k.dl||''}</div></div>`).join('');
+
+  // legends
+  const legHTML = REG.map(r=>`<span><i class="dot" style="background:${r.c}"></i>${r.k}</span>`).join('');
+  document.getElementById('leg1').innerHTML = legHTML;
+  document.getElementById('leg2').innerHTML = legHTML;
+
+  // funnel
+  const fcolors=['#256abf','#3987e5','#6da7ec'];
+  document.getElementById('funnel').innerHTML = D.funnel.map((f,i)=>
+    `<div class="fstep"><div class="fbar" style="width:${f.pct}%;background:${fcolors[i]};${i===2?'color:#0b0b0b':''}">${f.label} · ${f.n}</div>${f.meta?`<div class="fmeta">${f.meta}</div>`:''}</div>`).join('');
+
+  // recent
+  document.getElementById('recent').innerHTML = D.recent.map(r=>{
+    const reg=REG[r.region];
+    return `<tr><td>${r.company}</td><td><span class="reg"><i class="dot" style="background:${reg.c}"></i>${reg.k}</span></td><td>${r.type}</td><td class="num">${r.value}</td><td><span class="pill"${r.good?' style="color:var(--good)"':''}>${r.status}</span></td></tr>`;
+  }).join('');
+
+  document.getElementById('foot').textContent =
+    (D.commissionNote?D.commissionNote+' ':'') +
+    (D.live?'Updates automatically from Pinnpoint’s Pipedrive + Stripe data; open via this saved link anytime.'
+           :'Sample figures for partner review — this view goes live and updates automatically once connected to Pinnpoint’s data feed.');
+
+  drawBars(D,REG); drawLines(D,REG);
+}
+
+function drawBars(D,REG){
+  const svg=document.getElementById('bars'); svg.innerHTML='';
+  const A=D.activity, metrics=A.labels, max=A.max;
+  const W=440,H=240,ml=30,mr=10,mt=10,mb=34, pw=W-ml-mr, ph=H-mt-mb;
+  for(let g=0;g<=max;g+=5){const y=mt+ph-(g/max)*ph;
+    svg.appendChild(el('line',{x1:ml,y1:y,x2:W-mr,y2:y,stroke:gv('--grid'),'stroke-width':1}));
+    const t=el('text',{x:ml-6,y:y+3,'text-anchor':'end','font-size':10,fill:gv('--muted')});t.textContent=g;svg.appendChild(t);}
+  const groupW=pw/metrics.length;
+  metrics.forEach((m,gi)=>{
+    const vals=A.values[m]; const bw=Math.min(22,(groupW-18)/3);
+    const gx=ml+gi*groupW+(groupW-bw*3-8)/2;
+    vals.forEach((v,ri)=>{
+      const x=gx+ri*(bw+4), bh=(v/max)*ph, y=mt+ph-bh;
+      const r=el('rect',{x:x,y:y,width:bw,height:bh,rx:4,fill:REG[ri].c});
+      r.addEventListener('mousemove',e=>showTT(e,`<b>${REG[ri].k}</b> · ${m}: ${v}`));
+      r.addEventListener('mouseleave',hideTT); svg.appendChild(r);
+      const lt=el('text',{x:x+bw/2,y:y-4,'text-anchor':'middle','font-size':10,'font-weight':700,fill:gv('--ink2')});lt.textContent=v;svg.appendChild(lt);
+    });
+    const t=el('text',{x:ml+gi*groupW+groupW/2,y:H-14,'text-anchor':'middle','font-size':11,'font-weight':600,fill:gv('--ink2')});t.textContent=m;svg.appendChild(t);
+  });
+}
+
+function drawLines(D,REG){
+  const svg=document.getElementById('lines'); svg.innerHTML='';
+  const T=D.trend, months=T.months, max=T.max;
+  const W=440,H=240,ml=30,mr=44,mt=10,mb=30, pw=W-ml-mr, ph=H-mt-mb;
+  for(let g=0;g<=max;g+=10){const y=mt+ph-(g/max)*ph;
+    svg.appendChild(el('line',{x1:ml,y1:y,x2:W-mr,y2:y,stroke:gv('--grid'),'stroke-width':1}));
+    const t=el('text',{x:ml-6,y:y+3,'text-anchor':'end','font-size':10,fill:gv('--muted')});t.textContent=g;svg.appendChild(t);}
+  const xf=i=>ml+(i/(months.length-1))*pw, yf=v=>mt+ph-(v/max)*ph;
+  months.forEach((m,i)=>{const t=el('text',{x:xf(i),y:H-12,'text-anchor':'middle','font-size':10.5,fill:gv('--muted')});t.textContent=m;svg.appendChild(t);});
+  T.series.forEach((s,si)=>{
+    let d=''; s.forEach((v,i)=>d+=(i?'L':'M')+xf(i)+' '+yf(v)+' ');
+    svg.appendChild(el('path',{d:d,fill:'none',stroke:REG[si].c,'stroke-width':2.4,'stroke-linejoin':'round','stroke-linecap':'round'}));
+    s.forEach((v,i)=>{const c=el('circle',{cx:xf(i),cy:yf(v),r:3.2,fill:REG[si].c,stroke:gv('--surface'),'stroke-width':1.5});
+      c.addEventListener('mousemove',e=>showTT(e,`<b>${REG[si].k}</b> · ${months[i]}: €${v}k`));
+      c.addEventListener('mouseleave',hideTT); svg.appendChild(c);});
+    const lv=s[s.length-1];const lt=el('text',{x:W-mr+5,y:yf(lv)+3,'font-size':10.5,'font-weight':700,fill:REG[si].c});lt.textContent='€'+lv+'k';svg.appendChild(lt);
+  });
+}
+
+loadData().then(render);
+window.addEventListener('resize',()=>loadData().then(render));
+</script>
+</body>
+</html>
