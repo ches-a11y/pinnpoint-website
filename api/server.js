@@ -61,8 +61,20 @@ const OWN = new RegExp(
   'i'
 );
 
-function isTestRecord(...fields) {
-  return fields.some(f => f && (EXCLUDE.test(String(f)) || OWN.test(String(f))));
+/**
+ * Emails get a looser match than names: build accounts run together into one
+ * token (piet@crmtest.nl, jan@testbuyer.nl) where a word boundary never fires.
+ * Names keep the strict boundary so real customers survive.
+ */
+const EXCLUDE_EMAIL = new RegExp(
+  process.env.EXCLUDE_EMAIL_PATTERN ||
+  'test|audit|verify|smoke|dummy|example\\.|localhost',
+  'i'
+);
+
+function isTestRecord(names, email) {
+  if (email && (EXCLUDE_EMAIL.test(String(email)) || OWN.test(String(email)))) return true;
+  return names.some(n => n && (EXCLUDE.test(String(n)) || OWN.test(String(n))));
 }
 
 /** A record with no usable company or contact name is noise, not pipeline. */
@@ -195,7 +207,7 @@ function buildPayload(deals, persons) {
     if (!t) continue;
     const email = primaryEmail(d.person_id) || d.person_id?.email?.[0]?.value || '';
     const org = d.org_id?.name || '';
-    if (isTestRecord(d.title, org, email) || isBlank(companyFromTitle(d.title) || org)) { excluded++; continue; }
+    if (isTestRecord([d.title, org], email) || isBlank(companyFromTitle(d.title) || org)) { excluded++; continue; }
     orders.push({
       company: companyFromTitle(d.title) || org || 'Customer',
       value: Number(d.value || 0),
@@ -215,7 +227,7 @@ function buildPayload(deals, persons) {
     const email = primaryEmail(p);
     // Make writes "{contact name} — {company}"
     const company = String(p.name || '').split(/\s+—\s+/)[1] || String(p.name || '');
-    if (isTestRecord(p.name, company, email) || isBlank(company)) { excluded++; continue; }
+    if (isTestRecord([p.name, company], email) || isBlank(company)) { excluded++; continue; }
     leads.push({ company, email, time: t, region: regionOf(email, company) });
   }
 
