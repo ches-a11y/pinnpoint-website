@@ -37,6 +37,23 @@ const COMMISSION_NOTE =
   'Commission is €10 per box (1,000 sheets), or the GBP equivalent for UK orders, ' +
   'on every new customer order from 1 September 2026 per the Pinnpoint–nShift partner agreement.';
 
+/* ------------------------------------------------------------- exclusions */
+
+/**
+ * Pipedrive still holds records created while building and testing the Make
+ * automations. They must never reach a partner-facing view. Tunable without a
+ * code change via EXCLUDE_PATTERN (a case-insensitive regex source string).
+ */
+const EXCLUDE = new RegExp(
+  process.env.EXCLUDE_PATTERN ||
+  '\\b(test|tests|testing|audit|verify|verification|smoke|demo|dummy|sample run|placeholder|claude|acme)\\b|delete me|@(example|test)\\.(com|org|net)|testbuyer',
+  'i'
+);
+
+function isTestRecord(...fields) {
+  return fields.some(f => f && EXCLUDE.test(String(f)));
+}
+
 /* ---------------------------------------------------------------- regions */
 
 const REGIONS = [
@@ -154,12 +171,15 @@ function buildPayload(deals, persons) {
   const thisMonth = monthKey(now);
   const startMs = new Date(COMMISSION_START + 'T00:00:00Z').getTime();
 
+  let excluded = 0;
+
   const orders = [];
   for (const d of deals) {
     const t = parseTime(d.add_time);
     if (!t) continue;
     const email = primaryEmail(d.person_id) || d.person_id?.email?.[0]?.value || '';
     const org = d.org_id?.name || '';
+    if (isTestRecord(d.title, org, email)) { excluded++; continue; }
     orders.push({
       company: companyFromTitle(d.title) || org || 'Customer',
       value: Number(d.value || 0),
@@ -179,6 +199,7 @@ function buildPayload(deals, persons) {
     const email = primaryEmail(p);
     // Make writes "{contact name} — {company}"
     const company = String(p.name || '').split(/\s+—\s+/)[1] || String(p.name || '');
+    if (isTestRecord(p.name, company, email)) { excluded++; continue; }
     leads.push({ company, email, time: t, region: regionOf(email, company) });
   }
 
@@ -258,9 +279,12 @@ function buildPayload(deals, persons) {
     .slice(0, 8)
     .map(({ time, ...r }) => r); // region stays null when the market is unknown
 
+  if (excluded) console.log(`[feed] excluded ${excluded} test/build record(s)`);
+
   return {
     updated: 'Live · updated ' + now.toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
     live: true,
+    excludedTestRecords: excluded,
     commissionNote: COMMISSION_NOTE,
     kpis,
     regions: REGIONS,
