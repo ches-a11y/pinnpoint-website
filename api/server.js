@@ -359,6 +359,104 @@ function previewPayload(reason) {
   };
 }
 
+/* -------------------------------------------------------------- statement */
+
+/**
+ * A frozen commission statement for one calendar month. Unlike the dashboard,
+ * this must not move once the month has closed — it is what both sides settle
+ * against, so it reports the month's own orders and nothing else.
+ */
+async function buildStatement(month) {
+  const m = /^(\d{4})-(\d{2})$/.exec(month);
+  if (!m) throw new Error('month must be YYYY-MM');
+  const year = Number(m[1]), mon = Number(m[2]) - 1;
+  const from = Date.UTC(year, mon, 1);
+  const to = Date.UTC(year, mon + 1, 1);
+  const startMs = new Date(COMMISSION_START + 'T00:00:00Z').getTime();
+
+  const [deals, persons] = await Promise.all([
+    pdGetAll('/deals', { status: 'all_not_deleted' }),
+    pdGetAll('/persons')
+  ]);
+
+  const rows = [];
+  for (const d of deals) {
+    const t = parseTime(d.add_time);
+    if (!t) continue;
+    const ms = t.getTime();
+    if (ms < from || ms >= to) continue;
+    const email = primaryEmail(d.person_id) || '';
+    const org = d.org_id?.name || '';
+    if (isTestRecord([d.title, org], email)) continue;
+    const boxes = boxesFromTitle(d.title);
+    const commissionable = ms >= startMs;
+    rows.push({
+      date: d.add_time.slice(0, 10),
+      customer: companyFromTitle(d.title) || org || 'Customer',
+      region: regionOf(email, org + ' ' + (d.title || '')),
+      boxes,
+      value: Number(d.value || 0),
+      currency: d.currency || 'EUR',
+      commissionable,
+      commission: commissionable ? boxes * PER_BOX : 0
+    });
+  }
+  rows.sort((a, b) => a.date.localeCompare(b.date));
+
+  const leadsInMonth = persons.filter(p => {
+    const t = parseTime(p.add_time);
+    if (!t) return false;
+    const ms = t.getTime();
+    if (ms < from || ms >= to) return false;
+    const email = primaryEmail(p);
+    const company = String(p.name || '').split(/\s+—\s+/)[1] || String(p.name || '');
+    return !isTestRecord([p.name, company], email) && !isBlank(company);
+  }).length;
+
+  const byRegion = REGIONS.map((r, i) => {
+    const rr = rows.filter(x => x.region === i);
+    return {
+      region: r.key,
+      orders: rr.length,
+      boxes: rr.reduce((s, x) => s + x.boxes, 0),
+      revenue: rr.reduce((s, x) => s + x.value, 0),
+      commission: rr.reduce((s, x) => s + x.commission, 0)
+    };
+  });
+  const unattributed = rows.filter(x => x.region === null);
+  if (unattributed.length) {
+    byRegion.push({
+      region: 'Not attributed',
+      orders: unattributed.length,
+      boxes: unattributed.reduce((s, x) => s + x.boxes, 0),
+      revenue: unattributed.reduce((s, x) => s + x.value, 0),
+      commission: unattributed.reduce((s, x) => s + x.commission, 0)
+    });
+  }
+
+  const totals = {
+    leads: leadsInMonth,
+    orders: rows.length,
+    boxes: rows.reduce((s, x) => s + x.boxes, 0),
+    revenue: rows.reduce((s, x) => s + x.value, 0),
+    commissionableBoxes: rows.reduce((s, x) => s + (x.commissionable ? x.boxes : 0), 0),
+    commission: rows.reduce((s, x) => s + x.commission, 0)
+  };
+
+  return {
+    month,
+    monthLabel: `${MONTHS[mon]} ${year}`,
+    generated: new Date().toISOString().slice(0, 19).replace('T', ' ') + ' UTC',
+    commissionStart: COMMISSION_START,
+    perBox: PER_BOX,
+    currency: 'EUR',
+    note: COMMISSION_NOTE,
+    totals,
+    byRegion,
+    rows
+  };
+}
+
 /* ------------------------------------------------------------------ cache */
 
 let cache = { at: 0, body: null };
@@ -405,6 +503,32 @@ const server = http.createServer(async (req, res) => {
   if (path === '/health') {
     res.writeHead(200, { 'content-type': 'application/json' });
     res.end(JSON.stringify({ ok: true, configured: Boolean(TOKEN) }));
+    return;
+  }
+
+  if (path === '/statement.json') {
+    if (!TOKEN) {
+      res.writeHead(503, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ error: 'feed not configured' }));
+      return;
+    }
+    try {
+      const url = new URL(req.url, 'http://x');
+      // Default to the month that just closed — what you want on the 1st.
+      let month = url.searchParams.get('month');
+      if (!month) {
+        const n = new Date();
+        const prev = new Date(Date.UTC(n.getUTCFullYear(), n.getUTCMonth() - 1, 1));
+        month = `${prev.getUTCFullYear()}-${String(prev.getUTCMonth() + 1).padStart(2, '0')}`;
+      }
+      const body = JSON.stringify(await buildStatement(month));
+      res.writeHead(200, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
+      res.end(body);
+    } catch (err) {
+      console.error('[statement]', err.message);
+      res.writeHead(400, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    }
     return;
   }
 
