@@ -1,0 +1,9 @@
+{
+  "name": "pinnpoint-partner-feed",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live pipeline feed for the Pinnpoint x nShift partner dashboard",
+  "main": "server.js",
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node server.js" }
+}
