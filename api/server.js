@@ -200,6 +200,7 @@ function buildPayload(deals, persons) {
   const startMs = new Date(COMMISSION_START + 'T00:00:00Z').getTime();
 
   let excluded = 0;
+  const excludedList = []; // logged only — never served publicly
 
   const orders = [];
   for (const d of deals) {
@@ -207,7 +208,11 @@ function buildPayload(deals, persons) {
     if (!t) continue;
     const email = primaryEmail(d.person_id) || d.person_id?.email?.[0]?.value || '';
     const org = d.org_id?.name || '';
-    if (isTestRecord([d.title, org], email) || isBlank(companyFromTitle(d.title) || org)) { excluded++; continue; }
+    if (isTestRecord([d.title, org], email) || isBlank(companyFromTitle(d.title) || org)) {
+      excluded++;
+      excludedList.push({ kind: 'deal', id: d.id, name: d.title, org, email, added: d.add_time });
+      continue;
+    }
     orders.push({
       company: companyFromTitle(d.title) || org || 'Customer',
       value: Number(d.value || 0),
@@ -227,7 +232,11 @@ function buildPayload(deals, persons) {
     const email = primaryEmail(p);
     // Make writes "{contact name} — {company}"
     const company = String(p.name || '').split(/\s+—\s+/)[1] || String(p.name || '');
-    if (isTestRecord([p.name, company], email) || isBlank(company)) { excluded++; continue; }
+    if (isTestRecord([p.name, company], email) || isBlank(company)) {
+      excluded++;
+      excludedList.push({ kind: 'person', id: p.id, name: p.name, email, added: p.add_time });
+      continue;
+    }
     leads.push({ company, email, time: t, region: regionOf(email, company) });
   }
 
@@ -307,7 +316,12 @@ function buildPayload(deals, persons) {
     .slice(0, 8)
     .map(({ time, ...r }) => r); // region stays null when the market is unknown
 
-  if (excluded) console.log(`[feed] excluded ${excluded} test/build record(s)`);
+  if (excluded) {
+    console.log(`[feed] excluded ${excluded} test/build record(s)`);
+    // Written to the service log, not to the public payload, so the cleanup
+    // list never sits on a partner-facing URL.
+    for (const r of excludedList) console.log('[cleanup] ' + JSON.stringify(r));
+  }
 
   return {
     updated: 'Live · updated ' + now.toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
