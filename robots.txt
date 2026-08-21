@@ -1,8 +1,9 @@
-# pinnpt.com
 User-agent: *
 Allow: /
-Disallow: /order.html
-Disallow: /samples.html
-Disallow: /partner-dashboard.html
+
+# order.html, samples.html and partner-dashboard.html are excluded from the index
+# by their own <meta name="robots" content="noindex"> tag. They are deliberately
+# NOT disallowed here: a disallowed URL is never fetched, so the noindex would
+# never be read.
 
 Sitemap: https://pinnpt.com/sitemap.xml
