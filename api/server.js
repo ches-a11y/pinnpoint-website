@@ -50,8 +50,24 @@ const EXCLUDE = new RegExp(
   'i'
 );
 
+/**
+ * Records created by Pinnpoint's own operator while testing the live forms —
+ * his name, the company's own names, and internal email domains. A partner
+ * view should show customers, never us.
+ */
+const OWN = new RegExp(
+  process.env.OWN_PATTERN ||
+  '\\b(ches|cochran|pinnpoint|pinnpt|taylorwilco|stil creative)\\b|@(pinnpt|taylorwilco)\\.',
+  'i'
+);
+
 function isTestRecord(...fields) {
-  return fields.some(f => f && EXCLUDE.test(String(f)));
+  return fields.some(f => f && (EXCLUDE.test(String(f)) || OWN.test(String(f))));
+}
+
+/** A record with no usable company or contact name is noise, not pipeline. */
+function isBlank(name) {
+  return !String(name || '').replace(/[\s—–-]/g, '').trim();
 }
 
 /* ---------------------------------------------------------------- regions */
@@ -179,7 +195,7 @@ function buildPayload(deals, persons) {
     if (!t) continue;
     const email = primaryEmail(d.person_id) || d.person_id?.email?.[0]?.value || '';
     const org = d.org_id?.name || '';
-    if (isTestRecord(d.title, org, email)) { excluded++; continue; }
+    if (isTestRecord(d.title, org, email) || isBlank(companyFromTitle(d.title) || org)) { excluded++; continue; }
     orders.push({
       company: companyFromTitle(d.title) || org || 'Customer',
       value: Number(d.value || 0),
@@ -199,7 +215,7 @@ function buildPayload(deals, persons) {
     const email = primaryEmail(p);
     // Make writes "{contact name} — {company}"
     const company = String(p.name || '').split(/\s+—\s+/)[1] || String(p.name || '');
-    if (isTestRecord(p.name, company, email)) { excluded++; continue; }
+    if (isTestRecord(p.name, company, email) || isBlank(company)) { excluded++; continue; }
     leads.push({ company, email, time: t, region: regionOf(email, company) });
   }
 
