@@ -3,5 +3,6 @@ User-agent: *
 Allow: /
 Disallow: /order.html
 Disallow: /samples.html
+Disallow: /partner-dashboard.html
 
 Sitemap: https://pinnpt.com/sitemap.xml
