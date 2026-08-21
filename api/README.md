@@ -1,0 +1,1 @@
+Live pipeline feed for the Pinnpoint x nShift partner dashboard at pinnpt.com/partner-dashboard.html. Node service, no dependencies, deployed on Railway with this folder as the root directory. See server.js.
