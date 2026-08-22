@@ -1,0 +1,1 @@
+Build scripts used by scheduled tasks. build_statement.py renders the monthly Pinnpoint x nShift commission statement PDF from the payload served by /statement.json on the partner feed. Keeping it here means every month renders identically.
