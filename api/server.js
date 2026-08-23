@@ -16,6 +16,12 @@
  *   ALLOWED_ORIGINS       comma-separated (default pinnpt.com + www)
  *   CACHE_TTL_SECONDS     default 600
  *   PORT                  provided by Railway
+ *
+ * Form intake (see "form intake" below):
+ *   MAKE_ORDER_WEBHOOK    Make webhook for paid orders (scenario 6780105)
+ *   MAKE_SAMPLE_WEBHOOK   Make webhook for samples, 50-sheet tests and contact
+ *                         enquiries (scenario 6927621)
+ *   INTAKE_RATE_PER_HOUR  per-IP submissions allowed per hour (default 12)
  */
 
 'use strict';
@@ -483,6 +489,226 @@ async function getPayload() {
   return payload;
 }
 
+
+/* ------------------------------------------------------------- form intake */
+
+/**
+ * Validating proxy in front of the Make webhooks.
+ *
+ * WHY THIS EXISTS. The Make webhooks accept any POST, including one with no
+ * fields at all, and the scenario behind them emails the manufacturing plant
+ * what looks like a real order. Two completely blank sample requests reached
+ * the supplier on 12 and 17 August 2026. The webhook URLs were also published
+ * in the page source of every form, so anything could post to them directly.
+ *
+ * Every website form now posts here instead. Nothing reaches Make unless it
+ * carries the fields that make it a real request. Rejections cost no Make
+ * operation, and the webhook URLs live in Railway variables rather than in
+ * public HTML.
+ */
+
+const MAKE_ORDER_WEBHOOK  = process.env.MAKE_ORDER_WEBHOOK  || '';
+const MAKE_SAMPLE_WEBHOOK = process.env.MAKE_SAMPLE_WEBHOOK || '';
+const RATE_PER_HOUR = Number(process.env.INTAKE_RATE_PER_HOUR || 12);
+
+const MAX_BODY_BYTES = 32 * 1024;
+const MAX_FIELD_LEN  = 4000;
+
+// Counters, surfaced on /health so the daily health check can see abuse, or a
+// form that has started failing validation after a change.
+const intakeStats = {
+  accepted: 0, rejected: 0, rateLimited: 0, forwardErrors: 0, lastReject: null
+};
+
+const INTAKE_RULES = {
+  order: {
+    target: () => MAKE_ORDER_WEBHOOK,
+    required: ['company', 'contact_name', 'email', 'vat', 'product', 'cases', 'address'],
+    optional: ['po_ref', 'notes', 'currency'],
+    extra(f) {
+      const n = Number(f.cases);
+      if (!Number.isInteger(n) || n < 1 || n > 10000) {
+        return 'cases must be a whole number between 1 and 10000';
+      }
+      const vat = String(f.vat).toUpperCase().replace(/[\s.\-]/g, '');
+      if (!/^[A-Z]{2}[A-Z0-9]{7,13}$/.test(vat)) return 'vat is not a valid VAT number';
+      return null;
+    }
+  },
+  sample: {
+    target: () => MAKE_SAMPLE_WEBHOOK,
+    required: ['request_type', 'company', 'contact_name', 'email', 'address'],
+    optional: ['phone', 'printer_model', 'notes', 'uses_nshift']
+  },
+  contact: {
+    target: () => MAKE_SAMPLE_WEBHOOK,
+    required: ['request_type', 'company', 'contact_name', 'email'],
+    optional: ['phone', 'notes', 'enquiry', 'country', 'address', 'printer_model']
+  }
+};
+
+const rateBuckets = new Map();
+
+function clientIp(req) {
+  const fwd = req.headers['x-forwarded-for'];
+  if (typeof fwd === 'string' && fwd.length) return fwd.split(',')[0].trim();
+  return req.socket.remoteAddress || 'unknown';
+}
+
+function rateLimited(ip, now) {
+  const windowStart = now - 3600000;
+  const hits = (rateBuckets.get(ip) || []).filter(t => t > windowStart);
+  if (hits.length >= RATE_PER_HOUR) { rateBuckets.set(ip, hits); return true; }
+  hits.push(now);
+  rateBuckets.set(ip, hits);
+  // Keep the map from growing without bound on a long-lived process.
+  if (rateBuckets.size > 5000) {
+    for (const [k, v] of rateBuckets) {
+      if (!v.some(t => t > windowStart)) rateBuckets.delete(k);
+    }
+  }
+  return false;
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let size = 0;
+    const chunks = [];
+    req.on('data', c => {
+      size += c.length;
+      if (size > MAX_BODY_BYTES) { reject(new Error('body too large')); req.destroy(); return; }
+      chunks.push(c);
+    });
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
+function parseForm(raw, contentType) {
+  const fields = {};
+  if (/application\/json/i.test(contentType || '')) {
+    const obj = JSON.parse(raw || '{}');
+    for (const [k, v] of Object.entries(obj)) fields[k] = v == null ? '' : String(v);
+    return fields;
+  }
+  for (const [k, v] of new URLSearchParams(raw || '')) fields[k] = v;
+  return fields;
+}
+
+// Strip control characters, which have no business in a form field and are a
+// classic way to smuggle extra headers or lines into a downstream email.
+const CONTROL_CHARS = /[\x00-\x1F\x7F]/g;
+
+/**
+ * Returns { ok: true, payload } or { ok: false, status, error }.
+ * Kept pure so it can be unit-tested without a server.
+ */
+function validateIntake(kind, fields) {
+  const rule = INTAKE_RULES[kind];
+  if (!rule) return { ok: false, status: 404, error: 'unknown form' };
+
+  // Honeypot: a real browser leaves it empty, and the pages never send it filled.
+  if (String(fields.pp_hp || '').trim()) return { ok: false, status: 400, error: 'rejected' };
+
+  const clean = {};
+  for (const name of [...rule.required, ...rule.optional]) {
+    let v = fields[name];
+    v = v == null ? '' : String(v).replace(CONTROL_CHARS, '').trim();
+    if (v.length > MAX_FIELD_LEN) v = v.slice(0, MAX_FIELD_LEN);
+    clean[name] = v;
+  }
+
+  const missing = rule.required.filter(n => !clean[n]);
+  if (missing.length) {
+    return { ok: false, status: 400, error: 'missing required fields: ' + missing.join(', ') };
+  }
+
+  // Deliberately permissive: a shape check, not an address validator. The point
+  // is to stop blanks and obvious junk, never to turn away a real customer.
+  if (!/^[^\s@]+@[^\s@.]+\.[^\s@]{2,}$/.test(clean.email)) {
+    return { ok: false, status: 400, error: 'email does not look like an email address' };
+  }
+
+  if (rule.extra) {
+    const problem = rule.extra(clean);
+    if (problem) return { ok: false, status: 400, error: problem };
+  }
+
+  return { ok: true, payload: clean };
+}
+
+async function handleIntake(req, res, kind, dryRun) {
+  const now = Date.now();
+  const ip = clientIp(req);
+
+  if (rateLimited(ip, now)) {
+    intakeStats.rateLimited++;
+    res.writeHead(429, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ error: 'too many submissions, please try again later' }));
+    return;
+  }
+
+  let fields;
+  try {
+    fields = parseForm(await readBody(req), req.headers['content-type']);
+  } catch (err) {
+    intakeStats.rejected++;
+    intakeStats.lastReject = new Date().toISOString() + ' ' + kind + ': unreadable body';
+    res.writeHead(400, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ error: 'could not read the submission' }));
+    return;
+  }
+
+  const result = validateIntake(kind, fields);
+  if (!result.ok) {
+    intakeStats.rejected++;
+    intakeStats.lastReject = new Date().toISOString() + ' ' + kind + ': ' + result.error;
+    console.warn('[intake] rejected', kind, 'from', ip, '-', result.error);
+    res.writeHead(result.status, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ error: result.error }));
+    return;
+  }
+
+  // Proves the happy path end to end on the live service without emailing the
+  // plant or raising an invoice. Never forwards, so it cannot be used to bypass
+  // anything — it only ever reports what a valid submission would send.
+  if (dryRun) {
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ ok: true, dryRun: true, wouldForward: result.payload }));
+    return;
+  }
+
+  const target = INTAKE_RULES[kind].target();
+  if (!target) {
+    intakeStats.forwardErrors++;
+    console.error('[intake] no webhook configured for', kind);
+    res.writeHead(503, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ error: 'intake not configured' }));
+    return;
+  }
+
+  try {
+    const upstream = await fetch(target, {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(result.payload).toString(),
+      signal: AbortSignal.timeout(15000)
+    });
+    if (!upstream.ok) throw new Error('upstream ' + upstream.status);
+    intakeStats.accepted++;
+    console.log('[intake] accepted', kind, '-', result.payload.company);
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ ok: true }));
+  } catch (err) {
+    intakeStats.forwardErrors++;
+    console.error('[intake] forward failed', kind, err.message);
+    // A non-2xx here makes the page show its own fallback, so the enquiry
+    // reaches Ches by email rather than disappearing.
+    res.writeHead(502, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ error: 'could not deliver the submission' }));
+  }
+}
+
 /* ----------------------------------------------------------------- server */
 
 function cors(req, res) {
@@ -490,7 +716,8 @@ function cors(req, res) {
   if (origin && ALLOWED.includes(origin)) res.setHeader('access-control-allow-origin', origin);
   else res.setHeader('access-control-allow-origin', ALLOWED[0]);
   res.setHeader('vary', 'origin');
-  res.setHeader('access-control-allow-methods', 'GET,OPTIONS');
+  res.setHeader('access-control-allow-methods', 'GET,POST,OPTIONS');
+  res.setHeader('access-control-allow-headers', 'content-type');
   res.setHeader('access-control-max-age', '86400');
 }
 
@@ -500,9 +727,32 @@ const server = http.createServer(async (req, res) => {
 
   const path = new URL(req.url, 'http://x').pathname;
 
+  if (path.startsWith('/submit/')) {
+    if (req.method !== 'POST') {
+      res.writeHead(405, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ error: 'method not allowed' }));
+      return;
+    }
+    const kind = path.slice('/submit/'.length);
+    const dry = new URL(req.url, 'http://x').searchParams.get('dry') === '1';
+    await handleIntake(req, res, kind, dry);
+    return;
+  }
+
   if (path === '/health') {
     res.writeHead(200, { 'content-type': 'application/json' });
-    res.end(JSON.stringify({ ok: true, configured: Boolean(TOKEN) }));
+    res.end(JSON.stringify({
+      ok: true,
+      configured: Boolean(TOKEN),
+      intake: {
+        configured: Boolean(MAKE_ORDER_WEBHOOK && MAKE_SAMPLE_WEBHOOK),
+        accepted: intakeStats.accepted,
+        rejected: intakeStats.rejected,
+        rateLimited: intakeStats.rateLimited,
+        forwardErrors: intakeStats.forwardErrors,
+        lastReject: intakeStats.lastReject
+      }
+    }));
     return;
   }
 
@@ -552,4 +802,9 @@ const server = http.createServer(async (req, res) => {
   res.end(JSON.stringify({ error: 'not found' }));
 });
 
-server.listen(PORT, () => console.log(`[feed] listening on ${PORT}, live=${Boolean(TOKEN)}`));
+server.listen(PORT, () => console.log(
+  `[feed] listening on ${PORT}, live=${Boolean(TOKEN)}, ` +
+  `intake=${Boolean(MAKE_ORDER_WEBHOOK && MAKE_SAMPLE_WEBHOOK)}`
+));
+
+module.exports = { validateIntake };
