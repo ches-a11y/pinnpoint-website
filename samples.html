@@ -129,7 +129,10 @@
 <script>
   // Pinnpoint sample intake -> Make webhook ("Pinnpoint Sample Requests") -> emails the fulfilment
   // contact so the samples get shipped. Free path: no pricing, no invoicing.
-  var WEBHOOK = 'https://hook.eu1.make.com/y1dmbi4v6qy3wj09vadb0xumarolhghg';
+  // Posts to Pinnpoint's own validating intake, which checks the submission is
+  // complete before anything reaches the automation. The automation's webhook URL
+  // is no longer published here.
+  var WEBHOOK = 'https://partner-feed-production.up.railway.app/submit/sample';
   var RECIPIENTS = 'sales@pinnpt.com';
 
   var form = document.getElementById('sampleForm');

@@ -426,7 +426,10 @@
      shown as clickable text — so an enquiry is never silently swallowed.
      ------------------------------------------------------------------------ */
   (function () {
-    var CONTACT_ENDPOINT = 'https://hook.eu1.make.com/y1dmbi4v6qy3wj09vadb0xumarolhghg';
+    // Posts to Pinnpoint's own validating intake, which checks the submission is
+    // complete before anything reaches the automation. The automation's webhook URL
+    // is no longer published here.
+    var CONTACT_ENDPOINT = 'https://partner-feed-production.up.railway.app/submit/contact';
     var WEB3FORMS_KEY    = '';
     var RECIPIENTS       = 'sales@pinnpt.com';
 
