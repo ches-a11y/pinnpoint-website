@@ -67,6 +67,38 @@ rejects('order with bad VAT',       'order',  Object.assign({}, goodOrder, { vat
 rejects('unknown form kind',        'wibble', goodSample, 404);
 rejects('honeypot filled',          'sample', Object.assign({}, goodSample, { pp_hp: 'bot' }), 400);
 
+console.log('ORDER CANONICALISATION');
+// Make scenario 6780105 branches on substring(vat;0;2) = "GB" — case sensitive —
+// in five places: Stripe amount, Stripe currency, Pipedrive deal value and
+// currency, and the Fortnox VAT type / price / currency. These tests pin the
+// guarantee that the automation only ever sees a canonical VAT number.
+{
+  const messy = Object.assign({}, goodOrder, { vat: ' nl 8123-45678 b01 ', cases: ' 40 ', currency: 'USD' });
+  const r = validateIntake('order', messy);
+  check('messy VAT is accepted', r.ok, true);
+  check('VAT uppercased and stripped', r.payload.vat, 'NL812345678B01');
+  check('cases coerced to a clean integer', r.payload.cases, '40');
+  check('currency derived, not trusted from the client', r.payload.currency, 'EUR');
+
+  const uk = validateIntake('order', Object.assign({}, goodOrder, { vat: 'gb123456789', currency: '' }));
+  check('lowercase GB VAT is uppercased', uk.payload.vat, 'GB123456789');
+  check('GB VAT selects GBP', uk.payload.currency, 'GBP');
+
+  const ukSpaced = validateIntake('order', Object.assign({}, goodOrder, { vat: 'GB 123 456 789' }));
+  check('spaced GB VAT still selects GBP', ukSpaced.payload.currency, 'GBP');
+
+  const nl = validateIntake('order', Object.assign({}, goodOrder, { vat: 'NL812345678B01', currency: 'GBP' }));
+  check('a client claiming GBP on an NL VAT is overridden', nl.payload.currency, 'EUR');
+
+  const de = validateIntake('order', Object.assign({}, goodOrder, { vat: 'de123456789' }));
+  check('lowercase DE VAT selects EUR', de.payload.currency, 'EUR');
+  check('DE VAT uppercased', de.payload.vat, 'DE123456789');
+
+  // Non-order forms must be left alone.
+  const smp = validateIntake('sample', goodSample);
+  check('sample payload is not given a currency', smp.payload.currency, undefined);
+}
+
 console.log('SANITISING');
 {
   const r = accepts('VAT with spaces and dashes is accepted', 'order',

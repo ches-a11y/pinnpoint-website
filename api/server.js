@@ -520,6 +520,11 @@ const intakeStats = {
   accepted: 0, rejected: 0, rateLimited: 0, forwardErrors: 0, lastReject: null
 };
 
+// A VAT number as the downstream automation expects to see it: upper case, no
+// spaces, dots or hyphens. Country code plus 7-13 alphanumerics.
+const VAT_SHAPE = /^[A-Z]{2}[A-Z0-9]{7,13}$/;
+const canonicalVat = v => String(v || '').toUpperCase().replace(/[\s.\-]/g, '');
+
 const INTAKE_RULES = {
   order: {
     target: () => MAKE_ORDER_WEBHOOK,
@@ -530,9 +535,23 @@ const INTAKE_RULES = {
       if (!Number.isInteger(n) || n < 1 || n > 10000) {
         return 'cases must be a whole number between 1 and 10000';
       }
-      const vat = String(f.vat).toUpperCase().replace(/[\s.\-]/g, '');
-      if (!/^[A-Z]{2}[A-Z0-9]{7,13}$/.test(vat)) return 'vat is not a valid VAT number';
+      if (!VAT_SHAPE.test(canonicalVat(f.vat))) return 'vat is not a valid VAT number';
       return null;
+    },
+    /**
+     * Canonicalise before forwarding. The order scenario branches on
+     * substring(vat; 0; 2) = "GB" in five places to pick the pricing tier, the
+     * currency and the Fortnox VAT treatment, and that comparison is case
+     * sensitive — so a lowercase VAT number would silently price a UK order in
+     * euros. Uppercasing here makes the branch deterministic whatever the
+     * submission looked like. Currency is derived from the same rule rather
+     * than trusted from the client, so the two can never disagree.
+     */
+    normalise(f) {
+      f.vat = canonicalVat(f.vat);
+      f.cases = String(parseInt(f.cases, 10));
+      f.currency = f.vat.slice(0, 2) === 'GB' ? 'GBP' : 'EUR';
+      return f;
     }
   },
   sample: {
@@ -634,7 +653,9 @@ function validateIntake(kind, fields) {
     if (problem) return { ok: false, status: 400, error: problem };
   }
 
-  return { ok: true, payload: clean };
+  // Validate first, then canonicalise — so an error message quotes what the
+  // sender actually typed, but the automation only ever sees the clean form.
+  return { ok: true, payload: rule.normalise ? rule.normalise(clean) : clean };
 }
 
 async function handleIntake(req, res, kind, dryRun) {
