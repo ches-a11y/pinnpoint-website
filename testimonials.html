@@ -101,14 +101,14 @@
   /* face pair */
   .facepair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   .face{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-  .face img{width:100%;height:230px;object-fit:cover;background:var(--bg-tint)}
+  .face img{width:100%;height:230px;object-fit:contain;background:var(--bg-tint);padding:12px}
   .face .cap{padding:20px 22px}
   .face .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
   .face h3{font-size:19px;margin:5px 0 6px}
   .face p{color:var(--muted);font-size:14.5px}
 
   /* cards */
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.cards-3{grid-template-columns:repeat(3,1fr)}
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.25s}
   .card:hover{box-shadow:var(--shadow);border-color:transparent}
   .card .ico{width:46px;height:46px;border-radius:11px;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-bottom:14px}
@@ -143,7 +143,7 @@
 
   footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px}
   .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
-  footer .flogo{height:32px;margin-bottom:15px}
+  footer .flogo{height:32px;width:auto;margin-bottom:15px}
   footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
   footer a{display:block;color:#a6bdd6;margin-bottom:9px}
   footer a:hover{color:#fff}
@@ -175,7 +175,7 @@
 
   @media(max-width:900px){
     .phero .wrap,.split,.nshift .inner,.fgrid{grid-template-columns:1fr}
-    .steps,.cards{grid-template-columns:1fr 1fr}
+    .steps,.cards,.cards-3{grid-template-columns:1fr 1fr}
     .facepair{grid-template-columns:1fr}
     .nav-links{display:none}
     .nav-toggle{display:inline-flex}
@@ -187,11 +187,12 @@
     .qcards{grid-template-columns:1fr}
     .metrics{grid-template-columns:1fr}
   }
-  @media(max-width:560px){.steps,.cards{grid-template-columns:1fr}}
+  @media(max-width:560px){.steps,.cards,.cards-3{grid-template-columns:1fr}}
 
   /* GTranslate flag switcher in header */
   .nav-cta .gtranslate_wrapper{display:inline-flex;align-items:center}
   .gt_switcher_wrapper{line-height:0}
+@media(max-width:1024px){footer .fgrid a{padding:9px 0;margin-bottom:0}footer .fbar a{padding:6px 0}}
 </style>
 <!-- pp:seo-patch:start -->
 <link rel="canonical" href="https://pinnpt.com/testimonials.html">
@@ -237,29 +238,6 @@
 </section>
 
 <!-- VIDEOS -->
-<section class="soft">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Watch</p>
-      <h2>See Print &amp; Ship in action</h2>
-      <p>Two short films: cutting single-use plastic from dispatch, and a customer success story.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start">
-      <div>
-        <div style="position:relative;padding-top:56.25%;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
-          <iframe data-src="https://player.vimeo.com/video/362367773?dnt=1" style="position:absolute;inset:0;width:100%;height:100%;border:0" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen title="Reduce single-use plastics in shipping logistics with Print &amp; Ship"></iframe>
-        </div>
-        <p style="margin-top:12px;font-weight:600;color:var(--heading)">Reduce single-use plastics with Print &amp; Ship</p>
-      </div>
-      <div>
-        <div style="position:relative;padding-top:56.25%;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)">
-          <iframe data-src="https://player.vimeo.com/video/805613608?dnt=1" style="position:absolute;inset:0;width:100%;height:100%;border:0" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen title="Pinnpoint Customer Success: DTK Group"></iframe>
-        </div>
-        <p style="margin-top:12px;font-weight:600;color:var(--heading)">Customer success: DTK Group</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- FEATURED: STULZ -->
 <section>
@@ -322,7 +300,7 @@
     <div class="qcards" style="grid-template-columns:1fr;max-width:760px;margin:0 auto">
       <div class="qcard">
         <div class="tag">Measured result</div>
-        <p style="font-size:16.5px;line-height:1.65">Packing time fell from over two minutes a parcel to around 15 seconds. Across a comparable bench running a five-step routine at about 45 seconds a parcel, the same change lands at about 10 seconds — the basis for the &ldquo;up to 85%&rdquo; figure used elsewhere on this site. <a href="roi.html" style="color:var(--blue);font-weight:600">Put your own volume into the calculator &rarr;</a></p>
+        <p style="font-size:16.5px;line-height:1.65">Packing time fell from over two minutes a parcel to around 15 seconds. Across a comparable bench running a five-step routine at about 45 seconds a parcel, the same change lands at about 10 seconds — the basis for the &ldquo;up to 85%&rdquo; figure used elsewhere on this site.</p>
         <div class="who">
           <div class="name">DTK Group</div>
           <div class="role">Netherlands — former customer</div>
@@ -354,7 +332,7 @@
       </div>
       <div>
         <h4>Product</h4>
-        <a href="print-ship.html">Print &amp; Ship</a><a href="nshift-integrated-label.html">nShift Integrated Label</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a><a href="roi.html">Savings calculator</a>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a>
       </div>
       <div>
         <h4>Company</h4>
@@ -366,10 +344,6 @@
         <a href="tel:+46705505328">+46 70 550 5328</a>
         <span style="display:block;margin-bottom:9px"><a href="https://www.linkedin.com/company/pinnpoint/" style="display:inline" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://vimeo.com/user42857453" style="display:inline" target="_blank" rel="noopener noreferrer">Vimeo</a></span>
       </div>
-    </div>
-    <div id="entity-block" style="border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;color:#7891ac;font-size:13.5px;line-height:1.8">
-      <span style="color:#a6bdd6;font-weight:600">Stil Creative i Malmö AB</span> trading as Pinnpoint &middot; Box 20054, 200 74 Malmö, Sweden<br>
-      VAT SE556900839301 &middot; Company registration 556900-8393 &middot; EORI SE5569008393 &middot; <a href="tel:+46705505328" style="display:inline;color:#a6bdd6">+46 70 550 5328</a>
     </div>
     <div class="fbar" style="margin-top:20px;padding-top:16px">
       <span>© 2026 Pinnpoint — All rights reserved</span>

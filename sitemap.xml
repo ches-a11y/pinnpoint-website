@@ -56,11 +56,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pinnpt.com/nshift-integrated-label.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://pinnpt.com/print-ship.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -89,10 +84,5 @@
     <loc>https://pinnpt.com/testimonials.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pinnpt.com/roi.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
 </urlset>
