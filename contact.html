@@ -157,6 +157,8 @@
   .field{margin-bottom:18px}
   .field.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .field label{display:block;font-size:13.5px;font-weight:600;color:var(--heading);margin-bottom:7px}
+  .req{color:var(--blue-text)}
+  .opt{color:var(--muted);font-weight:500}
   .field input,.field select,.field textarea{width:100%;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;transition:.18s}
   .field textarea{min-height:130px;resize:vertical}
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.12)}
@@ -266,7 +268,7 @@
               <input type="text" id="pp_hp" name="pp_hp" tabindex="-1" autocomplete="off">
             </div>
             <div class="field">
-              <label for="enquiry">Type of enquiry</label>
+              <label for="enquiry">Type of enquiry <span class="req">*</span></label>
               <select id="enquiry" name="enquiry" required>
                 <option value="Request a sample pack">Request a sample pack</option>
                 <option value="Request 50 test sheets">Request 50 test sheets</option>
@@ -276,34 +278,34 @@
             </div>
             <div class="field row2">
               <div>
-                <label for="firstName">First name</label>
+                <label for="firstName">First name <span class="req">*</span></label>
                 <input id="firstName" name="firstName" type="text" autocomplete="given-name" required>
               </div>
               <div>
-                <label for="lastName">Last name</label>
+                <label for="lastName">Last name <span class="req">*</span></label>
                 <input id="lastName" name="lastName" type="text" autocomplete="family-name" required>
               </div>
             </div>
             <div class="field">
-              <label for="company">Company</label>
-              <input id="company" name="company" type="text" autocomplete="organization">
+              <label for="company">Company <span class="req">*</span></label>
+              <input id="company" name="company" type="text" autocomplete="organization" required>
             </div>
             <div class="field row2">
               <div>
-                <label for="email">Email</label>
+                <label for="email">Email <span class="req">*</span></label>
                 <input id="email" name="email" type="email" autocomplete="email" required>
               </div>
               <div>
-                <label for="phone">Phone</label>
+                <label for="phone">Phone <span class="opt">(optional)</span></label>
                 <input id="phone" name="phone" type="tel" autocomplete="tel">
               </div>
             </div>
             <div class="field">
-              <label for="country">Country</label>
+              <label for="country">Country <span class="opt">(optional)</span></label>
               <input id="country" name="country" type="text" autocomplete="country-name">
             </div>
             <div class="field">
-              <label for="message">Message</label>
+              <label for="message">Message <span class="opt">(optional)</span></label>
               <textarea id="message" name="message" placeholder="Tell us a little about what you need."></textarea>
             </div>
             <div class="form-actions">
