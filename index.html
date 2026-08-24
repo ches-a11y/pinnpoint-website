@@ -26,7 +26,7 @@
 <style>
   :root{
     --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
-    --blue:#2196f3; --blue-dark:#1878cf;
+    --blue:#2196f3;--blue-text:#1268bd;--blue-btn-hover:#0f62b3;--coral-text:#b4522f;--coral-btn-hover:#9c4527; --blue-dark:#1878cf;
     --coral:#e07a56; --coral-dark:#cf6a48;
     --bg:#ffffff; --bg-soft:#f5f8fc; --bg-tint:#eaf1fa;
     --line:#e4e9f0; --muted:#5c6b7e; --text:#33383f; --heading:#0e2a47;
@@ -41,17 +41,17 @@
   img{max-width:100%;display:block}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.16;letter-spacing:-.01em;font-weight:700}
-  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-text);margin-bottom:16px}
   .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;transition:.2s;cursor:pointer;border:1.5px solid transparent}
   .btn svg{width:17px;height:17px}
-  .btn-primary{background:var(--blue);color:#fff}
-  .btn-primary:hover{background:var(--blue-dark)}
-  .btn-coral{background:var(--coral);color:#fff}
-  .btn-coral:hover{background:var(--coral-dark)}
+  .btn-primary{background:var(--blue-text);color:#fff}
+  .btn-primary:hover{background:var(--blue-btn-hover)}
+  .btn-coral{background:var(--coral-text);color:#fff}
+  .btn-coral:hover{background:var(--coral-btn-hover)}
   .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
   .btn-ghost:hover{background:rgba(255,255,255,.1)}
   .btn-outline{border-color:var(--line);color:var(--heading);background:#fff}
-  .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue-text)}
 
   /* Header */
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -59,10 +59,10 @@
   .nav .logo img{height:50px;width:auto}
   .nav-links{display:flex;gap:28px;align-items:center}
   .nav-links a{font-weight:500;font-size:15px;color:var(--text)}
-  .nav-links a:hover{color:var(--blue)}
+  .nav-links a:hover{color:var(--blue-text)}
   .nav-cta{display:flex;gap:14px;align-items:center}
   .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
-  .nav-cta .acct:hover{color:var(--blue)}
+  .nav-cta .acct:hover{color:var(--blue-text)}
   .nav-toggle{display:none;background:none;border:0;color:var(--heading);cursor:pointer;padding:6px;align-items:center}
   .nav-links .acct-m{display:none}
 
@@ -94,18 +94,18 @@
   .nstep b{color:#fff;font-weight:600}
   .nstep span{color:#b3c6dc;font-size:14.5px;display:block;margin-top:2px}
   .nshift-card{background:#fff;color:var(--heading);border-radius:18px;padding:32px;box-shadow:var(--shadow-lg);text-align:center}
-  .nshift-card .pill{display:inline-block;background:var(--bg-tint);color:var(--blue);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
+  .nshift-card .pill{display:inline-block;background:var(--bg-tint);color:var(--blue-text);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;padding:6px 14px;border-radius:999px}
   .nshift-card h3{font-size:22px;margin:15px 0 8px}
   .nshift-card p{color:var(--muted);font-size:14.5px}
   .req{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap}
   .req .chip{background:var(--bg-soft);border:1px solid var(--line);border-radius:11px;padding:13px 16px;font-weight:600;color:var(--heading);font-size:14px;display:flex;align-items:center;gap:9px}
-  .req .chip svg{width:18px;height:18px;color:var(--blue)}
+  .req .chip svg{width:18px;height:18px;color:var(--blue-text)}
 
   /* pillars */
   .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   .pillar{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:30px 28px;transition:.25s}
   .pillar:hover{box-shadow:var(--shadow);border-color:transparent}
-  .pill-ico{width:48px;height:48px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px;background:var(--bg-tint);color:var(--blue)}
+  .pill-ico{width:48px;height:48px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px;background:var(--bg-tint);color:var(--blue-text)}
   .pill-ico svg{width:24px;height:24px}
   .pillar h3{font-size:19px;margin-bottom:8px}
   .pillar p{color:var(--muted);font-size:14.5px}
@@ -116,25 +116,25 @@
   .split img{border-radius:var(--radius);box-shadow:var(--shadow)}
   .blist{list-style:none;margin-top:22px;display:grid;gap:15px}
   .blist li{display:flex;gap:13px;align-items:flex-start}
-  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-top:2px}
+  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue-text);display:grid;place-items:center;margin-top:2px}
   .blist .chk svg{width:14px;height:14px}
   .blist b{color:var(--heading)}
   .blist span{color:var(--muted);font-size:15px}
   .facepair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
   .face{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
-  .face .t{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
-  .face h4{color:var(--heading);margin:5px 0 4px;font-size:16px}
+  .face .t{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue-text)}
+  .face h3{color:var(--heading);margin:5px 0 4px;font-size:16px}
   .face p{color:var(--muted);font-size:13px}
 
   /* offer */
   .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:0 auto}
   .offer{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;background:#fff;transition:.25s}
   .offer:hover{box-shadow:var(--shadow-lg)}
-  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral-text)}
   .offer h3{font-size:21px;margin:9px 0}
   .offer p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
   .offer.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.09)}
-  .offer.feat .tag{color:var(--blue)}
+  .offer.feat .tag{color:var(--blue-text)}
 
   /* sustainability */
   .sustain{background:var(--navy);color:#fff}
@@ -150,7 +150,7 @@
   .quote p{font-size:16.5px;color:var(--text)}
   .quote .who{margin-top:15px;font-weight:600;color:var(--heading)}
   .quote .who span{display:block;font-weight:400;color:var(--muted);font-size:14px}
-  .big-num{font-family:'Montserrat';font-size:32px;font-weight:800;color:var(--blue);letter-spacing:-.02em;margin-bottom:10px}
+  .big-num{font-family:'Montserrat';font-size:32px;font-weight:800;color:var(--blue-text);letter-spacing:-.02em;margin-bottom:10px}
 
   /* partners */
   .partners{background:var(--bg-soft);text-align:center}
@@ -167,7 +167,7 @@
   footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px;border-top:1px solid rgba(255,255,255,.07)}
   .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
   footer .flogo{height:32px;width:auto;margin-bottom:15px}
-  footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
+  footer h2{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
   footer a{display:block;color:#a6bdd6;margin-bottom:9px}
   footer a:hover{color:#fff}
   .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
@@ -196,10 +196,11 @@
   .gt_switcher_wrapper{line-height:0}
 @media(max-width:1024px){footer .fgrid a{padding:9px 0;margin-bottom:0}footer .fbar a{padding:6px 0}}
 /* new front/back label asset — override the legacy A5 presentation caps */.phero-media img[src*="front-back"],.split img[src*="front-back"],.post .thumb[src*="front-back"],.article .cover[src*="front-back"]{max-width:100%;width:100%;background:transparent;padding:0;box-shadow:none;border:0;border-radius:0}
-</style>
+.skip-link{position:absolute;left:-9999px;top:0;z-index:10000;background:#b4522f;color:#fff;padding:10px 18px;border-radius:0 0 8px 0;font-weight:600;font-size:14px;text-decoration:none}.skip-link:focus{left:0}main p a,main li a{text-decoration:underline;text-underline-offset:2px}</style>
 <!-- pp:seo-patch:start -->
+<link rel="preload" as="image" href="/assets/hero.jpg" fetchpriority="high">
 <link rel="canonical" href="https://pinnpt.com/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://pinnpt.com/#organization","name":"Pinnpoint","legalName":"Stil Creative AB","url":"https://pinnpt.com/","logo":{"@type":"ImageObject","url":"https://pinnpt.com/assets/logo.png","width":1021,"height":275},"email":"sales@pinnpt.com","address":{"@type":"PostalAddress","addressLocality":"Malmö","addressCountry":"SE"},"sameAs":["https://www.linkedin.com/company/pinnpoint/","https://vimeo.com/user42857453"],"description":"Pinnpoint makes the A5 Print & Ship label — one duplex document carrying the shipping label and packing slip together, built into nShift Transsmart and printed on standard duplex laser printers."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://pinnpt.com/#organization","name":"Pinnpoint","legalName":"Stil Creative AB","url":"https://pinnpt.com/","logo":{"@type":"ImageObject","url":"https://pinnpt.com/assets/logo.png","width":1021,"height":275},"email":"sales@pinnpt.com","telephone":"+46705505328","vatID":"SE556900839301","address":{"@type":"PostalAddress","addressLocality":"Malmö","addressCountry":"SE"},"contactPoint":{"@type":"ContactPoint","contactType":"sales","email":"sales@pinnpt.com","telephone":"+46705505328","availableLanguage":["en","sv","nl"]},"sameAs":["https://www.linkedin.com/company/pinnpoint/","https://vimeo.com/user42857453"],"description":"Pinnpoint makes the A5 Print & Ship label — one duplex document carrying the shipping label and packing slip together, built into nShift Transsmart and printed on standard duplex laser printers."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://pinnpt.com/#website","url":"https://pinnpt.com/","name":"Pinnpoint","publisher":{"@id":"https://pinnpt.com/#organization"},"inLanguage":"en-GB"}</script>
 <script src="/assets/analytics.js"></script>
 <!-- pp:seo-patch:end -->
@@ -207,6 +208,8 @@
 <body>
 
 <header>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <div class="wrap nav">
     <a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a>
     <nav class="nav-links">
@@ -217,17 +220,18 @@
       <a href="blog.html">Blog</a><a href="testimonials.html">Testimonials</a>
       <a href="order.html">Order</a>
       <a href="contact.html">Contact</a>
-    
-      
+
+
     </nav>
     <div class="nav-cta">
-      
-      
-      
-      <div class="gtranslate_wrapper"></div><button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('mnav')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+
+
+
+      <div class="gtranslate_wrapper"></div><button type="button" class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('mnav')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
 </header>
+<main id="main">
 
 <!-- HERO -->
 <section class="hero">
@@ -311,13 +315,13 @@
         <li><span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span><span><b>Room for your brand.</b> Use the packing-slip side for messages, promotions, and personalised offers.</span></li>
       </ul>
       <div class="facepair">
-        <div class="face"><div class="t">Front</div><h4>Shipping label</h4><p>Carrier-ready and scannable.</p></div>
-        <div class="face"><div class="t">Back</div><h4>Packing slip</h4><p>Built in — no separate packing list.</p></div>
+        <div class="face"><div class="t">Front</div><h3>Shipping label</h3><p>Carrier-ready and scannable.</p></div>
+        <div class="face"><div class="t">Back</div><h3>Packing slip</h3><p>Built in — no separate packing list.</p></div>
       </div>
       <div style="margin-top:26px"><a class="btn btn-primary" href="samples.html">Request a sample pack</a></div>
     </div>
     <div>
-      <picture><source media="(max-width:640px)" srcset="/assets/print-ship-front-back-stacked.svg"><img src="/assets/print-ship-front-back.svg" alt="The A5 Print &amp; Ship label — shipping label on the front, packing slip on the back, imaged in one duplex pass" width="856" height="560" style="width:100%;height:auto;display:block" loading="lazy" decoding="async"></picture>
+      <picture><source media="(max-width:640px)" srcset="/assets/print-ship-front-back-stacked.svg" width="400" height="1168"><img src="/assets/print-ship-front-back.svg" alt="The A5 Print &amp; Ship label — shipping label on the front, packing slip on the back, imaged in one duplex pass" width="856" height="560" style="width:100%;height:auto;display:block" loading="lazy" decoding="async"></picture>
     </div>
   </div>
 </section>
@@ -350,7 +354,7 @@
 <!-- SUSTAINABILITY -->
 <section class="sustain">
   <div class="wrap split">
-    <div><img src="/assets/sustainability-art.svg" alt="Sustainable Print & Ship — FSC-certified labels and a tree planted for every box" loading="lazy" decoding="async"></div>
+    <div><img src="/assets/sustainability-art.svg" alt="Sustainable Print & Ship — FSC-certified labels and a tree planted for every box" loading="lazy" decoding="async" width="680" height="400"></div>
     <div>
       <div class="leaf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg></div>
       <p class="eyebrow">Sustainability</p>
@@ -394,6 +398,7 @@
 </section>
 
 <!-- FOOTER -->
+</main>
 <footer>
   <div class="wrap">
     <div class="fgrid">
@@ -402,17 +407,17 @@
         <p style="max-width:290px">The A5 Print &amp; Ship label — built into nShift Transsmart, printed on standard duplex laser printers.</p>
       </div>
       <div>
-        <h4>Product</h4>
+        <h2>Product</h2>
         <a href="print-ship.html">Print &amp; Ship</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a>
       </div>
       <div>
-        <h4>Company</h4>
+        <h2>Company</h2>
         <a href="about.html">About</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h2>Contact</h2>
         <a href="contact.html">sales@pinnpt.com</a>
-        <a href="tel:+46705505328">+46 70 550 5328</a>
+        <a href="tel:+46705505328">+46&nbsp;70&nbsp;550&nbsp;5328</a>
         <span style="display:block;margin-bottom:9px"><a href="https://www.linkedin.com/company/pinnpoint/" style="display:inline" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://vimeo.com/user42857453" style="display:inline" target="_blank" rel="noopener noreferrer">Vimeo</a></span>
       </div>
     </div>

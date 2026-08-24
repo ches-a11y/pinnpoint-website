@@ -9,15 +9,15 @@
 <title>Pinnpoint × nShift — Partner Pipeline</title>
 <style>
   :root{
-    --plane:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --plane:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6a6862;
     --grid:#e1e0d9; --base:#c3c2b7; --ring:rgba(11,11,11,.10); --good:#006300;
-    --benelux:#2a78d6; --germany:#eb6834; --uki:#1baf7a; --navy:#1F3A5F; --other:#898781;
+    --benelux:#2a78d6; --germany:#eb6834; --uki:#1baf7a; --navy:#1F3A5F; --other:#6a6862;
   }
   @media (prefers-color-scheme: dark){
     :root{
-      --plane:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#898781;
+      --plane:#0d0d0d; --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#6a6862;
       --grid:#2c2c2a; --base:#383835; --ring:rgba(255,255,255,.10); --good:#0ca30c;
-      --benelux:#3987e5; --germany:#d95926; --uki:#199e70; --navy:#9fc0e8; --other:#898781;
+      --benelux:#3987e5; --germany:#d95926; --uki:#199e70; --navy:#9fc0e8; --other:#6a6862;
     }
   }
   *{box-sizing:border-box}
@@ -66,10 +66,12 @@
   .tt{position:fixed;pointer-events:none;background:var(--ink);color:var(--plane);padding:6px 9px;border-radius:7px;
     font-size:12px;font-weight:600;opacity:0;transition:opacity .08s;white-space:nowrap;z-index:9;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 @media(max-width:1024px){footer .fgrid a{padding:9px 0;margin-bottom:0}footer .fbar a{padding:6px 0}}
-</style>
+.skip-link{position:absolute;left:-9999px;top:0;z-index:10000;background:#b4522f;color:#fff;padding:10px 18px;border-radius:0 0 8px 0;font-weight:600;font-size:14px;text-decoration:none}.skip-link:focus{left:0}main p a,main li a{text-decoration:underline;text-underline-offset:2px}</style>
 <script src="/assets/analytics.js"></script>
 </head>
 <body>
+<main id="main">
+
 <div class="wrap">
   <div class="topbar">
     <div>
@@ -117,6 +119,7 @@
 </div>
 
 <div class="tt" id="tt"></div>
+</main>
 <script>
 /* ============================================================
    DATA FEED
@@ -258,5 +261,6 @@ loadData().then(render);
 setInterval(()=>loadData().then(render), REFRESH_MS);
 let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>render(LAST),150);});
 </script>
+<script src="/assets/consent.js" defer></script>
 </body>
 </html>

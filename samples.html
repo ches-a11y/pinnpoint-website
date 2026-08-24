@@ -18,7 +18,7 @@
 <meta property="og:description" content="Request a free Pinnpoint sample pack — Print &amp; Ship A5 EU labels.">
 <meta property="og:image" content="https://pinnpt.com/assets/og-image.png">
 <style>
-  :root{--blue:#2196f3;--heading:#0e2a47;--text:#2c3e50;--line:#e4e9f0;--bg:#f4f7fb;--ok:#1a9e6a;--soft:#eef4fc;}
+  :root{--blue:#2196f3;--blue-text:#1268bd;--blue-btn-hover:#0f62b3;--coral-text:#b4522f;--coral-btn-hover:#9c4527;--heading:#0e2a47;--text:#2c3e50;--line:#e4e9f0;--bg:#f4f7fb;--ok:#1a9e6a;--soft:#eef4fc;}
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.55}
   header{background:#fff;border-bottom:1px solid var(--line);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
@@ -34,25 +34,26 @@
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue)}
   .row{display:flex;gap:14px}
   .row>div{flex:1}
-  .hint{font-size:12.5px;color:#8090a0;margin-top:5px}
-  .req{color:var(--blue)}
-  button{margin-top:24px;width:100%;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:15px;font-size:16px;font-weight:700;cursor:pointer}
+  .hint{font-size:12.5px;color:#5c6b7e;margin-top:5px}
+  .req{color:var(--blue-text)}
+  button{margin-top:24px;width:100%;background:var(--blue-text);color:#fff;border:0;border-radius:10px;padding:15px;font-size:16px;font-weight:700;cursor:pointer}
   button:hover{background:#195cb4}
   button:disabled{opacity:.6;cursor:default}
   .terms{margin-top:20px;background:var(--soft);border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--heading)}
-  .terms b{color:var(--blue)}
+  .terms b{color:var(--blue-text)}
   .ok{display:none;background:#e7f6ef;border:1px solid #b6e3cd;border-radius:10px;padding:16px;color:#0e5c3a;margin-top:18px}
   .err{display:none;background:#fdecec;border:1px solid #f5c2c2;border-radius:10px;padding:16px;color:#8c1d1d;margin-top:18px}
-  .foot{color:#8090a0;font-size:12px;margin-top:26px;text-align:center}
+  .foot{color:#5c6b7e;font-size:12px;margin-top:26px;text-align:center}
 @media(max-width:1024px){footer .fgrid a{padding:9px 0;margin-bottom:0}footer .fbar a{padding:6px 0}}
-</style>
+.skip-link{position:absolute;left:-9999px;top:0;z-index:10000;background:#b4522f;color:#fff;padding:10px 18px;border-radius:0 0 8px 0;font-weight:600;font-size:14px;text-decoration:none}.skip-link:focus{left:0}main p a,main li a{text-decoration:underline;text-underline-offset:2px}</style>
 <!-- pp:seo-patch:start -->
 <link rel="canonical" href="https://pinnpt.com/samples.html">
 <script src="/assets/analytics.js"></script>
 <!-- pp:seo-patch:end -->
 </head>
 <body>
-<header><a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a><div class="gtranslate_wrapper"></div></header>
+<header><a class="skip-link" href="#main">Skip to content</a><a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a><div class="gtranslate_wrapper"></div></header>
+<main id="main">
 <div class="wrap">
   <h1>Request free samples</h1>
   <p class="lead">Try the A5 Print &amp; Ship™ label at no cost. Choose a sample pack or a 50-sheet laser test pack, tell us where to send it, and we'll ship it to you free of charge.</p>
@@ -63,14 +64,14 @@
       <label for="pp_hp">Leave this field empty</label>
       <input type="text" id="pp_hp" name="pp_hp" tabindex="-1" autocomplete="off">
     </div>
-      <label>What would you like? <span class="req">*</span></label>
-      <select name="request_type" required>
+      <label for="f_request_type">What would you like? <span class="req">*</span></label>
+      <select id="f_request_type" name="request_type" required>
         <option value="Sample pack">Sample pack — see and feel the finished label</option>
         <option value="50-count laser test pack">50-sheet laser test pack — print it on your own laser printer</option>
       </select>
 
-      <label>Do you use nShift Transsmart? <span class="req">*</span></label>
-      <select name="uses_nshift" required>
+      <label for="f_uses_nshift">Do you use nShift Transsmart? <span class="req">*</span></label>
+      <select id="f_uses_nshift" name="uses_nshift" required>
         <option value="">Please choose…</option>
         <option value="Yes">Yes — we run nShift Transsmart today</option>
         <option value="Planning to">Not yet — we are planning to</option>
@@ -81,35 +82,35 @@
 
       <div class="row">
         <div>
-          <label>Company name <span class="req">*</span></label>
-          <input type="text" name="company" required>
+          <label for="f_company">Company name <span class="req">*</span></label>
+          <input id="f_company" type="text" name="company" required>
         </div>
         <div>
-          <label>Contact name <span class="req">*</span></label>
-          <input type="text" name="contact_name" required>
+          <label for="f_contact_name">Contact name <span class="req">*</span></label>
+          <input id="f_contact_name" type="text" name="contact_name" required>
         </div>
       </div>
 
       <div class="row">
         <div>
-          <label>Work email <span class="req">*</span></label>
-          <input type="email" name="email" required>
+          <label for="f_email">Work email <span class="req">*</span></label>
+          <input id="f_email" type="email" name="email" required>
         </div>
         <div>
-          <label>Phone <span class="hint" style="display:inline">(optional)</span></label>
-          <input type="text" name="phone">
+          <label for="f_phone">Phone <span class="hint" style="display:inline">(optional)</span></label>
+          <input id="f_phone" type="text" name="phone">
         </div>
       </div>
 
-      <label>Shipping address <span class="req">*</span></label>
-      <textarea name="address" rows="3" placeholder="Street, postal code, city, country" required></textarea>
+      <label for="f_address">Shipping address <span class="req">*</span></label>
+      <textarea id="f_address" name="address" rows="3" placeholder="Street, postal code, city, country" required></textarea>
       <div class="hint">Where we should ship your samples.</div>
 
-      <label>Laser printer model <span class="hint" style="display:inline">(for the 50-sheet test)</span></label>
-      <input type="text" name="printer_model" placeholder="e.g. HP LaserJet Pro M404">
+      <label for="f_printer_model">Laser printer model <span class="hint" style="display:inline">(for the 50-sheet test)</span></label>
+      <input id="f_printer_model" type="text" name="printer_model" placeholder="e.g. HP LaserJet Pro M404">
 
-      <label>Notes <span class="hint" style="display:inline">(optional)</span></label>
-      <textarea name="notes" rows="2" placeholder="Anything else we should know"></textarea>
+      <label for="f_notes">Notes <span class="hint" style="display:inline">(optional)</span></label>
+      <textarea id="f_notes" name="notes" rows="2" placeholder="Anything else we should know"></textarea>
 
       <div class="terms">
         <b>Free of charge.</b> Samples and 50-sheet test packs ship at no cost — no purchase required. We'll get them on their way and follow up to answer any questions.
@@ -123,9 +124,11 @@
   <p class="foot" id="entity-block" style="line-height:1.85;max-width:640px;margin-left:auto;margin-right:auto">
     <strong style="color:#5a6b7c">Stil Creative i Malmö AB</strong> trading as Pinnpoint &middot; Box 20054, 200 74 Malmö, Sweden<br>
     VAT SE556900839301 &middot; Company registration 556900-8393 &middot; EORI SE5569008393<br>
-    <a href="mailto:sales@pinnpt.com" style="color:#8090a0">sales@pinnpt.com</a> &middot; <a href="tel:+46705505328" style="color:#8090a0">+46 70 550 5328</a>
+    <a href="mailto:sales@pinnpt.com" style="color:#5c6b7e">sales@pinnpt.com</a> &middot; <a href="tel:+46705505328" style="color:#5c6b7e">+46&nbsp;70&nbsp;550&nbsp;5328</a>
   </p>
 </div>
+
+</main>
 
 <script>
   // Pinnpoint sample intake -> Make webhook ("Pinnpoint Sample Requests") -> emails the fulfilment

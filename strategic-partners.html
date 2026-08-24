@@ -26,7 +26,7 @@
 <style>
   :root{
     --navy:#0e2a47; --navy-deep:#0a2038; --navy-soft:#123457;
-    --blue:#2196f3; --blue-dark:#1878cf;
+    --blue:#2196f3;--blue-text:#1268bd;--blue-btn-hover:#0f62b3;--coral-text:#b4522f;--coral-btn-hover:#9c4527; --blue-dark:#1878cf;
     --coral:#e07a56; --coral-dark:#cf6a48;
     --bg:#ffffff; --bg-soft:#f5f8fc; --bg-tint:#eaf1fa;
     --line:#e4e9f0; --muted:#5c6b7e; --text:#33383f; --heading:#0e2a47;
@@ -41,27 +41,27 @@
   img{max-width:100%;display:block}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   h1,h2,h3,h4{font-family:'Montserrat',sans-serif;color:var(--heading);line-height:1.16;letter-spacing:-.01em;font-weight:700}
-  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-text);margin-bottom:16px}
   .btn{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;padding:13px 26px;border-radius:999px;transition:.2s;cursor:pointer;border:1.5px solid transparent}
-  .btn-primary{background:var(--blue);color:#fff}
-  .btn-primary:hover{background:var(--blue-dark)}
-  .btn-coral{background:var(--coral);color:#fff}
-  .btn-coral:hover{background:var(--coral-dark)}
+  .btn-primary{background:var(--blue-text);color:#fff}
+  .btn-primary:hover{background:var(--blue-btn-hover)}
+  .btn-coral{background:var(--coral-text);color:#fff}
+  .btn-coral:hover{background:var(--coral-btn-hover)}
   .btn-ghost{border-color:rgba(255,255,255,.4);color:#fff}
   .btn-ghost:hover{background:rgba(255,255,255,.1)}
   .btn-outline{border-color:var(--line);color:var(--heading);background:#fff}
-  .btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue-text)}
 
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
   .nav .logo img{height:50px;width:auto}
   .nav-links{display:flex;gap:28px;align-items:center}
   .nav-links a{font-weight:500;font-size:15px;color:var(--text)}
-  .nav-links a:hover{color:var(--blue)}
-  .nav-links a.active{color:var(--blue);font-weight:600}
+  .nav-links a:hover{color:var(--blue-text)}
+  .nav-links a.active{color:var(--blue-text);font-weight:600}
   .nav-cta{display:flex;gap:14px;align-items:center}
   .nav-cta .acct{font-weight:500;font-size:15px;color:var(--heading)}
-  .nav-cta .acct:hover{color:var(--blue)}
+  .nav-cta .acct:hover{color:var(--blue-text)}
   .nav-toggle{display:none;background:none;border:0;color:var(--heading);cursor:pointer;padding:6px;align-items:center}
   .nav-links .acct-m{display:none}
 
@@ -86,7 +86,7 @@
   .soft{background:var(--bg-soft)}
   .blist{list-style:none;margin-top:22px;display:grid;gap:15px}
   .blist li{display:flex;gap:13px;align-items:flex-start}
-  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-top:2px}
+  .blist .chk{flex:0 0 24px;height:24px;border-radius:50%;background:var(--bg-tint);color:var(--blue-text);display:grid;place-items:center;margin-top:2px}
   .blist .chk svg{width:14px;height:14px}
   .blist b{color:var(--heading)}
   .blist span{color:var(--muted);font-size:15px}
@@ -103,7 +103,7 @@
   .face{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
   .face img{width:100%;height:230px;object-fit:contain;background:var(--bg-tint);padding:12px}
   .face .cap{padding:20px 22px}
-  .face .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue)}
+  .face .t{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--blue-text)}
   .face h3{font-size:19px;margin:5px 0 6px}
   .face p{color:var(--muted);font-size:14.5px}
 
@@ -111,7 +111,7 @@
   .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.cards-3{grid-template-columns:repeat(3,1fr)}
   .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;transition:.25s}
   .card:hover{box-shadow:var(--shadow);border-color:transparent}
-  .card .ico{width:46px;height:46px;border-radius:11px;background:var(--bg-tint);color:var(--blue);display:grid;place-items:center;margin-bottom:14px}
+  .card .ico{width:46px;height:46px;border-radius:11px;background:var(--bg-tint);color:var(--blue-text);display:grid;place-items:center;margin-bottom:14px}
   .card .ico svg{width:23px;height:23px}
   .card h3{font-size:17px;margin-bottom:7px}
   .card p{color:var(--muted);font-size:14px}
@@ -131,11 +131,11 @@
   /* offer */
   .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:880px;margin:0 auto}
   .offer{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;background:#fff}
-  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral)}
+  .offer .tag{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--coral-text)}
   .offer h3{font-size:21px;margin:9px 0}
   .offer p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
   .offer.feat{border-color:var(--blue);box-shadow:0 0 0 3px rgba(33,150,243,.09)}
-  .offer.feat .tag{color:var(--blue)}
+  .offer.feat .tag{color:var(--blue-text)}
 
   .cta{background:var(--navy);color:#fff;text-align:center}
   .cta h2{color:#fff;font-size:clamp(26px,3.2vw,38px)}
@@ -144,7 +144,7 @@
   footer{background:var(--navy-deep);color:#a6bdd6;font-size:14.5px;padding:56px 0 26px}
   .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
   footer .flogo{height:32px;width:auto;margin-bottom:15px}
-  footer h4{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
+  footer h2{font-family:'Montserrat';color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px;font-weight:600}
   footer a{display:block;color:#a6bdd6;margin-bottom:9px}
   footer a:hover{color:#fff}
   .fbar{border-top:1px solid rgba(255,255,255,.09);margin-top:42px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#7891ac}
@@ -158,7 +158,7 @@
   .pcard h3{font-size:17px;margin-bottom:4px}
   .pcard .tag{display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
   .pcard p{color:var(--muted);font-size:14px;flex:1}
-  .pcard .learn{margin-top:16px;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;color:var(--blue)}
+  .pcard .learn{margin-top:16px;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;color:var(--blue-text)}
   .pcard:hover .learn{gap:10px}
   .pcard .learn svg{width:15px;height:15px}
 
@@ -180,10 +180,10 @@
   .nav-cta .gtranslate_wrapper{display:inline-flex;align-items:center}
   .gt_switcher_wrapper{line-height:0}
 @media(max-width:1024px){footer .fgrid a{padding:9px 0;margin-bottom:0}footer .fbar a{padding:6px 0}}
-</style>
+.skip-link{position:absolute;left:-9999px;top:0;z-index:10000;background:#b4522f;color:#fff;padding:10px 18px;border-radius:0 0 8px 0;font-weight:600;font-size:14px;text-decoration:none}.skip-link:focus{left:0}main p a,main li a{text-decoration:underline;text-underline-offset:2px}</style>
 <!-- pp:seo-patch:start -->
 <link rel="canonical" href="https://pinnpt.com/strategic-partners.html">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://pinnpt.com/#organization","name":"Pinnpoint","legalName":"Stil Creative AB","url":"https://pinnpt.com/","logo":{"@type":"ImageObject","url":"https://pinnpt.com/assets/logo.png","width":1021,"height":275},"email":"sales@pinnpt.com","address":{"@type":"PostalAddress","addressLocality":"Malmö","addressCountry":"SE"},"sameAs":["https://www.linkedin.com/company/pinnpoint/","https://vimeo.com/user42857453"],"description":"Pinnpoint makes the A5 Print & Ship label — one duplex document carrying the shipping label and packing slip together, built into nShift Transsmart and printed on standard duplex laser printers."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://pinnpt.com/#organization","name":"Pinnpoint","legalName":"Stil Creative AB","url":"https://pinnpt.com/","logo":{"@type":"ImageObject","url":"https://pinnpt.com/assets/logo.png","width":1021,"height":275},"email":"sales@pinnpt.com","telephone":"+46705505328","vatID":"SE556900839301","address":{"@type":"PostalAddress","addressLocality":"Malmö","addressCountry":"SE"},"contactPoint":{"@type":"ContactPoint","contactType":"sales","email":"sales@pinnpt.com","telephone":"+46705505328","availableLanguage":["en","sv","nl"]},"sameAs":["https://www.linkedin.com/company/pinnpoint/","https://vimeo.com/user42857453"],"description":"Pinnpoint makes the A5 Print & Ship label — one duplex document carrying the shipping label and packing slip together, built into nShift Transsmart and printed on standard duplex laser printers."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://pinnpt.com/#website","url":"https://pinnpt.com/","name":"Pinnpoint","publisher":{"@id":"https://pinnpt.com/#organization"},"inLanguage":"en-GB"}</script>
 <script src="/assets/analytics.js"></script>
 <!-- pp:seo-patch:end -->
@@ -191,6 +191,8 @@
 <body>
 
 <header>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <div class="wrap nav">
     <a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a>
     <nav class="nav-links">
@@ -201,17 +203,18 @@
       <a href="blog.html">Blog</a><a href="testimonials.html">Testimonials</a>
       <a href="order.html">Order</a>
       <a href="contact.html">Contact</a>
-    
-      
+
+
     </nav>
     <div class="nav-cta">
-      
-      
-      
-      <div class="gtranslate_wrapper"></div><button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('mnav')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+
+
+
+      <div class="gtranslate_wrapper"></div><button type="button" class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('mnav')"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
     </div>
   </div>
 </header>
+<main id="main">
 
 <!-- PAGE HERO -->
 <section class="phero">
@@ -298,6 +301,7 @@
 </section>
 
 <!-- FOOTER -->
+</main>
 <footer>
   <div class="wrap">
     <div class="fgrid">
@@ -306,17 +310,17 @@
         <p style="max-width:290px">Pinnpoint designs and manufactures labels for logistics — Print &amp; Ship, custom labels, combination label &amp; forms, and smart RFID.</p>
       </div>
       <div>
-        <h4>Product</h4>
+        <h2>Product</h2>
         <a href="print-ship.html">Print &amp; Ship</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a>
       </div>
       <div>
-        <h4>Company</h4>
+        <h2>Company</h2>
         <a href="about.html">About</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h2>Contact</h2>
         <a href="contact.html">sales@pinnpt.com</a>
-        <a href="tel:+46705505328">+46 70 550 5328</a>
+        <a href="tel:+46705505328">+46&nbsp;70&nbsp;550&nbsp;5328</a>
         <span style="display:block;margin-bottom:9px"><a href="https://www.linkedin.com/company/pinnpoint/" style="display:inline" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://vimeo.com/user42857453" style="display:inline" target="_blank" rel="noopener noreferrer">Vimeo</a></span>
       </div>
     </div>
