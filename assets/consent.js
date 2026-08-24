@@ -81,11 +81,11 @@
       '#pp-cookie button{font-family:inherit;font-weight:600;font-size:14px;padding:10px 22px;border-radius:999px;cursor:pointer;border:1.5px solid transparent;transition:.2s}' +
       '#pp-cookie .pp-ck-decline{background:transparent;border-color:rgba(255,255,255,.35);color:#dce6f2}' +
       '#pp-cookie .pp-ck-decline:hover{background:rgba(255,255,255,.08)}' +
-      '#pp-cookie .pp-ck-accept{background:#e07a56;color:#fff}' +
-      '#pp-cookie .pp-ck-accept:hover{background:#cf6a48}' +
+      '#pp-cookie .pp-ck-accept{background:#b4522f;color:#fff}' +
+      '#pp-cookie .pp-ck-accept:hover{background:#9c4527}' +
       '.pp-vfacade{position:absolute;inset:0;background:#0e2a47;color:#dce6f2;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:inherit;font-family:Inter,system-ui,sans-serif;font-size:13.5px;padding:16px}' +
-      '.pp-vfacade button{margin:10px 0 6px;font-family:inherit;font-weight:600;font-size:14px;padding:9px 20px;border-radius:999px;cursor:pointer;border:0;background:#e07a56;color:#fff}' +
-      '.pp-vfacade button:hover{background:#cf6a48}' +
+      '.pp-vfacade button{margin:10px 0 6px;font-family:inherit;font-weight:600;font-size:14px;padding:9px 20px;border-radius:999px;cursor:pointer;border:0;background:#b4522f;color:#fff}' +
+      '.pp-vfacade button:hover{background:#9c4527}' +
       '.pp-vfacade span{display:block;font-size:11.5px;color:#9bb6d6;margin-top:2px}';
     document.head.appendChild(st);
   }
