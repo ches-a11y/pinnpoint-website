@@ -194,7 +194,7 @@ def build(data, out_path):
                       else '—')
             rows.append([r['date'], r['customer'], market, f"{r['boxes']:,}",
                          money(r['value'], r.get('currency', 'EUR')),
-                         money(r['commission'])])
+                         'No commission' if r.get('noCommission') else money(r['commission'])])
         li = Table(rows, colWidths=[W * 0.13, W * 0.31, W * 0.16, W * 0.10, W * 0.15, W * 0.15])
         li.setStyle(TableStyle([
             ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
