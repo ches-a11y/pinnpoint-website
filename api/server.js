@@ -39,9 +39,32 @@ const ALLOWED = (process.env.ALLOWED_ORIGINS ||
   'https://pinnpt.com,https://www.pinnpt.com,https://ches-a11y.github.io')
   .split(',').map(s => s.trim()).filter(Boolean);
 
+
+/* ------------------------------------------------------ no-commission accounts */
+
+/**
+ * Customers Pinnpoint already served before the nShift agreement. They are
+ * grandfathered into the Optimum Group contract and earn NO nShift commission,
+ * whenever they order. Matched against the deal title and the organisation.
+ * Tunable without a code change via NO_COMMISSION_PATTERN.
+ */
+const NO_COMMISSION = new RegExp(
+  process.env.NO_COMMISSION_PATTERN || '\\b(welkoop|nou|stulz|imbema)\\b',
+  'i'
+);
+const NO_COMMISSION_LABEL = 'No commission · grandfathered (Optimum Group contract)';
+const NO_COMMISSION_NOTE =
+  'Welkoop, NOU, STULZ and Imbema are non-commission customers: they are grandfathered ' +
+  'into the Optimum Group contract and their orders carry no nShift commission.';
+
+function isNoCommission(...names) {
+  return names.some(n => n && NO_COMMISSION.test(String(n)));
+}
+
 const COMMISSION_NOTE =
   'Commission is €10 per box (1,000 sheets), or the GBP equivalent for UK orders, ' +
-  'on every new customer order from 1 September 2026 per the Pinnpoint–nShift partner agreement.';
+  'on every new customer order from 1 September 2026 per the Pinnpoint–nShift partner agreement. ' +
+  NO_COMMISSION_NOTE;
 
 /* ------------------------------------------------------------- exclusions */
 
@@ -224,6 +247,7 @@ function buildPayload(deals, persons) {
       value: Number(d.value || 0),
       currency: d.currency || 'EUR',
       boxes: boxesFromTitle(d.title),
+      noCommission: isNoCommission(d.title, org, companyFromTitle(d.title)),
       status: d.status === 'won' ? 'Won' : d.status === 'lost' ? 'Lost' : 'Invoiced',
       won: d.status === 'won',
       time: t,
@@ -257,8 +281,9 @@ function buildPayload(deals, persons) {
   const revenuePrev = ordersPrev.reduce((s, o) => s + o.value, 0);
 
   const boxesAll = orders.reduce((s, o) => s + o.boxes, 0);
-  const commissionable = orders.filter(o => o.time.getTime() >= startMs);
+  const commissionable = orders.filter(o => o.time.getTime() >= startMs && !o.noCommission);
   const boxes = commissionable.reduce((s, o) => s + o.boxes, 0);
+  const ncBoxes = orders.filter(o => o.noCommission).reduce((s, o) => s + o.boxes, 0);
   const commission = boxes * PER_BOX;
   const started = Date.now() >= startMs;
   const startLabel = niceDate(COMMISSION_START);
@@ -268,7 +293,10 @@ function buildPayload(deals, persons) {
     { lab: 'Orders (MTD)',      val: String(ordersMTD.length), dl: delta(ordersMTD.length, ordersPrev.length) },
     { lab: 'Revenue (MTD)',     val: eur(revenueMTD),          dl: delta(revenueMTD, revenuePrev) },
     { lab: 'Boxes ordered',     val: boxesAll.toLocaleString('en-GB'),
-      dl: started ? `${boxes.toLocaleString('en-GB')} commissionable` : 'total to date' },
+      dl: started
+        ? `${boxes.toLocaleString('en-GB')} commissionable` +
+          (ncBoxes ? ` · ${ncBoxes.toLocaleString('en-GB')} no-commission` : '')
+        : 'total to date' },
     { lab: 'nShift commission', val: eur(commission),
       dl: started ? `€${PER_BOX} / box · ${boxes.toLocaleString('en-GB')} boxes`
                   : `accrues from ${startLabel}` }
@@ -311,7 +339,9 @@ function buildPayload(deals, persons) {
     ...orders.map(o => ({
       company: o.company, region: o.region, type: 'Order', time: o.time,
       value: (o.currency === 'GBP' ? '£' : '€') + Math.round(o.value).toLocaleString('en-GB'),
-      status: o.status, good: o.won
+      status: o.status, good: o.won,
+      noCommission: o.noCommission,
+      tag: o.noCommission ? NO_COMMISSION_LABEL : ''
     })),
     ...leads.map(l => ({
       company: l.company, region: l.region, type: 'Lead', time: l.time,
@@ -395,7 +425,8 @@ async function buildStatement(month) {
     const org = d.org_id?.name || '';
     if (isTestRecord([d.title, org], email)) continue;
     const boxes = boxesFromTitle(d.title);
-    const commissionable = ms >= startMs;
+    const noCommission = isNoCommission(d.title, org, companyFromTitle(d.title));
+    const commissionable = ms >= startMs && !noCommission;
     rows.push({
       date: d.add_time.slice(0, 10),
       customer: companyFromTitle(d.title) || org || 'Customer',
@@ -404,6 +435,8 @@ async function buildStatement(month) {
       value: Number(d.value || 0),
       currency: d.currency || 'EUR',
       commissionable,
+      noCommission,
+      basis: noCommission ? NO_COMMISSION_LABEL : '',
       commission: commissionable ? boxes * PER_BOX : 0
     });
   }
@@ -446,6 +479,7 @@ async function buildStatement(month) {
     boxes: rows.reduce((s, x) => s + x.boxes, 0),
     revenue: rows.reduce((s, x) => s + x.value, 0),
     commissionableBoxes: rows.reduce((s, x) => s + (x.commissionable ? x.boxes : 0), 0),
+    noCommissionBoxes: rows.reduce((s, x) => s + (x.noCommission ? x.boxes : 0), 0),
     commission: rows.reduce((s, x) => s + x.commission, 0)
   };
 
