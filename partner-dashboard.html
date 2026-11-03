@@ -60,6 +60,7 @@
   th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--grid)}
   th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em}
   td.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pill.nc{margin-top:4px;font-size:10.5px;font-weight:600;color:var(--muted)}
   .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;border:1px solid var(--ring)}
   .reg{display:inline-flex;align-items:center;gap:7px;font-weight:600}
   .foot{color:var(--muted);font-size:12px;margin-top:18px;line-height:1.6}
@@ -131,7 +132,7 @@
 const DATA_URL = "https://partner-feed-production.up.railway.app/partner-data.json";
 const REFRESH_MS = 10 * 60 * 1000;
 
-const COMMISSION_NOTE = "Commission is €10 per box (1,000 sheets), or the GBP equivalent for UK orders, on every new customer order from 1 September 2026 per the Pinnpoint–nShift partner agreement.";
+const COMMISSION_NOTE = "Commission is €10 per box (1,000 sheets), or the GBP equivalent for UK orders, on every new customer order from 1 September 2026 per the Pinnpoint–nShift partner agreement. Welkoop, NOU, STULZ and Imbema are non-commission customers: they are grandfathered into the Optimum Group contract and their orders carry no nShift commission.";
 
 const FALLBACK = {
   updated: "Connecting to the Pinnpoint pipeline feed…",
@@ -203,7 +204,7 @@ function render(D){
   document.getElementById('recent').innerHTML = D.recent.length
     ? D.recent.map(r=>{
         const reg=(r.region===null||r.region===undefined)?unattributed:REG[r.region];
-        return `<tr><td>${esc(r.company)}</td><td><span class="reg"><i class="dot" style="background:${reg.c}"></i>${reg.k}</span></td><td>${esc(r.type)}</td><td class="num">${esc(r.value)}</td><td><span class="pill"${r.good?' style="color:var(--good)"':''}>${esc(r.status)}</span></td></tr>`;
+        return `<tr><td>${esc(r.company)}${r.noCommission?`<div><span class="pill nc">${esc(r.tag||'No commission · grandfathered')}</span></div>`:''}</td><td><span class="reg"><i class="dot" style="background:${reg.c}"></i>${reg.k}</span></td><td>${esc(r.type)}</td><td class="num">${esc(r.value)}</td><td><span class="pill"${r.good?' style="color:var(--good)"':''}>${esc(r.status)}</span></td></tr>`;
       }).join('')
     : `<tr><td colspan="5" style="color:var(--muted);padding:18px 10px">No activity recorded yet — the first entries appear here as enquiries and orders come in.</td></tr>`;
 
