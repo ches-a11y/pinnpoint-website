@@ -20,6 +20,8 @@
     }
   }
   *{box-sizing:border-box}
+  .wm{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:8;
+    font:900 min(28vw,320px)/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.06em;color:var(--navy);opacity:.14;transform:rotate(-24deg);user-select:none}
   body{margin:0;background:var(--plane);color:var(--ink);
     font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}
   .wrap{max-width:1120px;margin:0 auto;padding:28px 24px 48px}
@@ -140,6 +142,7 @@
 </div>
 
 <div class="tt" id="tt"></div>
+<div class="wm" aria-hidden="true">DEMO</div>
 </main>
 <script>
 /* ============================================================
@@ -149,11 +152,11 @@
    If it is unset or unreachable the dashboard shows the neutral
    state below — it never shows invented figures.
    ============================================================ */
-const DATA_URL = "https://partner-feed-production.up.railway.app/shared-data.json";
+const DATA_URL = ""; // demo: no live data is loaded
 const REFRESH_MS = 10 * 60 * 1000;
 
 const FALLBACK = {
-  updated: "Connecting to the Pinnpoint pipeline feed…",
+  updated: "Demo version · live figures appear here from launch",
   live: false,
   kpis: [
     {lab:"Leads (MTD)", val:"—", dl:""},
@@ -169,7 +172,7 @@ const FALLBACK = {
     {key:"UK & Ireland", c:"--uki"}
   ],
   activity:{ labels:["Leads","Orders"], values:{Leads:[0,0,0],Orders:[0,0,0]}, max:5 },
-  trend:{ months:["Mar","Apr","May","Jun","Jul","Aug"], series:[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]], max:5 },
+  trend:{ months:["Jan","Feb","Mar","Apr","May","Jun"], series:[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]], max:5 },
   funnel:[ {label:"Leads", n:0, pct:100, meta:""},
            {label:"Orders", n:0, pct:6, meta:""} ],
   requests:{ labels:["Sample packs","50-sheet tests"], values:{"Sample packs":[0,0,0],"50-sheet tests":[0,0,0]}, max:5 },
@@ -202,7 +205,7 @@ function render(D){
   // status
   const badge=document.getElementById('statusBadge');
   if(D.live){ badge.textContent="● LIVE"; badge.className="badge live"; }
-  else{ badge.textContent="● PREVIEW"; badge.className="badge"; }
+  else{ badge.textContent="● DEMO"; badge.className="badge"; }
   document.getElementById('updated').textContent = D.updated;
 
   // kpis
@@ -237,7 +240,7 @@ function render(D){
 
   document.getElementById('foot').textContent =
     (D.live?'Figures update automatically from Pinnpoint’s live pipeline; open this saved link at any time.'
-           :'This view populates automatically once the pipeline feed is connected — no figures are shown until then.');
+           :'Demo version. From launch, this page fills in automatically with live leads, orders and sample requests from all three companies.');
 
   drawBars(D,REG,'bars',D.activity); drawBars(D,REG,'reqbars',D.requests||FALLBACK.requests); drawLines(D,REG);
 }
