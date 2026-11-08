@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0e2a47">
+<link rel="icon" href="/assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/montserrat-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="./assets/site.css">
+<title>Place an Order — Pinnpoint</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Place a Pinnpoint order — Print &amp; Ship A5 EU labels, invoiced with your pricing.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pinnpt.com/order.html">
+<meta property="og:site_name" content="Pinnpoint">
+<meta property="og:title" content="Place an Order — Pinnpoint">
+<meta property="og:description" content="Place a Pinnpoint order — Print &amp; Ship A5 EU labels, invoiced with your pricing.">
+<meta property="og:image" content="https://pinnpt.com/assets/og-image.png">
+<link rel="canonical" href="https://pinnpt.com/order.html">
+<link rel="alternate" hreflang="en" href="https://pinnpt.com/order.html">
+<link rel="alternate" hreflang="de" href="https://pinnpt.com/de/order.html">
+<link rel="alternate" hreflang="nl" href="https://pinnpt.com/nl/order.html">
+<link rel="alternate" hreflang="sv" href="https://pinnpt.com/sv/order.html">
+<link rel="alternate" hreflang="fr" href="https://pinnpt.com/fr/order.html">
+<link rel="alternate" hreflang="it" href="https://pinnpt.com/it/order.html">
+<link rel="alternate" hreflang="es" href="https://pinnpt.com/es/order.html">
+<link rel="alternate" hreflang="pt" href="https://pinnpt.com/pt/order.html">
+<link rel="alternate" hreflang="x-default" href="https://pinnpt.com/order.html">
+<script src="./assets/analytics.js"></script>
+</head>
+<body class="pg-order pg-form">
+<header class="site-header">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><img src="/assets/logo.png" alt="Pinnpoint" width="1021" height="275"></a>
+    <nav class="nav-links" aria-label="Main" onclick="if(event.target.closest('a')){document.body.classList.remove('mnav');var t=document.querySelector('.nav-toggle');if(t)t.setAttribute('aria-expanded','false')}">
+      <a href="print-ship.html">Print &amp; Ship</a>
+      <a href="index.html#nshift">nShift</a>
+      <a href="pim.html">PIM</a>
+      <a href="about.html">About Pinnpoint</a>
+      <a href="strategic-partners.html">Partners</a>
+      <a href="blog.html">Blog</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+      
+    </nav>
+    <div class="nav-cta">
+      
+      <details class="lang-menu"><summary><span class="sr-only">Language: </span><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span>EN</span></summary><div class="lang-list"><a href="./order.html" hreflang="en" lang="en" aria-current="true">English</a><a href="./de/order.html" hreflang="de" lang="de">Deutsch</a><a href="./nl/order.html" hreflang="nl" lang="nl">Nederlands</a><a href="./sv/order.html" hreflang="sv" lang="sv">Svenska</a><a href="./fr/order.html" hreflang="fr" lang="fr">Français</a><a href="./it/order.html" hreflang="it" lang="it">Italiano</a><a href="./es/order.html" hreflang="es" lang="es">Español</a><a href="./pt/order.html" hreflang="pt" lang="pt">Português</a></div></details>
+      <button type="button" class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="var o=document.body.classList.toggle('mnav');this.setAttribute('aria-expanded',o)"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <h1>Place an order</h1>
+  <p class="lead">Tell us what you need and we'll send a secure invoice with your pricing. Approved accounts only — orders are confirmed before fulfilment.</p>
+
+  <div class="card">
+    <form id="orderForm">
+    <div style="position:absolute;left:-9999px" aria-hidden="true">
+      <label for="pp_hp">Leave this field empty</label>
+      <input type="text" id="pp_hp" name="pp_hp" tabindex="-1" autocomplete="off">
+    </div>
+      <label for="f_product">Product <span class="req">*</span></label>
+      <select id="f_product" name="Product">
+        <option value="PRINT & SHIP A5 EU (case = 1,000 sheets)">PRINT &amp; SHIP™ A5 EU — case (1,000 sheets)</option>
+      </select>
+
+      <label for="f_quantity_cases">Quantity — number of cases <span class="req">*</span></label>
+      <input id="f_quantity_cases" type="number" name="Quantity (cases)" min="1" step="1" placeholder="e.g. 40" required>
+      <div class="hint">1 case = 1,000 sheets. Minimum 1 case.</div>
+
+      <div class="row">
+        <div>
+          <label for="f_company">Company name <span class="req">*</span></label>
+          <input id="f_company" type="text" name="Company" required>
+        </div>
+        <div>
+          <label for="f_vat_number">VAT number <span class="req">*</span></label>
+          <input id="f_vat_number" type="text" name="VAT number" placeholder="e.g. NL812345678B01" required>
+          <div class="hint">For EU reverse-charge VAT.</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="f_contact_name">Contact name <span class="req">*</span></label>
+          <input id="f_contact_name" type="text" name="Contact name" required>
+        </div>
+        <div>
+          <label for="f_email">Work email <span class="req">*</span></label>
+          <input id="f_email" type="email" name="email" required>
+        </div>
+      </div>
+
+      <label for="f_delivery_address">Delivery address <span class="req">*</span></label>
+      <textarea id="f_delivery_address" name="Delivery address" rows="3" placeholder="Street, postal code, city, country" required></textarea>
+
+      <label for="f_po_reference">Your PO reference <span class="hint" style="display:inline">(optional)</span></label>
+      <input id="f_po_reference" type="text" name="PO reference">
+
+      <label for="f_notes">Notes <span class="hint" style="display:inline">(optional)</span></label>
+      <textarea id="f_notes" name="Notes" rows="2" placeholder="Requested delivery date, anything else we should know"></textarea>
+
+      <div class="terms">
+        <b>How payment works:</b> new customers pay the first order upfront by iDEAL or card — we'll email a secure Stripe link. Established accounts are invoiced on <b>net-20</b> terms. Freight is included.
+      </div>
+
+      <button type="submit" id="submitBtn">Submit order request</button>
+      <div class="err" id="errMsg">Something went wrong sending your request. Please email sales@pinnpt.com and we'll take care of it right away.</div>
+    </form>
+      <div class="ok" id="okMsg">Thanks — your order request is in. We'll email your invoice and secure payment link shortly.</div>
+  </div>
+  <p class="foot" id="entity-block" style="line-height:1.85;max-width:640px;margin-left:auto;margin-right:auto">
+    <strong style="color:#5a6b7c">Stil Creative i Malmö AB</strong> trading as Pinnpoint &middot; Box 20054, 200 74 Malmö, Sweden<br>
+    VAT SE556900839301 &middot; Company registration 556900-8393 &middot; EORI SE5569008393<br>
+    <a href="mailto:sales@pinnpt.com" style="color:#5c6b7e">sales@pinnpt.com</a>
+  </p>
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img class="flogo" src="/assets/logo-white.png" alt="Pinnpoint" width="1021" height="275">
+        <p style="max-width:290px">The A5 Print &amp; Ship label — built into nShift Transsmart, printed on standard duplex laser printers.</p>
+      </div>
+      <div>
+        <h2>Product</h2>
+        <a href="print-ship.html">Print &amp; Ship</a><a href="custom-labels.html">Custom Labels</a><a href="rfid.html">RFID</a>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <a href="about.html">About</a><a href="strategic-partners.html">Strategic Partners</a><a href="blog.html">Blog</a><a href="testimonials.html">Testimonials</a><a href="order.html">Order</a><a href="contact.html">Contact</a>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <a href="contact.html">sales@pinnpt.com</a>
+        <span style="display:block;margin-bottom:9px"><a href="https://www.linkedin.com/company/pinnpoint/" style="display:inline" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://vimeo.com/user42857453" style="display:inline" target="_blank" rel="noopener noreferrer">Vimeo</a></span>
+      </div>
+    </div>
+    <div class="fbar" style="margin-top:20px;padding-top:16px">
+      <span>© 2026 Pinnpoint — All rights reserved</span>
+      <span style="display:flex;gap:16px;flex-wrap:wrap"><a href="./privacy.html" style="display:inline">Privacy Policy</a><a href="./terms.html" style="display:inline">Terms &amp; Conditions</a><a href="#" style="display:inline" onclick="ppOpenConsent();return false;">Cookie settings</a></span>
+    </div>
+    <p class="flegal">Stil Creative i Malmö AB · Org. no. 556900-8393 · Registered office: Malmö, Sweden · <a href="./terms.html#company-details">Company details</a></p>
+  </div>
+</footer>
+
+<script>
+  // Pinnpoint order intake -> Make webhook -> Stripe customer + invoice (net-20 / iDEAL pay link).
+  // Pricing is computed server-side in the automation from the quantity, so no rate card is exposed here.
+  // Posts to Pinnpoint's own validating intake, which checks the submission is
+  // complete before anything reaches the automation. The automation's webhook URL
+  // is no longer published here.
+  var WEBHOOK = 'https://partner-feed-production.up.railway.app/submit/order';
+  var RECIPIENTS = 'sales@pinnpt.com';
+
+  var form = document.getElementById('orderForm');
+  var btn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var _hp = document.getElementById('pp_hp');
+
+    if (_hp && _hp.value) { return; }
+
+    var f = new FormData(form);
+    var cases = parseInt(f.get('Quantity (cases)'), 10);
+    if (!cases || cases < 1) { form['Quantity (cases)'].focus(); return; }
+
+    // Validate the VAT number — EU reverse-charge invoicing requires a valid one, and a
+    // blank or malformed VAT would otherwise fail silently downstream in Fortnox.
+    // Format check only (country code + 8-12 alphanumerics); Fortnox does the authoritative check.
+    var vat = (f.get('VAT number') || '').toUpperCase().replace(/[\s.\-]/g, '');
+    if (!/^[A-Z]{2}[A-Z0-9]{7,13}$/.test(vat)) {
+      var ve = document.getElementById('errMsg');
+      ve.textContent = 'Please enter a valid VAT number — country code + digits, e.g. GB123456789 or NL812345678B01. It is required for reverse-charge / zero-rated invoicing.';
+      ve.style.display = 'block';
+      form['VAT number'].focus();
+      ve.scrollIntoView({ block: 'center' });
+      return;
+    }
+
+    // Billing currency: UK orders (GB VAT number) are invoiced in GBP;
+    // everyone else in EUR. The price itself is still computed server-side.
+    var currency = vat.slice(0, 2) === 'GB' ? 'GBP' : 'EUR';
+
+    // Field names here must match the Make webhook mapping.
+    var payload = {
+      company:      f.get('Company') || '',
+      contact_name: f.get('Contact name') || '',
+      email:        f.get('email') || '',
+      vat:          vat,
+      currency:     currency,
+      product:      f.get('Product') || '',
+      cases:        String(cases),
+      address:      f.get('Delivery address') || '',
+      po_ref:       f.get('PO reference') || '',
+      notes:        f.get('Notes') || ''
+    };
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    document.getElementById('errMsg').style.display = 'none';
+
+    fetch(WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(payload).toString()
+    })
+    .then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      form.style.display = 'none';
+      var ok = document.getElementById('okMsg');
+      ok.style.display = 'block';
+      ok.scrollIntoView();
+      if (window.ppTrack) window.ppTrack('order_submit', {
+        form: 'orderForm'
+      });
+    })
+    .catch(function(){
+      // Fallback: email the team so no order is ever lost.
+      btn.disabled = false;
+      btn.textContent = 'Submit order request';
+      var lines = Object.keys(payload).map(function(k){ return k + ': ' + payload[k]; }).join('\n');
+      window.location.href = 'mailto:' + RECIPIENTS +
+        '?subject=' + encodeURIComponent('New Pinnpoint order request') +
+        '&body=' + encodeURIComponent(lines);
+      var eb = document.getElementById('errMsg');
+      eb.textContent = "Something went wrong sending your request. Please email sales@pinnpt.com and we'll take care of it right away.";
+      eb.style.display = 'block';
+    });
+  });
+</script>
+<script src="./assets/consent.js" defer></script>
+</body>
+</html>
