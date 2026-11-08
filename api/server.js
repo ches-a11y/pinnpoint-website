@@ -27,6 +27,8 @@
 'use strict';
 
 const http = require('node:http');
+const fs = require('node:fs');
+const nodePath = require('node:path');
 
 const TOKEN = process.env.PIPEDRIVE_API_TOKEN || '';
 const PD_DOMAIN = process.env.PIPEDRIVE_DOMAIN || 'api';
@@ -497,6 +499,94 @@ async function buildStatement(month) {
   };
 }
 
+/* ------------------------------------------------------- request event log */
+
+/**
+ * Pipedrive records who asked, not what they asked for. Every accepted sample
+ * pack, 50-sheet test and website enquiry is therefore also appended here as one
+ * JSON line, so the shared dashboard can count requests by type and market.
+ * Lives on the service's persistent volume (EVENTS_FILE). Best effort only: a
+ * failure to write never affects the customer's submission.
+ */
+const EVENTS_FILE = process.env.EVENTS_FILE || '/data/requests.jsonl';
+
+function requestTypeOf(kind, requestType) {
+  const t = String(requestType || '');
+  if (kind === 'order') return 'order';
+  if (/50|test/i.test(t)) return 'test50';
+  if (/sample/i.test(t)) return 'sample';
+  return 'enquiry';
+}
+
+function logRequestEvent(kind, payload) {
+  try {
+    const ev = {
+      t: new Date().toISOString(),
+      kind,
+      type: requestTypeOf(kind, payload.request_type),
+      region: regionOf(payload.email, [payload.company, payload.address, payload.country].join(' ')),
+      nshift: payload.uses_nshift || '',
+      company: payload.company || ''
+    };
+    fs.mkdirSync(nodePath.dirname(EVENTS_FILE), { recursive: true });
+    fs.appendFileSync(EVENTS_FILE, JSON.stringify(ev) + '\n');
+  } catch (err) {
+    console.error('[events] could not record request:', err.message);
+  }
+}
+
+function readRequestEvents() {
+  try {
+    return fs.readFileSync(EVENTS_FILE, 'utf8').split('\n').filter(Boolean).map(l => {
+      try { return JSON.parse(l); } catch { return null; }
+    }).filter(e => e && !isTestRecord([e.company], ''));
+  } catch { return []; }
+}
+
+/**
+ * The three-company view (Pinnpoint, nShift, Optimum Group). Built from the same
+ * pipeline as /partner-data.json, with every commission figure, commission note
+ * and per-customer contract tag removed, plus sample and test-pack counts.
+ */
+function sharedPayload(base) {
+  const evs = readRequestEvents().filter(e => e.type === 'sample' || e.type === 'test50');
+  const now = new Date();
+  const thisMonth = monthKey(now);
+  const byType = type => evs.filter(e => e.type === type);
+  const mtd = arr => arr.filter(e => monthKey(new Date(e.t)) === thisMonth).length;
+  const regionCounts = arr => [0, 1, 2].map(ri => arr.filter(e => e.region === ri).length);
+  const samples = byType('sample'), tests = byType('test50');
+
+  const kpis = (base.kpis || []).slice(0, 4).map(k => ({ ...k }));
+  if (kpis[3]) kpis[3].dl = 'total to date';
+  kpis.push({ lab: 'Sample packs', val: String(samples.length), dl: `${mtd(samples)} this month` });
+  kpis.push({ lab: '50-sheet test packs', val: String(tests.length), dl: `${mtd(tests)} this month` });
+
+  const recentRequests = evs.slice(-8).reverse().map(e => ({
+    company: e.company, region: e.region === undefined ? null : e.region,
+    type: e.type === 'sample' ? 'Sample pack' : '50-sheet test pack',
+    route: /^yes/i.test(e.nshift) ? 'nShift Transsmart' : /^(no|planning)/i.test(e.nshift) ? 'PIM' : '—',
+    date: e.t.slice(0, 10)
+  }));
+
+  return {
+    updated: base.updated,
+    live: base.live,
+    kpis,
+    regions: base.regions,
+    activity: base.activity,
+    trend: base.trend,
+    funnel: base.funnel,
+    requests: {
+      labels: ['Sample packs', '50-sheet tests'],
+      values: { 'Sample packs': regionCounts(samples), '50-sheet tests': regionCounts(tests) },
+      max: Math.max(5, ...regionCounts(samples), ...regionCounts(tests))
+    },
+    recentRequests,
+    recent: (base.recent || []).map(({ noCommission, tag, ...r }) => r)
+  };
+}
+
 /* ------------------------------------------------------------------ cache */
 
 let cache = { at: 0, body: null };
@@ -752,6 +842,7 @@ async function handleIntake(req, res, kind, dryRun) {
     if (!upstream.ok) throw new Error('upstream ' + upstream.status);
     intakeStats.accepted++;
     console.log('[intake] accepted', kind, '-', result.payload.company);
+    if (kind !== 'order') logRequestEvent(kind, result.payload);
     res.writeHead(200, { 'content-type': 'application/json' });
     res.end(JSON.stringify({ ok: true }));
   } catch (err) {
@@ -837,6 +928,22 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (path === '/shared-data.json') {
+    try {
+      const body = JSON.stringify(sharedPayload(await getPayload()));
+      res.writeHead(200, {
+        'content-type': 'application/json; charset=utf-8',
+        'cache-control': 'no-store'
+      });
+      res.end(body);
+    } catch (err) {
+      console.error('[shared] fatal:', err);
+      res.writeHead(500, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ error: 'feed unavailable' }));
+    }
+    return;
+  }
+
   if (path === '/partner-data.json' || path === '/') {
     try {
       const body = JSON.stringify(await getPayload());
@@ -862,4 +969,4 @@ server.listen(PORT, () => console.log(
   `intake=${Boolean(MAKE_ORDER_WEBHOOK && MAKE_SAMPLE_WEBHOOK)}`
 ));
 
-module.exports = { validateIntake };
+module.exports = { validateIntake, requestTypeOf, sharedPayload };
