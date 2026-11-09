@@ -437,6 +437,7 @@ body.pg-form{color:var(--text);background:var(--bg);line-height:1.55}
 .fast-n{width:30px;height:30px;border-radius:999px;background:var(--coral-text);color:#fff;display:grid;place-items:center;font-family:"Montserrat",sans-serif;font-weight:700;font-size:14px}
 .fast-steps b{display:block;color:var(--heading);font-family:"Montserrat",sans-serif;font-size:17px;line-height:1.25;margin:12px 0 5px}
 .fast-steps span:not(.fast-n){display:block;color:var(--muted);font-size:14.5px;line-height:1.5}
+.fast-note{text-align:center;color:var(--muted);font-size:14.5px;line-height:1.5;max-width:640px;margin:16px auto 0}
 .fast-cta{display:flex;justify-content:center;margin-top:32px}
 .pim-fast{display:inline-block;margin-top:14px;padding:8px 16px;border-radius:999px;background:rgba(224,122,86,.16);border:1px solid rgba(224,122,86,.55);color:#fff;font-family:"Montserrat",sans-serif;font-weight:700;font-size:clamp(16px,1.8vw,20px)}
 @media(max-width:900px){.fast{padding:48px 0}.fast-steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.fast-steps li::after{display:none}}
@@ -460,6 +461,8 @@ body.pg-form{color:var(--text);background:var(--bg);line-height:1.55}
 @media(max-width:640px){.pg-index .facepair{grid-template-columns:1fr}}
 
 /* PIM band sits on white: the nShift step styles (written for the dark band) need dark text here */
+.pimband p.sub{color:var(--muted);font-size:16.5px;margin-top:14px}
+@media(min-width:901px){.pimband .inner{display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}}
 .pimband .nstep{background:var(--bg-soft);border-color:var(--line)}
 .pimband .nstep b{color:var(--heading)}
 .pimband .nstep span{color:var(--muted)}
